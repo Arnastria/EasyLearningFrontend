@@ -1,6 +1,6 @@
 import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { InputBase, Grid, Button, Box, Paper, Avatar } from '@material-ui/core';
+import { InputBase, Grid, Button, Box, Paper, Avatar, Card, CardActionArea, CardActions } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Appbar } from '../components/appbar';
 import { blue } from "@material-ui/core/colors";
@@ -61,13 +61,14 @@ function Dashboard(props) {
   const classes = useStyles();
 
   function handleClick() {
-    console.log("HAHA")
-    props.changePage("/panci")
+    props.changePage("/sister")
   }
+
   return (
     <>
       <div className={classes.root}>
         <Appbar />
+
         <Grid
           container
           spacing={0}
@@ -99,12 +100,12 @@ function Dashboard(props) {
         </Grid>
         <Grid
           container
-          spacing={2}
+          spacing={0}
           direction="row"
           justify="center"
           style={{ margin: '30px 0px' }}
         >
-          <Grid item xs={2}>
+          <Grid item xs={2} style={{ margin: '0px 8px' }}>
             <Paper>
               <Grid container
                 spacing={2}
@@ -116,49 +117,56 @@ function Dashboard(props) {
                   <h3 style={{ margin: 0 }}>Mata Kuliah Saya</h3>
                 </Grid>
                 <Grid item>
-                  <Paper style={{ backgroundColor: '#3D7DCA' }}>
-                    <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
-                      <Grid item>
-                        <Avatar>H</Avatar>
+                  <Card style={{ backgroundColor: '#3D7DCA' }}>
+                    <CardActionArea onClick={handleClick}>
+                      <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
+                        <Grid item>
+                          <Avatar>H</Avatar>
+                        </Grid>
+                        <Grid item>
+                          <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
+                        </Grid>
                       </Grid>
-                      <Grid item>
-                        <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
-                      </Grid>
-                    </Grid>
-                  </Paper>
+                    </CardActionArea>
+                  </Card>
                 </Grid>
 
                 <Grid item>
-                  <Paper style={{ backgroundColor: '#3D7DCA' }}>
-                    <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
-                      <Grid item>
-                        <Avatar>H</Avatar>
+                  <Card style={{ backgroundColor: '#3D7DCA' }}>
+                    <CardActionArea>
+                      <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
+                        <Grid item>
+                          <Avatar>H</Avatar>
+                        </Grid>
+                        <Grid item>
+                          <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
+                        </Grid>
                       </Grid>
-                      <Grid item>
-                        <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
-                      </Grid>
-                    </Grid>
-                  </Paper>
+                    </CardActionArea>
+
+                  </Card>
                 </Grid>
 
                 <Grid item>
-                  <Paper style={{ backgroundColor: '#3D7DCA' }}>
-                    <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
-                      <Grid item>
-                        <Avatar>H</Avatar>
+                  <Card style={{ backgroundColor: '#3D7DCA' }}>
+                    <CardActionArea>
+                      <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
+                        <Grid item>
+                          <Avatar>H</Avatar>
+                        </Grid>
+                        <Grid item>
+                          <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
+                        </Grid>
                       </Grid>
-                      <Grid item>
-                        <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
-                      </Grid>
-                    </Grid>
-                  </Paper>
+                    </CardActionArea>
+                  </Card>
                 </Grid>
 
               </Grid>
             </Paper>
           </Grid>
 
-          <Grid item xs={6} >
+          <Grid item xs={6} style={{ margin: '0px 8px' }}>
             <Paper>
               <Grid container
                 spacing={2}
