@@ -1,6 +1,6 @@
 import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { InputBase, Grid, Button, Box } from '@material-ui/core';
+import { InputBase, Grid, Button, Box, Paper, Avatar } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Appbar } from '../components/appbar';
 import { blue } from "@material-ui/core/colors";
@@ -99,22 +99,156 @@ function Dashboard(props) {
         </Grid>
         <Grid
           container
-          spacing={0}
+          spacing={2}
           direction="row"
-          alignItems="center"
           justify="center"
-          style={{ minHeight: '100vh' }}
+          style={{ margin: '30px 0px' }}
         >
-          <Grid item xs={3} >
-            <h1 color="primary">
-              Halo 'name', mau belajar apa hari ini ?
-            </h1>
+          <Grid item xs={2}>
+            <Paper>
+              <Grid container
+                spacing={2}
+                direction="column"
+                justify="center"
+                style={{ padding: '12px' }}
+              >
+                <Grid item>
+                  <h3 style={{ margin: 0 }}>Mata Kuliah Saya</h3>
+                </Grid>
+                <Grid item>
+                  <Paper style={{ backgroundColor: '#3D7DCA' }}>
+                    <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
+                      <Grid item>
+                        <Avatar>H</Avatar>
+                      </Grid>
+                      <Grid item>
+                        <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </Grid>
+
+                <Grid item>
+                  <Paper style={{ backgroundColor: '#3D7DCA' }}>
+                    <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
+                      <Grid item>
+                        <Avatar>H</Avatar>
+                      </Grid>
+                      <Grid item>
+                        <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </Grid>
+
+                <Grid item>
+                  <Paper style={{ backgroundColor: '#3D7DCA' }}>
+                    <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
+                      <Grid item>
+                        <Avatar>H</Avatar>
+                      </Grid>
+                      <Grid item>
+                        <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </Grid>
+
+              </Grid>
+            </Paper>
           </Grid>
-          <Grid item xs={9} >
-            <h1 color="primary">
-              Halo 'name', mau belajar apa hari ini ?
-            </h1>
+
+          <Grid item xs={6} >
+            <Paper>
+              <Grid container
+                spacing={2}
+                direction="column"
+                justify="center"
+                style={{ padding: '12px' }}
+              >
+                <Grid item>
+                  <h3 style={{ margin: 0 }}>Pengumuman</h3>
+                </Grid>
+                <Grid item style={{ margin: '6px 0px' }}>
+                  <Paper>
+                    <Grid container direction="row" spacing={2} style={{ padding: '12px' }} alignItems="flex-start" >
+                      <Grid item>
+                        <Avatar>H</Avatar>
+                      </Grid>
+                      <Grid item>
+                        <Grid container direction="column">
+                          <Grid item>
+                            <b>Judul</b>
+                          </Grid>
+                          <Grid item>
+                            <b>Author</b>
+                          </Grid>
+                          <Grid item>
+                            Text
+                          </Grid>
+                          <Grid item>
+                            Lihat selengkapnya
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </Grid>
+                <Grid item style={{ margin: '6px 0px' }}>
+                  <Paper>
+                    <Grid container direction="row" spacing={2} style={{ padding: '12px' }} alignItems="flex-start" >
+                      <Grid item>
+                        <Avatar>H</Avatar>
+                      </Grid>
+                      <Grid item>
+                        <Grid container direction="column">
+                          <Grid item>
+                            <b>Judul</b>
+                          </Grid>
+                          <Grid item>
+                            <b>Author</b>
+                          </Grid>
+                          <Grid item>
+                            Text
+                          </Grid>
+                          <Grid item>
+                            Lihat selengkapnya
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </Grid>
+                <Grid item style={{ margin: '6px 0px' }}>
+                  <Paper>
+                    <Grid container direction="row" spacing={2} style={{ padding: '12px' }} alignItems="flex-start" >
+                      <Grid item>
+                        <Avatar>H</Avatar>
+                      </Grid>
+                      <Grid item>
+                        <Grid container direction="column">
+                          <Grid item>
+                            <b>Judul</b>
+                          </Grid>
+                          <Grid item>
+                            <b>Author</b>
+                          </Grid>
+                          <Grid item>
+                            Text
+                          </Grid>
+                          <Grid item>
+                            Lihat selengkapnya
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </Grid>
+
+              </Grid>
+            </Paper>
           </Grid>
+
         </Grid>
       </div>
     </>
