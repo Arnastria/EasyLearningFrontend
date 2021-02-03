@@ -1,10 +1,11 @@
 import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { InputBase, Grid, Button, Box, Paper, Avatar, Card, CardActionArea, CardActions } from '@material-ui/core';
+import { InputBase, Grid, Button, Box, Paper, Avatar, Card, CardActionArea, CardActions, GridList, GridListTile } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Appbar } from '../components/appbar';
 import { blue } from "@material-ui/core/colors";
 
+//AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -104,168 +105,78 @@ function Matkul(props) {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid
+                {/* <GridList cols={5}>
+                    <GridListTile>
+                        <Card style={{width:'100px'}}>XXXX</Card>
+                    </GridListTile>
+                    <GridListTile>
+                        <Card style={{width:'100px'}}>XXXX</Card>
+                    </GridListTile>
+                    <GridListTile>
+                        <Card style={{width:'100px'}}>XXXX</Card>
+                    </GridListTile>
+                    <GridListTile>
+                        <Card style={{width:'100px'}}>XXXX</Card>
+                    </GridListTile>
+                    <GridListTile>
+                        <Card style={{width:'100px'}}>XXXX</Card>
+                    </GridListTile>
+                    <GridListTile>
+                        <Card style={{width:'100px'}}>XXXX</Card>
+                    </GridListTile>
+                    <GridListTile>
+                        <Card style={{width:'100px'}}>XXXX</Card>
+                    </GridListTile>
+                    <GridListTile>
+                        <Card style={{width:'100px'}}>XXXX</Card>
+                    </GridListTile>
+                    
+                </GridList> */}
+
+
+                {/* <Grid
                     container
                     spacing={0}
                     direction="row"
                     justify="center"
+                    alignItems="center"
                     style={{ margin: '30px 0px' }}
                 >
-                    <Grid item xs={2} style={{ margin: '0px 8px' }}>
-                        <Paper>
-                            <Grid container
-                                spacing={2}
-                                direction="column"
-                                justify="center"
-                                style={{ padding: '12px' }}
-                            >
-                                <Grid item>
-                                    <h3 style={{ margin: 0 }}>Mata Kuliah Saya</h3>
-                                </Grid>
-                                <Grid item>
-                                    <Card style={{ backgroundColor: '#3D7DCA' }}>
-                                        <CardActionArea>
-                                            <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
-                                                <Grid item>
-                                                    <Avatar>H</Avatar>
-                                                </Grid>
-                                                <Grid item>
-                                                    <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
-                                                </Grid>
-                                            </Grid>
-                                        </CardActionArea>
-                                    </Card>
-                                </Grid>
-
-                                <Grid item>
-                                    <Card style={{ backgroundColor: '#3D7DCA' }}>
-                                        <CardActionArea>
-                                            <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
-                                                <Grid item>
-                                                    <Avatar>H</Avatar>
-                                                </Grid>
-                                                <Grid item>
-                                                    <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
-                                                </Grid>
-                                            </Grid>
-                                        </CardActionArea>
-
-                                    </Card>
-                                </Grid>
-
-                                <Grid item>
-                                    <Card style={{ backgroundColor: '#3D7DCA' }}>
-                                        <CardActionArea>
-                                            <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
-                                                <Grid item>
-                                                    <Avatar>H</Avatar>
-                                                </Grid>
-                                                <Grid item>
-                                                    <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
-                                                </Grid>
-                                            </Grid>
-                                        </CardActionArea>
-                                    </Card>
-                                </Grid>
-
-                            </Grid>
-
-                        </Paper>
+                    <Grid item xs={3} alignContent="center" alignItems="center">
+                        <Card style={{width:'100px'}}>XXXX</Card>
                     </Grid>
-
-                    <Grid item xs={6} style={{ margin: '0px 8px' }}>
-                        <Paper>
-                            <Grid container
-                                spacing={2}
-                                direction="column"
-                                justify="center"
-                                style={{ padding: '12px' }}
-                            >
-                                <Grid item>
-                                    <h3 style={{ margin: 0 }}>Pengumuman</h3>
-                                </Grid>
-                                <Grid item style={{ margin: '6px 0px' }}>
-                                    <Paper>
-                                        <Grid container direction="row" spacing={2} style={{ padding: '12px' }} alignItems="flex-start" >
-                                            <Grid item>
-                                                <Avatar>H</Avatar>
-                                            </Grid>
-                                            <Grid item>
-                                                <Grid container direction="column">
-                                                    <Grid item>
-                                                        <b>Judul</b>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <b>Author</b>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        Text
-                          </Grid>
-                                                    <Grid item>
-                                                        Lihat selengkapnya
-                          </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-
-                                    </Paper>
-                                </Grid>
-                                <Grid item style={{ margin: '6px 0px' }}>
-                                    <Paper>
-                                        <Grid container direction="row" spacing={2} style={{ padding: '12px' }} alignItems="flex-start" >
-                                            <Grid item>
-                                                <Avatar>H</Avatar>
-                                            </Grid>
-                                            <Grid item>
-                                                <Grid container direction="column">
-                                                    <Grid item>
-                                                        <b>Judul</b>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <b>Author</b>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        Text
-                                                    </Grid>
-                                                    <Grid item>
-                                                        Lihat selengkapnya
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-
-                                    </Paper>
-                                </Grid>
-                                <Grid item style={{ margin: '6px 0px' }}>
-                                    <Paper>
-                                        <Grid container direction="row" spacing={2} style={{ padding: '12px' }} alignItems="flex-start" >
-                                            <Grid item>
-                                                <Avatar>H</Avatar>
-                                            </Grid>
-                                            <Grid item>
-                                                <Grid container direction="column">
-                                                    <Grid item>
-                                                        <b>Judul</b>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <b>Author</b>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        Text
-                          </Grid>
-                                                    <Grid item>
-                                                        Lihat selengkapnya
-                          </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Paper>
-                                </Grid>
-
-                            </Grid>
-                        </Paper>
+                    <Grid item xs={3}>
+                        <Card style={{width:'100px'}}>XXXX</Card>
                     </Grid>
+                    <Grid item xs={3}>
+                        <Card style={{width:'100px'}}>XXXX</Card>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Card style={{width:'100px'}}>XXXX</Card>
+                    </Grid>
+                </Grid> */}
 
+                <Grid container spacing={1}>
+                    <Grid item xs>
+                    <Paper className={classes.paper}>xs</Paper>
+                    </Grid>
+                    <Grid item xs>
+                    <Paper className={classes.paper}>xs</Paper>
+                    </Grid>
+                    <Grid item xs>
+                    <Paper className={classes.paper}>xs</Paper>
+                    </Grid>
+                </Grid>
+                <Grid container spacing={1}>
+                    <Grid item xs>
+                        <Paper className={classes.paper}>xs</Paper>
+                    </Grid>
+                    <Grid item xs>
+                        <Paper className={classes.paper}>xs</Paper>
+                    </Grid>
+                    <Grid item xs>
+                        <Paper className={classes.paper}>xs</Paper>
+                    </Grid>
                 </Grid>
             </div>
         </>
