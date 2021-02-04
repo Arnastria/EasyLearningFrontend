@@ -67,7 +67,7 @@ function Dashboard(props) {
   return (
     <>
       <div className={classes.root}>
-        <Appbar />
+        <Appbar changePage={props.changePage} />
 
         <Grid
           container
@@ -119,9 +119,9 @@ function Dashboard(props) {
                 <Grid item>
                   <Card style={{ backgroundColor: '#3D7DCA' }}>
                     <CardActionArea onClick={handleClick}>
-                      <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
+                      <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
                         <Grid item>
-                          <Avatar>H</Avatar>
+                          <Avatar>SI</Avatar>
                         </Grid>
                         <Grid item>
                           <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
@@ -134,9 +134,9 @@ function Dashboard(props) {
                 <Grid item>
                   <Card style={{ backgroundColor: '#3D7DCA' }}>
                     <CardActionArea>
-                      <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
+                      <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
                         <Grid item>
-                          <Avatar>H</Avatar>
+                          <Avatar>SI</Avatar>
                         </Grid>
                         <Grid item>
                           <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
@@ -150,9 +150,9 @@ function Dashboard(props) {
                 <Grid item>
                   <Card style={{ backgroundColor: '#3D7DCA' }}>
                     <CardActionArea>
-                      <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
+                      <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
                         <Grid item>
-                          <Avatar>H</Avatar>
+                          <Avatar>SI</Avatar>
                         </Grid>
                         <Grid item>
                           <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>

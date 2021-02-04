@@ -13,6 +13,7 @@ import { Dashboard } from "../pages/dashboard";
 
 import { Home } from '../pages/home';
 import { Matkul } from "../pages/matkul";
+import { MateriSlide } from "../pages/materiSlide";
 
 export function AppSwitch(props) {
     const history = useHistory();
@@ -22,10 +23,12 @@ export function AppSwitch(props) {
             <Route path="/sister">
                 <Matkul changePage={history.push} />
             </Route>
+            <Route path="/materi">
+                <MateriSlide changePage={history.push} />
+            </Route>
             <Route path="/">
                 <Dashboard changePage={history.push} />
             </Route>
         </Switch>
-
     );
 }

@@ -3,14 +3,13 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import { CardMedia, Grid, Button, Box, Paper, Avatar, Card, CardActionArea, CardActions, GridList, GridListTile } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Appbar } from '../components/appbar';
-import { blue } from "@material-ui/core/colors";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Typography from '@material-ui/core/Typography';
 import MateriCard from '../components/MateriCard';
 
 //AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
         backgroundColor: '#E5E5E5'
     },
     menuButton: {
@@ -64,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Matkul(props) {
+function MateriSlide(props) {
 
     const classes = useStyles();
 
@@ -79,11 +78,53 @@ function Matkul(props) {
                 <Grid
                     container
                     spacing={0}
-                    direction="row"
-                    alignItems="center"
+                    direction="column"
                     justify="center"
-                    style={{ backgroundColor: '#3D7DCA', minHeight: '30vh', marginTop: '60px', padding: '30px 0px' }}
+                    style={{ backgroundColor: '#E5E5E5', minHeight: '30vh', marginTop: '60px', padding: '30px 15%' }}
                 >
+                    <Grid item xs style={{ margin: '12px 0px' }}>
+                        <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
+                            Kembali
+                        </Button>
+                    </Grid>
+                    <Grid item xs>
+                        <Card>
+                            <Grid
+                                container
+                                justify="space-evenly"
+                                alignItems="center"
+                                style={{ padding: '30px' }}
+                            >
+
+                                <Grid item xs={2}>
+                                    <CardMedia
+                                        className={classes.media}
+                                        image="https://files.catbox.moe/mnfc1y.svg"
+                                    />
+
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid container spacing={1} direction="column">
+                                        <Grid item>
+                                            <b style={{ fontSize: '48px', marginRight: '12px' }} >1</b>
+                                            <b style={{ fontSize: '36px' }} >Pengantar Sistem Interaksi</b>
+                                        </Grid>
+                                        <Grid item>
+                                            <b style={{ fontSize: '18px' }} >Pernahkah kamu terbayang bagaimana Gojek dapat merancang produk mereka secara unik dan mudah digunakan ?</b>
+                                        </Grid>
+                                        <Grid item >
+                                            <Typography variant="body" color="white" component="p">
+                                                Pada kursus ini kamu akan mempelajari bagaimana pelaku industri seperti Google, Facebook, Bukalapak, dan Gojek mendesain produk mereka sehingga mudah digunakan dan sesuai dengan kebutuhan penggunanya.
+                                                Kamu juga akan mempelajari istilah-istilah seperti UI/UX, interface design, dan lainnya.
+                                </Typography>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                        </Card>
+
+                    </Grid>
                     <Grid item xs={2}>
                         <Grid container spacing={3} alignItems="center"
                             justify="center" direction="column">
@@ -118,44 +159,9 @@ function Matkul(props) {
                         </Grid>
                     </Grid>
                 </Grid>
-
-                <Grid container spacing={1} style={{ maxWidth: "100%", padding: "16px 160px" }}>
-                    <Grid item xs>
-                        <MateriCard number={1} judul={"Pengantar Sistem Informasi"}></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={2} judul={"Prinsip Dasar Kognisi"}></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={3} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={4} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={5} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={1} style={{ maxWidth: "100%", padding: "16px 160px" }}>
-                    <Grid item xs>
-                        <MateriCard number={6} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={7} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={8} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={9} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={10} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                </Grid>
             </div>
         </>
     );
 }
 
-export { Matkul };
+export { MateriSlide };

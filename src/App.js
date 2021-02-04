@@ -8,6 +8,13 @@ import './index.css';
 
 function App() {
   const theme = createMuiTheme({
+    overrides: {
+      MuiButton: {
+        root: {
+          borderRadius: 25,
+        },
+      },
+    },
     palette: {
       primary: {
         main: '#5D97DB'

@@ -28,6 +28,10 @@ function Appbar(props) {
         setAnchorEl(null);
     };
 
+    function handleClickBeranda() {
+        props.changePage("/")
+    }
+
     const classes = useStyles();
     //TODO : https://medium.com/better-programming/making-a-basic-header-responsive-with-materialui-and-react-2198fac923c8
 
@@ -39,14 +43,14 @@ function Appbar(props) {
                     <Typography variant="h5" style={{ flexGrow: 0.1 }}>
                         Skripz
                     </Typography>
-                    <Button color="inherit">Beranda</Button>
-                    <Button color="inherit">Tentang</Button>
-                    <Button color="inherit">FAQ</Button>
+                    <Button color="inherit" onClick={handleClickBeranda}>Beranda</Button>
+                    <Button color="inherit" onClick={handleClickBeranda}>Tentang</Button>
+                    <Button color="inherit" onClick={handleClickBeranda}>FAQ</Button>
                     <div className={classes.separator} />
                     <div>
                         <Button
                             variant="contained"
-                            color="whiteTheme"
+                            style={{ backgroundColor: "white" }}
                             disableElevation
                             startIcon={<Avatar>A</Avatar>}
                             endIcon={<KeyboardArrowDownIcon />}
