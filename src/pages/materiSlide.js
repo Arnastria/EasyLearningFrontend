@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { CardMedia, Grid, Button, Box, Paper, Avatar, Card, CardActionArea, CardActions, GridList, GridListTile } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import { CardMedia, Grid, Button, Container, Paper, Avatar, Card, CardActionArea, CardActions, GridList, GridListTile } from '@material-ui/core';
+// import { Document, Page, pdfjs } from 'react-pdf';
 import { Appbar } from '../components/appbar';
+import Breadcrumb from '../components/Breadcrumb';
+import { PDFViewerExample } from '../components/PDFViewer';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import Typography from '@material-ui/core/Typography';
 import MateriCard from '../components/MateriCard';
+import materiPDF from '../pdf/MSI01.pdf';
+// import PDFViewer from "pdf-viewer-reactjs"
 
 //AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
@@ -16,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(2),
     },
     media: {
-        width: 130,
-        paddingTop: '56.25%', // 16:9
+        width: '246px',
+        height: '177px'
     },
     title: {
         flexGrow: 1,
@@ -67,9 +73,10 @@ function MateriSlide(props) {
 
     const classes = useStyles();
 
-    function handleClick() {
-        props.changePage("/sister")
-    }
+    const list = [
+        { color: "inherit", link: "/sister", name: "Sistem Interaksi" },
+        { color: "primary", link: "/materi", name: "Bab 1. Pengantar Sistem Informasi" },
+    ];
 
     return (
         <>
@@ -82,7 +89,8 @@ function MateriSlide(props) {
                     justify="center"
                     style={{ backgroundColor: '#E5E5E5', minHeight: '30vh', marginTop: '60px', padding: '30px 15%' }}
                 >
-                    <Grid item xs style={{ margin: '12px 0px' }}>
+                    <Breadcrumb list={list} />
+                    <Grid item xs style={{ margin: '0px 0px 12px 0px' }}>
                         <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
                             Kembali
                         </Button>
@@ -91,73 +99,83 @@ function MateriSlide(props) {
                         <Card>
                             <Grid
                                 container
-                                justify="space-evenly"
+                                justify="space-around"
+                                // justify="center"
                                 alignItems="center"
                                 style={{ padding: '30px' }}
                             >
 
-                                <Grid item xs={2}>
-                                    <CardMedia
-                                        className={classes.media}
-                                        image="https://files.catbox.moe/mnfc1y.svg"
-                                    />
-
+                                <Grid item xs>
+                                    <Grid container justify="center">
+                                        <Grid item>
+                                            <CardMedia
+                                                className={classes.media}
+                                                image="https://files.catbox.moe/qfaut0.svg"
+                                            />
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={8}>
                                     <Grid container spacing={1} direction="column">
                                         <Grid item>
-                                            <b style={{ fontSize: '48px', marginRight: '12px' }} >1</b>
-                                            <b style={{ fontSize: '36px' }} >Pengantar Sistem Interaksi</b>
+                                            <b style={{ fontSize: '36px', marginRight: '12px' }} >1</b>
+                                            <b style={{ fontSize: '24px' }} >Pengantar Sistem Interaksi</b>
                                         </Grid>
                                         <Grid item>
-                                            <b style={{ fontSize: '18px' }} >Pernahkah kamu terbayang bagaimana Gojek dapat merancang produk mereka secara unik dan mudah digunakan ?</b>
+                                            <b style={{ fontSize: '18px' }} >Bagaimana raksasa teknologi seperti Google mengembangkan produk yang menarik dan mudah digunakan oleh jutaan penggunanya ?</b>
                                         </Grid>
                                         <Grid item >
                                             <Typography variant="body" color="white" component="p">
-                                                Pada kursus ini kamu akan mempelajari bagaimana pelaku industri seperti Google, Facebook, Bukalapak, dan Gojek mendesain produk mereka sehingga mudah digunakan dan sesuai dengan kebutuhan penggunanya.
-                                                Kamu juga akan mempelajari istilah-istilah seperti UI/UX, interface design, dan lainnya.
-                                </Typography>
+                                                Pada bab ini kamu akan belajar mengenai dasar-dasar desain interaksi, istilah-istilah yang mungkin pernah kamu dengar seperti UI/UX, dan penerapannya dalam pengembangan produk digital, seperti website dan mobile apps
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item style={{ marginTop: '12px' }}>
+                                            <Grid container spacing={3} direction="row">
+                                                <Grid item xs>
+                                                    <Button style={{ width: '100%' }} variant="outlined" color="primary" startIcon={<ArrowBackIcon />}>Pre-Quiz</Button>
+                                                </Grid>
+                                                <Grid item xs >
+                                                    <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<PlayArrowIcon />}>Lihat Video Intro</Button>
+                                                </Grid>
+                                                <Grid item xs >
+                                                    <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<AssignmentIcon />}>Peta Konsep</Button>
+                                                </Grid>
+                                            </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
-
                         </Card>
+                    </Grid>
+                    <Container maxWidth="sm">
+                        <Typography component="div" style={{ height: '16px' }} />
+                    </Container>
+                    <Grid item>
+                        <Card>
+                            <PDFViewerExample pdf={materiPDF} />
+                        </Card>
+                    </Grid>
+                    {/* <Grid item >
+                        <Card>
+                            <Grid
+                                container
+                                justify="space-around"
+                                justify="center"
+                                direction="column"
+                                alignItems="center"
+                                style={{ padding: '16px 0px' }}
+                            >
+                                <Grid item xs>
+                                    <PDFViewer
+                                        // document={{ url: "https://files.catbox.moe/mk60cf.pdf" }}
+                                        document={{ url: "https://files.catbox.moe/071fl9.pdf" }}
+                                        canvasCss='customCanvas'
+                                    />
+                                </Grid>
+                            </Grid>
+                        </Card>
+                    </Grid> */}
 
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Grid container spacing={3} alignItems="center"
-                            justify="center" direction="column">
-                            <Grid item>
-                                <CardMedia
-                                    className={classes.media}
-                                    image="https://files.catbox.moe/mnfc1y.svg"
-                                />
-                            </Grid>
-                            <Grid item>
-                                <Button variant="contained"
-                                    style={{ backgroundColor: "white" }}
-                                    disableElevation>Lihat Silabus</Button>
-                            </Grid>
-                        </Grid>
-
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Grid container spacing={1} direction="column">
-                            <Grid item>
-                                <b style={{ color: 'white', fontSize: '36px' }} >Sistem Interaksi</b>
-                            </Grid>
-                            <Grid item>
-                                <b style={{ color: 'white', fontSize: '18px' }} >Pernahkah kamu terbayang bagaimana Gojek dapat merancang produk mereka secara unik dan mudah digunakan ?</b>
-                            </Grid>
-                            <Grid item style={{ color: 'white' }}>
-                                <Typography variant="body" color="white" component="p">
-                                    Pada kursus ini kamu akan mempelajari bagaimana pelaku industri seperti Google, Facebook, Bukalapak, dan Gojek mendesain produk mereka sehingga mudah digunakan dan sesuai dengan kebutuhan penggunanya.
-                                    Kamu juga akan mempelajari istilah-istilah seperti UI/UX, interface design, dan lainnya.
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                    </Grid>
                 </Grid>
             </div>
         </>
