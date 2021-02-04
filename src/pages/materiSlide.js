@@ -11,7 +11,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import Typography from '@material-ui/core/Typography';
 import MateriCard from '../components/MateriCard';
 import materiPDF from '../pdf/MSI01.pdf';
-// import PDFViewer from "pdf-viewer-reactjs"
+import secondPDF from '../pdf/K.pdf'
 
 //AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
@@ -153,6 +153,14 @@ function MateriSlide(props) {
                     <Grid item>
                         <Card>
                             <PDFViewerExample pdf={materiPDF} />
+                        </Card>
+                    </Grid>
+                    <Container maxWidth="sm">
+                        <Typography component="div" style={{ height: '16px' }} />
+                    </Container>
+                    <Grid item>
+                        <Card>
+                            <PDFViewerExample pdf={'https://files.catbox.moe/071fl9.pdf'} />
                         </Card>
                     </Grid>
                     {/* <Grid item >
