@@ -121,7 +121,7 @@ function Matkul(props) {
 
                 <Grid container spacing={1} style={{ maxWidth: "100%", padding: "16px 160px" }}>
                     <Grid item xs>
-                        <MateriCard number={1} judul={"Pengantar Sistem Informasi"}></MateriCard>
+                        <MateriCard changePage={props.changePage} number={1} judul={"Pengantar Sistem Informasi"}></MateriCard>
                     </Grid>
                     <Grid item xs>
                         <MateriCard number={2} judul={"Prinsip Dasar Kognisi"}></MateriCard>

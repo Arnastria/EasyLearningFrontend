@@ -36,6 +36,10 @@ export default function MateriCard(props) {
         setExpanded(!expanded);
     };
 
+    function handleClick() {
+        props.changePage("/materi")
+    }
+
     return (
         <Card className={classes.root}>
             <div style={{ paddingLeft: '12px' }}><h1 style={{ margin: '0', padding: '0' }}>{props.number ?? 0}</h1></div>
@@ -61,6 +65,7 @@ export default function MateriCard(props) {
                         <Button variant="contained"
                             color="primary"
                             fullWidth
+                            onClick={handleClick}
                             disableElevation>Lihat Materi</Button>
                     </Grid>
                     <Grid item style={{ width: '100%' }}>

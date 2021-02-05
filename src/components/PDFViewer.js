@@ -91,51 +91,46 @@ function PDFViewerExample(props) {
                         spacing={2}
                         direction="column"
                         justify="center"
+                        alignItems="center"
+                        alignContent="center"
                         style={{ padding: '12px' }}
                     >
                         <Grid item>
-                            <h3 style={{ margin: 0 }}>Mata Kuliah Saya</h3>
+                            <h4 style={{ margin: 0 }}>Daftar topik</h4>
                         </Grid>
                         <Grid item>
+                            <p style={{ margin: 0, fontSize: '12px', color: '#8F8F8F' }}>Bantuan : Klik pada topik untuk loncat ke topik pada slides</p>
+                        </Grid>
+                        <Grid item style={{ width: '100%' }}>
                             <Card style={{ backgroundColor: '#3D7DCA' }}>
                                 <CardActionArea onClick={handleClick}>
-                                    <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                    <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
                                         <Grid item>
-                                            <Avatar>SI</Avatar>
-                                        </Grid>
-                                        <Grid item>
-                                            <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
+                                            <h4 style={{ color: 'white' }}>1. Apa Itu Sistem Interaksi</h4>
                                         </Grid>
                                     </Grid>
                                 </CardActionArea>
                             </Card>
                         </Grid>
 
-                        <Grid item>
+                        <Grid item style={{ width: '100%' }}>
                             <Card style={{ backgroundColor: '#3D7DCA' }}>
-                                <CardActionArea>
-                                    <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                <CardActionArea onClick={handleClick}>
+                                    <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
                                         <Grid item>
-                                            <Avatar>SI</Avatar>
-                                        </Grid>
-                                        <Grid item>
-                                            <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
+                                            <h4 style={{ color: 'white' }}>2. Apa Itu Sistem Interaksi</h4>
                                         </Grid>
                                     </Grid>
                                 </CardActionArea>
-
                             </Card>
                         </Grid>
 
-                        <Grid item>
+                        <Grid item style={{ width: '100%' }}>
                             <Card style={{ backgroundColor: '#3D7DCA' }}>
-                                <CardActionArea>
-                                    <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                <CardActionArea onClick={handleClick}>
+                                    <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
                                         <Grid item>
-                                            <Avatar>SI</Avatar>
-                                        </Grid>
-                                        <Grid item>
-                                            <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
+                                            <h4 style={{ color: 'white' }}>3. Apa Itu Sistem Interaksi</h4>
                                         </Grid>
                                     </Grid>
                                 </CardActionArea>
@@ -147,14 +142,14 @@ function PDFViewerExample(props) {
                 <Grid item xs={9} style={{ padding: '20px 20px' }}>
                     <Box >
                         <Box elevation={0} style={{ backgroundColor: "#6e6d6a" }}>
-                            <Grid container justify="center" alignItems="center">
+                            <Grid container justify="center" alignItems="center" >
                                 <Grid item>
                                     <IconButton onClick={previousPage} disabled={pageNumber <= 1}>
                                         <ArrowBackIosIcon style={{ color: "white" }} />
                                     </IconButton>
                                 </Grid>
                                 <Grid item>
-                                    <p style={{ color: "white" }}>
+                                    <p style={{ color: "white", margin: 0 }}>
                                         {pageNumber || (numPages ? 1 : "--")} / {numPages || "--"}
                                     </p>
                                 </Grid>
@@ -166,7 +161,7 @@ function PDFViewerExample(props) {
                             </Grid>
                         </Box>
 
-                        <Grid container justify="center" alignItems="center">
+                        <Grid container justify="center" alignItems="center" style={{ backgroundColor: "#C4C4C4" }}>
                             <Grid item>
                                 <Box overflow="auto" style={{ maxWidth: '65vw' }}>
                                     <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}

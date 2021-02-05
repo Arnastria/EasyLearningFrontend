@@ -78,6 +78,10 @@ function MateriSlide(props) {
         { color: "primary", link: "/materi", name: "Bab 1. Pengantar Sistem Informasi" },
     ];
 
+    function handleClick() {
+        props.changePage("/prequiz")
+    }
+
     return (
         <>
             <div className={classes.root}>
@@ -118,21 +122,21 @@ function MateriSlide(props) {
                                 <Grid item xs={8}>
                                     <Grid container spacing={1} direction="column">
                                         <Grid item>
-                                            <b style={{ fontSize: '36px', marginRight: '12px' }} >1</b>
+                                            <b style={{ fontSize: '24px', marginRight: '12px' }} >1</b>
                                             <b style={{ fontSize: '24px' }} >Pengantar Sistem Interaksi</b>
                                         </Grid>
                                         <Grid item>
-                                            <b style={{ fontSize: '18px' }} >Bagaimana raksasa teknologi seperti Google mengembangkan produk yang menarik dan mudah digunakan oleh jutaan penggunanya ?</b>
+                                            <b style={{ fontSize: '14px' }} >Bagaimana raksasa teknologi seperti Google mengembangkan produk yang menarik dan mudah digunakan oleh jutaan penggunanya ?</b>
                                         </Grid>
                                         <Grid item >
-                                            <Typography variant="body" color="white" component="p">
+                                            <Typography variant="body" color="white" component="p" style={{ fontSize: '12px' }}>
                                                 Pada bab ini kamu akan belajar mengenai dasar-dasar desain interaksi, istilah-istilah yang mungkin pernah kamu dengar seperti UI/UX, dan penerapannya dalam pengembangan produk digital, seperti website dan mobile apps
                                             </Typography>
                                         </Grid>
-                                        <Grid item style={{ marginTop: '12px' }}>
+                                        <Grid item style={{ marginTop: '14px' }}>
                                             <Grid container spacing={3} direction="row">
                                                 <Grid item xs>
-                                                    <Button style={{ width: '100%' }} variant="outlined" color="primary" startIcon={<ArrowBackIcon />}>Pre-Quiz</Button>
+                                                    <Button style={{ width: '100%' }} variant="outlined" color="primary" startIcon={<ArrowBackIcon />} onClick={handleClick}>Pre-Quiz</Button>
                                                 </Grid>
                                                 <Grid item xs >
                                                     <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<PlayArrowIcon />}>Lihat Video Intro</Button>
@@ -163,26 +167,48 @@ function MateriSlide(props) {
                             <PDFViewerExample pdf={'https://files.catbox.moe/071fl9.pdf'} />
                         </Card>
                     </Grid>
-                    {/* <Grid item >
+                    <Container maxWidth="sm">
+                        <Typography component="div" style={{ height: '16px' }} />
+                    </Container>
+                    <Grid item >
                         <Card>
                             <Grid
                                 container
-                                justify="space-around"
                                 justify="center"
-                                direction="column"
+                                direction="row"
                                 alignItems="center"
+                                alignContent="center"
+                                style={{ padding: '16px 0px 0px 0px' }}
+                            >
+                                <Grid item>
+                                    <b>Materi Pengayaan / Suplemen</b>
+                                </Grid>
+
+                            </Grid>
+                            <Grid
+                                container
+                                justify="center"
+                                direction="row"
+                                alignItems="center"
+                                alignContent="center"
                                 style={{ padding: '16px 0px' }}
                             >
-                                <Grid item xs>
-                                    <PDFViewer
-                                        // document={{ url: "https://files.catbox.moe/mk60cf.pdf" }}
-                                        document={{ url: "https://files.catbox.moe/071fl9.pdf" }}
-                                        canvasCss='customCanvas'
-                                    />
+                                <Typography component="div" style={{ width: '16px' }} />
+                                <Grid item>
+                                    <Button variant="outlined">[VIDEO] Meet the UX Researcher : Gita</Button>
                                 </Grid>
+                                <Typography component="div" style={{ width: '16px' }} />
+                                <Grid item>
+                                    <Button variant="outlined">[VIDEO] Meet the UX Researcher : Gita</Button>
+                                </Grid>
+                                <Typography component="div" style={{ width: '16px' }} />
+                                <Grid item>
+                                    <Button variant="outlined">[VIDEO] Meet the UX Researcher : Gita</Button>
+                                </Grid>
+                                <Typography component="div" style={{ width: '16px' }} />
                             </Grid>
                         </Card>
-                    </Grid> */}
+                    </Grid>
 
                 </Grid>
             </div>
