@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { Grid, Button, Menu, MenuItem, Avatar } from '@material-ui/core';
+import { userService } from '../utils/UserService';
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Appbar(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
-
+    const [isLogin, setIsLogin] = useState(userService.getLocalData() != null);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -29,7 +30,16 @@ function Appbar(props) {
     };
 
     function handleClickBeranda() {
-        props.changePage("/")
+        props.changePage("/");
+    }
+
+    function handleClickLogout() {
+        setAnchorEl(null);
+        props.changePage("/logout")
+    }
+
+    const handleClickLogin = () => {
+        window.location.replace("http://localhost:8080/login/");
     }
 
     const classes = useStyles();
@@ -48,30 +58,37 @@ function Appbar(props) {
                     <Button color="inherit" onClick={handleClickBeranda}>FAQ</Button>
                     <div className={classes.separator} />
                     <div>
-                        <Button
-                            variant="contained"
-                            style={{ backgroundColor: "white" }}
-                            disableElevation
-                            startIcon={<Avatar>A</Avatar>}
-                            endIcon={<KeyboardArrowDownIcon />}
-                            onClick={handleClick}
-                        >
-                            <b style={{ color: '#3D7DCA' }} >Fulan Bin Fulan</b>
-                        </Button>
-                        <Menu
-                            id="appbar-menu"
-                            anchorEl={anchorEl}
-                            keepMounted
-                            getContentAnchorEl={null}
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
-                        >
-                            <MenuItem onClick={handleClose}>Profil</MenuItem>
-                            <MenuItem onClick={handleClose}>Pengaturan</MenuItem>
-                            <MenuItem onClick={handleClose}>Keluar</MenuItem>
-                        </Menu>
+                        {!isLogin ?
+                            <Button color="inherit" onClick={handleClickLogin}>Login</Button>
+                            :
+                            <>
+                                <Button
+                                    variant="contained"
+                                    style={{ backgroundColor: "white" }}
+                                    disableElevation
+                                    startIcon={<Avatar>A</Avatar>}
+                                    endIcon={<KeyboardArrowDownIcon />}
+                                    onClick={handleClick}
+                                >
+                                    <b style={{ color: '#3D7DCA' }} >{userService.getName()}</b>
+                                </Button>
+                                <Menu
+                                    id="appbar-menu"
+                                    anchorEl={anchorEl}
+                                    keepMounted
+                                    getContentAnchorEl={null}
+                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                    transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem onClick={handleClose}>Profil</MenuItem>
+                                    <MenuItem onClick={handleClose}>Pengaturan</MenuItem>
+                                    <MenuItem onClick={handleClickLogout}>Keluar</MenuItem>
+                                </Menu>
+                            </>
+                        }
+
                     </div>
 
                     <IconButton

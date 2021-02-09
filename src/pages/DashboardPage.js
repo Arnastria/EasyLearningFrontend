@@ -2,8 +2,9 @@ import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { InputBase, Grid, Button, Box, Paper, Avatar, Card, CardActionArea, CardActions } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import { Appbar } from '../components/appbar';
+import { Appbar } from '../components/Appbar';
 import { blue } from "@material-ui/core/colors";
+import { userService } from '../utils/UserService';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,7 +80,7 @@ function Dashboard(props) {
         >
           <Grid item xs={12} >
             <h1 style={{ color: 'white' }}>
-              Halo 'name', mau belajar apa hari ini ?
+              Halo {userService.getLocalData() != null ? userService.getName().split(' ')[0] : ''}, mau belajar apa hari ini ?
                       </h1>
           </Grid>
           <Grid item xs={3} >

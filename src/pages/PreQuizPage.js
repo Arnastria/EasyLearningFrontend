@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { CardMedia, Grid, Button, Container, Paper, Avatar, Card, CardActionArea, CardActions, GridList, GridListTile } from '@material-ui/core';
 // import { Document, Page, pdfjs } from 'react-pdf';
-import { Appbar } from '../components/appbar';
+import { Appbar } from '../components/Appbar';
 import Breadcrumb from '../components/Breadcrumb';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -135,13 +135,13 @@ function PreQuiz(props) {
                                         <Grid item>
                                             <Grid container direction="row">
                                                 <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">aaa</Button>
+                                                    <Button variant="outlined">Paling banyak warnanya</Button>
                                                 </Grid>
                                                 <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">aaa</Button>
+                                                    <Button variant="outlined">Mudah digunakan</Button>
                                                 </Grid>
                                                 <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">aaa</Button>
+                                                    <Button variant="outlined">Penuh dan rapat dengan teks</Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -176,13 +176,10 @@ function PreQuiz(props) {
                                         <Grid item>
                                             <Grid container direction="row">
                                                 <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">aaa</Button>
+                                                    <Button variant="outlined">Ya, sama</Button>
                                                 </Grid>
                                                 <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">aaa</Button>
-                                                </Grid>
-                                                <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">aaa</Button>
+                                                    <Button variant="outlined">Tidak sama</Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -217,13 +214,13 @@ function PreQuiz(props) {
                                         <Grid item>
                                             <Grid container direction="row">
                                                 <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">aaa</Button>
+                                                    <Button variant="outlined">Pengguna</Button>
                                                 </Grid>
                                                 <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">aaa</Button>
+                                                    <Button variant="outlined">Pengembang</Button>
                                                 </Grid>
                                                 <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">aaa</Button>
+                                                    <Button variant="outlined">Vendor</Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -232,8 +229,20 @@ function PreQuiz(props) {
                                 </Grid>
                             </Grid>
 
-
-
+                            <Grid
+                                container
+                                justify="center"
+                                direction="column"
+                                alignItems="center"
+                                alignContent="center"
+                                style={{ padding: '16px 0px 0px 0px' }}
+                            >
+                                <Grid item>
+                                    <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
+                                        Submit
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         </Card>
                     </Grid>
                 </Grid>

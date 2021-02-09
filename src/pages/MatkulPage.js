@@ -2,7 +2,7 @@ import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { CardMedia, Grid, Button, Box, Paper, Avatar, Card, CardActionArea, CardActions, GridList, GridListTile } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import { Appbar } from '../components/appbar';
+import { Appbar } from '../components/Appbar';
 import { blue } from "@material-ui/core/colors";
 import Typography from '@material-ui/core/Typography';
 import MateriCard from '../components/MateriCard';

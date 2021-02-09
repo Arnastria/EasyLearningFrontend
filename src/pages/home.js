@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useParams } from "react";
 import { useHistory } from "react-router-dom";
 import { Grid, Button } from '@material-ui/core';
 
 function Home(props) {
 
 
-    function handleClick() {
-        console.log("HAHA")
-        props.changePage("/panci")
-    }
+    const token = useParams();
     return (
         <>
             <Grid
@@ -22,12 +19,8 @@ function Home(props) {
 
                 <Grid item xs={3} >
                     <h1 style={{ color: 'white' }}>
-                        NANASTRIA WEB
+                        {token}
                     </h1>
-                </Grid>
-
-                <Grid item xs={3} >
-                    <Button onClick={handleClick} variant="contained" color="secondary">PANCI Click Here</Button>
                 </Grid>
             </Grid>
         </>
