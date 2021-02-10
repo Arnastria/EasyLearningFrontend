@@ -11,7 +11,8 @@ import MateriCard from '../components/MateriCard';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        backgroundColor: '#E5E5E5'
+        backgroundColor: '#E5E5E5',
+        minHeight: '100vh'
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -119,7 +120,7 @@ function Matkul(props) {
                     </Grid>
                 </Grid>
 
-                <Grid container spacing={1} style={{ maxWidth: "100%", padding: "16px 160px" }}>
+                <Grid container spacing={1} style={{ minHeight: '30vh', maxWidth: "100%", padding: "16px 160px" }}>
                     <Grid item xs>
                         <MateriCard changePage={props.changePage} number={1} judul={"Pengantar Sistem Informasi"}></MateriCard>
                     </Grid>
@@ -134,23 +135,6 @@ function Matkul(props) {
                     </Grid>
                     <Grid item xs>
                         <MateriCard number={5} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                </Grid>
-                <Grid container spacing={1} style={{ maxWidth: "100%", padding: "16px 160px" }}>
-                    <Grid item xs>
-                        <MateriCard number={6} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={7} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={8} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={9} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={10} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
                     </Grid>
                 </Grid>
             </div>

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Avatar, Typography, Link } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 
+
 const useStyles = makeStyles((theme) => ({
     root: {
         maxWidth: 345,
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function AnnouncementCard(props) {
+export default function ThreadCard(props) {
     const { Title, Author, Text, TimeStamp } = props;
 
     const preventDefault = (event) => event.preventDefault();

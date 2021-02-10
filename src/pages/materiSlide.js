@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { CardMedia, Grid, Button, Container, Paper, Avatar, Card, CardActionArea, CardActions, GridList, GridListTile } from '@material-ui/core';
+import { CardMedia, Grid, Button, Container, Link, Card, } from '@material-ui/core';
 // import { Document, Page, pdfjs } from 'react-pdf';
 import { Appbar } from '../components/Appbar';
 import Breadcrumb from '../components/Breadcrumb';
 import { PDFViewerExample } from '../components/PDFViewer';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
-import MateriCard from '../components/MateriCard';
 import materiPDF from '../pdf/MSI01.pdf';
-import secondPDF from '../pdf/K.pdf'
 
 //AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
@@ -79,8 +80,12 @@ function MateriSlide(props) {
     ];
 
     function handleClick() {
-        props.changePage("/prequiz")
+        props.changePage("/thread")
     }
+
+    const preventDefault = (event) => {
+        event.preventDefault()
+    };
 
     return (
         <>
@@ -162,14 +167,15 @@ function MateriSlide(props) {
                     <Container maxWidth="sm">
                         <Typography component="div" style={{ height: '16px' }} />
                     </Container>
-                    <Grid item>
+
+                    {/* <Grid item>
                         <Card>
                             <PDFViewerExample pdf={'https://files.catbox.moe/071fl9.pdf'} />
                         </Card>
                     </Grid>
                     <Container maxWidth="sm">
                         <Typography component="div" style={{ height: '16px' }} />
-                    </Container>
+                    </Container> */}
                     <Grid item >
                         <Card>
                             <Grid
@@ -195,21 +201,83 @@ function MateriSlide(props) {
                             >
                                 <Typography component="div" style={{ width: '16px' }} />
                                 <Grid item>
-                                    <Button variant="outlined">[VIDEO] Meet the UX Researcher : Gita</Button>
+                                    <Link style={{ color: '#3D7DCA', fontSize: '14px' }} href="#" onClick={preventDefault}>
+                                        <Grid container alignItems="center" alignContent="center">
+                                            <Grid item>
+                                                <PlayCircleFilledIcon />
+                                            </Grid>
+                                            <Grid item>
+                                                <b >[VIDEO] Meet the UX Researcher : Gita</b>
+                                            </Grid>
+                                        </Grid>
+                                    </Link>
                                 </Grid>
                                 <Typography component="div" style={{ width: '16px' }} />
                                 <Grid item>
-                                    <Button variant="outlined">[VIDEO] Meet the UX Researcher : Gita</Button>
+                                    <Link style={{ color: '#3D7DCA', fontSize: '14px' }} href="#" onClick={preventDefault}>
+                                        <Grid container alignItems="center" alignContent="center">
+                                            <Grid item>
+                                                <PlayCircleFilledIcon />
+                                            </Grid>
+                                            <Grid item>
+                                                <b >[VIDEO] A Day in the Life : UX Researchers at Google</b>
+                                            </Grid>
+                                        </Grid>
+                                    </Link>
                                 </Grid>
                                 <Typography component="div" style={{ width: '16px' }} />
                                 <Grid item>
-                                    <Button variant="outlined">[VIDEO] Meet the UX Researcher : Gita</Button>
+                                    <Link style={{ color: '#3D7DCA', fontSize: '14px' }} href="#" onClick={preventDefault}>
+                                        <Grid container alignItems="center" alignContent="center">
+                                            <Grid item>
+                                                <LibraryBooksIcon />
+                                            </Grid>
+                                            <Grid item>
+                                                <b >[WEBSITE] Usability.Gov - What is Usability  ?</b>
+                                            </Grid>
+                                        </Grid>
+                                    </Link>
                                 </Grid>
                                 <Typography component="div" style={{ width: '16px' }} />
                             </Grid>
                         </Card>
                     </Grid>
+                    <Container maxWidth="sm">
+                        <Typography component="div" style={{ height: '16px' }} />
+                    </Container>
+                    <Grid item >
+                        <Card>
+                            <Grid
+                                container
+                                justify="center"
+                                direction="column"
+                                alignItems="center"
+                                alignContent="center"
+                                style={{ padding: '16px 0px 16px 0px' }}
+                            >
+                                <Grid item>
+                                    <b>Diskusi Terbaru</b>
+                                </Grid>
+                                <Grid item>
+                                    <CardMedia
+                                        className={classes.media}
+                                        image="https://files.catbox.moe/5kro61.svg"
+                                    />
+                                </Grid>
+                                <Grid item>
+                                    <b>Belum ada diskusi</b>
+                                </Grid>
+                                <Grid item>
+                                    Mulai sekarang untuk memperkaya pemahamanmu
+                                </Grid>
+                                <Typography component="div" style={{ height: '16px' }} />
+                                <Grid item>
+                                    <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleClick}>Buat Thread</Button>
+                                </Grid>
+                            </Grid>
 
+                        </Card>
+                    </Grid>
                 </Grid>
             </div>
         </>

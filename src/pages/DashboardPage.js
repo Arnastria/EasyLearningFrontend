@@ -5,6 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { Appbar } from '../components/Appbar';
 import { blue } from "@material-ui/core/colors";
 import { userService } from '../utils/UserService';
+import AnnouncementCard from '../components/AnnouncementCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -179,81 +180,26 @@ function Dashboard(props) {
                   <h3 style={{ margin: 0 }}>Pengumuman</h3>
                 </Grid>
                 <Grid item style={{ margin: '6px 0px' }}>
-                  <Paper>
-                    <Grid container direction="row" spacing={2} style={{ padding: '12px' }} alignItems="flex-start" >
-                      <Grid item>
-                        <Avatar>H</Avatar>
-                      </Grid>
-                      <Grid item>
-                        <Grid container direction="column">
-                          <Grid item>
-                            <b>Judul</b>
-                          </Grid>
-                          <Grid item>
-                            <b>Author</b>
-                          </Grid>
-                          <Grid item>
-                            Text
-                          </Grid>
-                          <Grid item>
-                            Lihat selengkapnya
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Paper>
+                  <AnnouncementCard
+                    Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
+                    Author={'Ariq Naufal Satria'}
+                    Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
+                  />
                 </Grid>
                 <Grid item style={{ margin: '6px 0px' }}>
-                  <Paper>
-                    <Grid container direction="row" spacing={2} style={{ padding: '12px' }} alignItems="flex-start" >
-                      <Grid item>
-                        <Avatar>H</Avatar>
-                      </Grid>
-                      <Grid item>
-                        <Grid container direction="column">
-                          <Grid item>
-                            <b>Judul</b>
-                          </Grid>
-                          <Grid item>
-                            <b>Author</b>
-                          </Grid>
-                          <Grid item>
-                            Text
-                          </Grid>
-                          <Grid item>
-                            Lihat selengkapnya
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Paper>
+                  <AnnouncementCard
+                    Title={'Pengumuman 1'}
+                    Author={'Budi Budiman'}
+                    Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
+                  />
                 </Grid>
                 <Grid item style={{ margin: '6px 0px' }}>
-                  <Paper>
-                    <Grid container direction="row" spacing={2} style={{ padding: '12px' }} alignItems="flex-start" >
-                      <Grid item>
-                        <Avatar>H</Avatar>
-                      </Grid>
-                      <Grid item>
-                        <Grid container direction="column">
-                          <Grid item>
-                            <b>Judul</b>
-                          </Grid>
-                          <Grid item>
-                            <b>Author</b>
-                          </Grid>
-                          <Grid item>
-                            Text
-                          </Grid>
-                          <Grid item>
-                            Lihat selengkapnya
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Paper>
+                  <AnnouncementCard
+                    Title={'Pengumuman 1'}
+                    Author={'Ariq Naufal Satria'}
+                    Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
+                  />
                 </Grid>
-
               </Grid>
             </Paper>
           </Grid>

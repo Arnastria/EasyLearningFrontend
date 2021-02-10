@@ -17,11 +17,14 @@ import { PreQuiz } from '../pages/PreQuizPage';
 import { LoginSuccess } from "../pages/LoginSuccessPage";
 import { userService } from '../utils/UserService';
 import { Logout } from "../pages/Logout";
+import { WriteThreadPage } from "../pages/WriteThreadPage";
+import { ThreadListPage } from "../pages/ThreadListPage";
 
 function AuthRoute(props) {
     const { path, children, exact, render } = props;
 
-    const isAuthed = userService.getLocalData() != null;
+    // const isAuthed = userService.getLocalData() != null;
+    const isAuthed = true;
 
 
     const authMessage = "You must be logged in to view this page";
@@ -71,6 +74,12 @@ export function AppSwitch(props) {
             </AuthRoute>
             <AuthRoute path="/materi">
                 <MateriSlide changePage={history.push} />
+            </AuthRoute>
+            <AuthRoute path="/thread/new">
+                <WriteThreadPage changePage={history.push} />
+            </AuthRoute>
+            <AuthRoute path="/thread">
+                <ThreadListPage changePage={history.push} />
             </AuthRoute>
             <AuthRoute path="/prequiz">
                 <PreQuiz changePage={history.push} />
