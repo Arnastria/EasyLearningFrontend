@@ -22,9 +22,6 @@ function App() {
       secondary: {
         main: '#3D7DCA'
       },
-      whiteTheme: {
-        main: '#FFFFFF'
-      },
     },
   });
 

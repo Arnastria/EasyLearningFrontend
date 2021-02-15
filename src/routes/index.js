@@ -20,6 +20,8 @@ import { Logout } from "../pages/Logout";
 import { WriteThreadPage } from "../pages/WriteThreadPage";
 import { ThreadListPage } from "../pages/ThreadListPage";
 import { ThreadPage } from "../pages/ThreadPage";
+import { StartAssessment } from "../pages/StartAssessment";
+import { AssessmentPage } from "../pages/AssessmentPage";
 
 function AuthRoute(props) {
     const { path, children, exact, render } = props;
@@ -87,6 +89,12 @@ export function AppSwitch(props) {
             </AuthRoute>
             <AuthRoute path="/prequiz">
                 <PreQuiz changePage={history.push} />
+            </AuthRoute>
+            <AuthRoute path="/assessment/start">
+                <StartAssessment changePage={history.push} />
+            </AuthRoute>
+            <AuthRoute path="/assessment">
+                <AssessmentPage changePage={history.push} />
             </AuthRoute>
             <Route path="/500-error">
                 <h1>Error Bruh</h1>
