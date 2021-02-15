@@ -13,6 +13,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import materiPDF from '../pdf/MSI01.pdf';
+import ThreadCard from '../components/ThreadCard';
 
 //AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
@@ -245,6 +246,8 @@ function MateriSlide(props) {
                     <Container maxWidth="sm">
                         <Typography component="div" style={{ height: '16px' }} />
                     </Container>
+
+                    {/* Kalau gak ada diskusi */}
                     <Grid item >
                         <Card>
                             <Grid
@@ -278,6 +281,41 @@ function MateriSlide(props) {
 
                         </Card>
                     </Grid>
+                    <Container maxWidth="sm">
+                        <Typography component="div" style={{ height: '16px' }} />
+                    </Container>
+
+
+                    {/* Kalau ada diskusi */}
+                    <Grid item >
+                        <Card>
+                            <Grid
+                                container
+                                justify="center"
+                                direction="column"
+                                alignItems="center"
+                                alignContent="center"
+                                style={{ padding: '16px 0px 16px 0px' }}
+                            >
+                                <Grid item>
+                                    <b>Diskusi Terbaru</b>
+                                </Grid>
+                                <Typography component="div" style={{ height: '16px' }} />
+                                <Grid item>
+                                    <Button style={{ width: '100%' }} variant="contained" color="primary" onClick={handleClick}>Buka forum</Button>
+                                </Grid>
+                                <Grid item style={{ margin: '20px' }}>
+                                    <ThreadCard
+                                        isOutlined={true}
+                                        Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
+                                        Author={'Ariq Naufal Satria'}
+                                        Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </Card>
+                    </Grid>
+
                 </Grid>
             </div>
         </>

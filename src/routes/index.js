@@ -19,6 +19,7 @@ import { userService } from '../utils/UserService';
 import { Logout } from "../pages/Logout";
 import { WriteThreadPage } from "../pages/WriteThreadPage";
 import { ThreadListPage } from "../pages/ThreadListPage";
+import { ThreadPage } from "../pages/ThreadPage";
 
 function AuthRoute(props) {
     const { path, children, exact, render } = props;
@@ -74,6 +75,9 @@ export function AppSwitch(props) {
             </AuthRoute>
             <AuthRoute path="/materi">
                 <MateriSlide changePage={history.push} />
+            </AuthRoute>
+            <AuthRoute path="/thread/details/:id">
+                <ThreadPage changePage={history.push} />
             </AuthRoute>
             <AuthRoute path="/thread/new">
                 <WriteThreadPage changePage={history.push} />

@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { CardMedia, Grid, Button, Container, Paper, Avatar, Card, CardActionArea, CardActions, GridList, GridListTile } from '@material-ui/core';
-// import { Document, Page, pdfjs } from 'react-pdf';
+import { Grid, Button, FormLabel, FormControl, Card, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import { Appbar } from '../components/Appbar';
 import Breadcrumb from '../components/Breadcrumb';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import Typography from '@material-ui/core/Typography';
 
 //AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
@@ -72,8 +68,32 @@ function PreQuiz(props) {
     const list = [
         { color: "inherit", link: "/sister", name: "Sistem Interaksi" },
         { color: "primary", link: "/materi", name: "Bab 1. Pengantar Sistem Informasi" },
-
     ];
+
+
+    const [value, setValue] = useState('1');
+    const [value2, setValue2] = useState('1');
+    const [value3, setValue3] = useState('1');
+
+    const handleChange1 = (event) => {
+        setValue(event.target.value);
+    };
+
+    const handleChange2 = (event) => {
+        setValue2(event.target.value);
+    };
+
+    const handleChange3 = (event) => {
+        setValue3(event.target.value);
+    };
+
+    const send = () => {
+        console.log({
+            1: value,
+            2: value2,
+            3: value3
+        })
+    }
 
     return (
         <>
@@ -110,10 +130,11 @@ function PreQuiz(props) {
                                 </Grid>
 
                             </Grid>
+
+
                             <Grid
                                 container
                                 direction="row"
-                                alignItems="center"
                                 alignContent="center"
                                 style={{ padding: '16px 0px' }}
                             >
@@ -125,36 +146,25 @@ function PreQuiz(props) {
                                         container
                                         justify="center"
                                         direction="column"
-                                        alignItems="center"
-                                        alignContent="center"
-                                        style={{ padding: '16px 0px' }}
+                                        style={{ padding: '16px' }}
                                     >
                                         <Grid item>
-                                            Ciri desain yang baik untuk sebuah aplikasi transportasi online adalah yang ...
+                                            <FormControl component="fieldset">
+                                                <FormLabel component="legend">Ciri desain yang baik untuk sebuah aplikasi transportasi online adalah yang ...</FormLabel>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange1}>
+                                                    <FormControlLabel value="1" control={<Radio />} label="Paling banyak warnanya" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="Mudah digunakan" />
+                                                    <FormControlLabel value="3" control={<Radio />} label="Penuh dan rapat dengan teks" />
+                                                </RadioGroup>
+                                            </FormControl>
                                         </Grid>
-                                        <Grid item>
-                                            <Grid container direction="row">
-                                                <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">Paling banyak warnanya</Button>
-                                                </Grid>
-                                                <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">Mudah digunakan</Button>
-                                                </Grid>
-                                                <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">Penuh dan rapat dengan teks</Button>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-
                                     </Grid>
                                 </Grid>
                             </Grid>
 
-
                             <Grid
                                 container
                                 direction="row"
-                                alignItems="center"
                                 alignContent="center"
                                 style={{ padding: '16px 0px' }}
                             >
@@ -166,33 +176,24 @@ function PreQuiz(props) {
                                         container
                                         justify="center"
                                         direction="column"
-                                        alignItems="center"
-                                        alignContent="center"
-                                        style={{ padding: '16px 0px' }}
+                                        style={{ padding: '16px' }}
                                     >
                                         <Grid item>
-                                            UI/UX adalah istilah yang sering kita dengar. Apakah UI (User Interface) sama dengan UX (User Experience) ?
+                                            <FormControl component="fieldset">
+                                                <FormLabel component="legend">UI/UX adalah istilah yang sering kita dengar. Apakah UI (User Interface) sama dengan UX (User Experience) ?</FormLabel>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value2} onChange={handleChange2}>
+                                                    <FormControlLabel value="1" control={<Radio />} label="Ya, Sama" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="Tidak Sama" />
+                                                </RadioGroup>
+                                            </FormControl>
                                         </Grid>
-                                        <Grid item>
-                                            <Grid container direction="row">
-                                                <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">Ya, sama</Button>
-                                                </Grid>
-                                                <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">Tidak sama</Button>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-
                                     </Grid>
                                 </Grid>
                             </Grid>
 
-
                             <Grid
                                 container
                                 direction="row"
-                                alignItems="center"
                                 alignContent="center"
                                 style={{ padding: '16px 0px' }}
                             >
@@ -204,30 +205,22 @@ function PreQuiz(props) {
                                         container
                                         justify="center"
                                         direction="column"
-                                        alignItems="center"
-                                        alignContent="center"
-                                        style={{ padding: '16px 0px' }}
+                                        style={{ padding: '16px' }}
                                     >
                                         <Grid item>
-                                            Siapakah yang merupakan pihak yang perlu menjadi fokus utama saat mengembangkan desain produk ?
+                                            <FormControl component="fieldset">
+                                                <FormLabel component="legend">Siapakah yang merupakan pihak yang perlu menjadi fokus utama saat mengembangkan desain produk ?</FormLabel>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value3} onChange={handleChange3}>
+                                                    <FormControlLabel value="1" control={<Radio />} label="Pengguna" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="Pengembang" />
+                                                    <FormControlLabel value="3" control={<Radio />} label="Vendor" />
+                                                </RadioGroup>
+                                            </FormControl>
                                         </Grid>
-                                        <Grid item>
-                                            <Grid container direction="row">
-                                                <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">Pengguna</Button>
-                                                </Grid>
-                                                <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">Pengembang</Button>
-                                                </Grid>
-                                                <Grid item xs style={{ width: '100%' }}>
-                                                    <Button variant="outlined">Vendor</Button>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-
                                     </Grid>
                                 </Grid>
                             </Grid>
+
 
                             <Grid
                                 container
@@ -235,10 +228,10 @@ function PreQuiz(props) {
                                 direction="column"
                                 alignItems="center"
                                 alignContent="center"
-                                style={{ padding: '16px 0px 0px 0px' }}
+                                style={{ padding: '16px 0px 16px 0px' }}
                             >
                                 <Grid item>
-                                    <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
+                                    <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={send}>
                                         Submit
                                     </Button>
                                 </Grid>

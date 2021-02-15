@@ -1,9 +1,8 @@
 import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { InputBase, Grid, Button, Box, Paper, Avatar, Card, CardActionArea, CardActions } from '@material-ui/core';
+import { InputBase, Grid, Paper, Avatar, Card, CardActionArea } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Appbar } from '../components/Appbar';
-import { blue } from "@material-ui/core/colors";
 import { userService } from '../utils/UserService';
 import AnnouncementCard from '../components/AnnouncementCard';
 

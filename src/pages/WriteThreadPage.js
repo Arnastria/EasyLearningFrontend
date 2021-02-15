@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import { CardMedia, Grid, Button, Container, Link, Card, } from '@material-ui/core';
-// import { Document, Page, pdfjs } from 'react-pdf';
+import { makeStyles } from '@material-ui/core/styles';
+import { Grid, Button, Card, } from '@material-ui/core';
 import { Appbar } from '../components/Appbar';
 import Breadcrumb from '../components/Breadcrumb';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';

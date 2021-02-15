@@ -1,7 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Avatar, Typography, Link } from '@material-ui/core';
+import { Grid, Paper, Avatar, Typography, Link, Button } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
+import MarkdownView from 'react-showdown';
+import AddIcon from '@material-ui/icons/Add';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,16 +30,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ThreadCard(props) {
-    const { Title, Author, Text, TimeStamp, isOutlined } = props;
+export default function ThreadReplyCard(props) {
+    const { Title, Author, Text, TimeStamp, isThreadStarter } = props;
 
     const preventDefault = (event) => {
         event.preventDefault()
         console.log("ayy")
     };
 
+    function handleClick() {
+        props.changePage("/thread/new")
+    }
+
     return (
-        <Paper variant={isOutlined ? "outlined" : ""}>
+        <Paper variant="outlined">
             <Grid container direction="row" spacing={2} style={{ padding: '12px' }} alignItems="flex-start" alignContent="center" >
                 <Grid item xs={1}>
                     <Avatar>{Author[0]}</Avatar>
@@ -56,17 +62,19 @@ export default function ThreadCard(props) {
                             <Typography style={{ height: '6px' }} gutterBottom />
                         </Grid>
                         <Grid item>
-                            {Text}
+                            <MarkdownView
+                                markdown={Text}
+                                options={{ tables: true, emoji: true }}
+                            />
                         </Grid>
                         <Grid item>
                             <Typography style={{ height: '6px' }} gutterBottom />
                         </Grid>
-                        <Grid item>
-
+                        {isThreadStarter ? <Grid item xs={3}>
                             <Link style={{ color: '#8F8F8F' }} href="#" onClick={preventDefault}>
-                                <b >Lihat selengkapnya</b>
+                                <Button style={{ width: '100%' }} startIcon={<AddIcon />} variant="contained" color="primary" onClick={handleClick}>Komentar</Button>
                             </Link>
-                        </Grid>
+                        </Grid> : <></>}
                     </Grid>
                 </Grid>
             </Grid>

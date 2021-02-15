@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Button, Card, } from '@material-ui/core';
+// import { Document, Page, pdfjs } from 'react-pdf';
 import { Appbar } from '../components/Appbar';
 import Breadcrumb from '../components/Breadcrumb';
 import AddIcon from '@material-ui/icons/Add';
@@ -8,7 +9,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import * as Showdown from "showdown";
 import Typography from '@material-ui/core/Typography';
 import 'react-mde/lib/styles/css/react-mde-all.css';
-import ThreadCard from '../components/ThreadCard';
+import ThreadReplyCard from '../components/ThreadReplyCard';
 
 //AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
@@ -17,11 +18,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function ThreadListPage(props) {
+function ThreadPage(props) {
 
     const classes = useStyles();
-    // const [value, setValue] = useState("**Hello world!!!**");
-    // const [selectedTab, setSelectedTab] = useState("write");
 
     const list = [
         { color: "inherit", link: "/sister", name: "Sistem Interaksi" },
@@ -72,7 +71,10 @@ function ThreadListPage(props) {
                                 style={{ padding: '16px 0px 16px 0px' }}
                             >
                                 <Grid item>
-                                    <h2>Forum Diskusi</h2>
+                                    <h2 style={{ margin: "0 10px 10px 10px" }}>Forum Diskusi</h2>
+                                </Grid>
+                                <Grid item>
+                                    <h3 style={{ margin: "0 10px 0 10px" }}>Ceritakan pengalaman menggunakan aplikasi</h3>
                                 </Grid>
                                 <Grid item style={{ width: '100%', padding: '10px' }}>
                                     <Grid
@@ -82,31 +84,26 @@ function ThreadListPage(props) {
                                         <Grid item>
                                             <Button style={{ width: '100%' }} startIcon={<AddIcon />} variant="contained" color="primary" onClick={handleClick}>Tulis diskusi</Button>
                                         </Grid>
-                                        <Grid item>
-                                            <Typography style={{ width: '16px' }}></Typography>
-                                        </Grid>
-                                        <Grid item>
-                                            <Button style={{ width: '100%' }} variant="outlined" color="primary" onClick={handleClick}>Filter</Button>
-                                        </Grid>
                                     </Grid>
                                 </Grid>
                                 <Typography component="div" style={{ height: '16px' }} />
-                                <Grid item style={{ margin: '10px ' }}>
-                                    <ThreadCard
+                                <Grid item style={{ margin: '5px 10px' }}>
+                                    <ThreadReplyCard
+                                        Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
+                                        Author={'Ariq Naufal Satria'}
+                                        Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
+                                        isThreadStarter={true}
+                                    />
+                                </Grid>
+                                <Grid item style={{ margin: '5px 10px 5px 30px ' }}>
+                                    <ThreadReplyCard
                                         Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
                                         Author={'Ariq Naufal Satria'}
                                         Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
                                     />
                                 </Grid>
-                                <Grid item style={{ margin: '10px ' }}>
-                                    <ThreadCard
-                                        Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
-                                        Author={'Ariq Naufal Satria'}
-                                        Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
-                                    />
-                                </Grid>
-                                <Grid item style={{ margin: '10px ' }}>
-                                    <ThreadCard
+                                <Grid item style={{ margin: '5px 10px 5px 30px ' }}>
+                                    <ThreadReplyCard
                                         Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
                                         Author={'Ariq Naufal Satria'}
                                         Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
@@ -122,4 +119,4 @@ function ThreadListPage(props) {
     );
 }
 
-export { ThreadListPage };
+export { ThreadPage };
