@@ -12,7 +12,7 @@ import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
-import materiPDF from '../pdf/MSI01.pdf';
+import file from '../pdf/DesainInteraksi';
 import ThreadCard from '../components/ThreadCard';
 
 //AcSenVisGIo
@@ -162,7 +162,7 @@ function MateriSlide(props) {
                     </Container>
                     <Grid item>
                         <Card>
-                            <PDFViewerExample pdf={materiPDF} />
+                            <PDFViewerExample pdf={`data:application/pdf;base64,${file}`} />
                         </Card>
                     </Grid>
                     <Container maxWidth="sm">

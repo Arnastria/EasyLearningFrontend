@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { CardMedia, Grid, Button, } from '@material-ui/core';
 import { Appbar } from '../components/Appbar';
 import Typography from '@material-ui/core/Typography';
 import MateriCard from '../components/MateriCard';
+import { useParams } from 'react-router-dom';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import APIUtility from '../utils/APIUtility';
 
 //AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
@@ -64,13 +67,56 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Matkul(props) {
-
+    const { id_course } = useParams();
     const classes = useStyles();
 
+    const [isLoading, setIsLoading] = useState(true);
+    const [course, setCourse] = useState({
+        'code': '',
+        'name': '',
+        'aliasName': '',
+        'intro': '',
+        'description': '',
+        'links': '',
+    });
+
+    console.log("welcome to matkul id ")
+    console.log(id_course)
     function handleClick() {
         props.changePage("/sister")
     }
 
+    useEffect(() => {
+        if (course['code'] == '') {
+            APIUtility.get('/api/course/' + id_course, {}).then((response) => {
+                let courseJSON = JSON.parse(response.data.model)
+                console.log(courseJSON)
+                setCourse(courseJSON[0]['fields']);
+            });
+            setIsLoading(false);
+        }
+
+    }, [])
+
+    if (isLoading) {
+        return (<>
+            <div className={classes.root}>
+                <Appbar changePage={props.changePage} />
+                <Grid
+                    container
+                    alignItems="center"
+                    justify="center"
+                    style={{ minHeight: '30vh', marginTop: '60px', padding: '30px 0px' }}
+                >
+                    <Grid item>
+                        <CircularProgress />
+                    </Grid>
+                </Grid>
+
+            </div>
+        </>);
+
+    }
     return (
         <>
             <div className={classes.root}>
@@ -89,7 +135,7 @@ function Matkul(props) {
                             <Grid item>
                                 <CardMedia
                                     className={classes.media}
-                                    image="https://files.catbox.moe/mnfc1y.svg"
+                                    image={"https://files.catbox.moe/mnfc1y.svg"}
                                 />
                             </Grid>
                             <Grid item>
@@ -103,15 +149,14 @@ function Matkul(props) {
                     <Grid item xs={6}>
                         <Grid container spacing={1} direction="column">
                             <Grid item>
-                                <b style={{ color: 'white', fontSize: '36px' }} >Sistem Interaksi</b>
+                                <b style={{ color: 'white', fontSize: '36px' }} >{course.name}</b>
                             </Grid>
                             <Grid item>
-                                <b style={{ color: 'white', fontSize: '18px' }} >Pernahkah kamu terbayang bagaimana Gojek dapat merancang produk mereka secara unik dan mudah digunakan ?</b>
+                                <b style={{ color: 'white', fontSize: '18px' }} >{course.intro}</b>
                             </Grid>
                             <Grid item style={{ color: 'white' }}>
                                 <Typography variant="body" color="white" component="p">
-                                    Pada kursus ini kamu akan mempelajari bagaimana pelaku industri seperti Google, Facebook, Bukalapak, dan Gojek mendesain produk mereka sehingga mudah digunakan dan sesuai dengan kebutuhan penggunanya.
-                                    Kamu juga akan mempelajari istilah-istilah seperti UI/UX, interface design, dan lainnya.
+                                    {course.description}
                                 </Typography>
                             </Grid>
                         </Grid>

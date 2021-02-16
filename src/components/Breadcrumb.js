@@ -12,15 +12,15 @@ const useStyles = makeStyles((theme) => ({
 export default function Breadcrumb(props) {
     const classes = useStyles();
     const { list } = props;
-    const listBreadcrumbs = list.map((list) =>
+    const listBreadcrumbs = list.map((list, i) =>
         list.color === "primary" ? (
-            <Link href={list.link} style={{ textDecoration: "none" }}>
+            <Link key={i} href={list.link} style={{ textDecoration: "none" }}>
                 <div style={{ color: "#3D7DCA" }}>
                     <b>{list.name}</b>
                 </div>
             </Link>
         ) : (
-                <Link href={list.link} style={{ textDecoration: "none" }}>
+                <Link key={i} href={list.link} style={{ textDecoration: "none" }}>
                     <div style={{ color: "#828282" }}>
                         {list.name}
                     </div>

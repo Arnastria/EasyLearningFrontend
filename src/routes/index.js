@@ -22,12 +22,13 @@ import { ThreadListPage } from "../pages/ThreadListPage";
 import { ThreadPage } from "../pages/ThreadPage";
 import { StartAssessment } from "../pages/StartAssessment";
 import { AssessmentPage } from "../pages/AssessmentPage";
+import { EditThreadPage } from "../pages/EditThreadPage";
 
 function AuthRoute(props) {
     const { path, children, exact, render } = props;
 
-    // const isAuthed = userService.getLocalData() != null;
-    const isAuthed = true;
+    const isAuthed = userService.getLocalData() != null;
+    // const isAuthed = true;
 
 
     const authMessage = "You must be logged in to view this page";
@@ -72,29 +73,32 @@ export function AppSwitch(props) {
             <Route path="/logout">
                 <Logout onSuccess={history.push} />
             </Route>
-            <AuthRoute path="/sister">
-                <Matkul changePage={history.push} />
-            </AuthRoute>
-            <AuthRoute path="/materi">
-                <MateriSlide changePage={history.push} />
-            </AuthRoute>
-            <AuthRoute path="/thread/details/:id">
+            <AuthRoute path="/course/:id_course/materi/:id_materi/thread/details/:id_thread">
                 <ThreadPage changePage={history.push} />
             </AuthRoute>
-            <AuthRoute path="/thread/new">
+            <AuthRoute path="/course/:id_course/materi/:id_materi/thread/new">
                 <WriteThreadPage changePage={history.push} />
             </AuthRoute>
-            <AuthRoute path="/thread">
+            <AuthRoute path="/course/:id_course/materi/:id_materi/thread/edit">
+                <EditThreadPage changePage={history.push} />
+            </AuthRoute>
+            <AuthRoute path="/course/:id_course/materi/:id_materi/thread">
                 <ThreadListPage changePage={history.push} />
             </AuthRoute>
-            <AuthRoute path="/prequiz">
+            <AuthRoute path="/course/:id_course/prequiz">
                 <PreQuiz changePage={history.push} />
             </AuthRoute>
-            <AuthRoute path="/assessment/start">
+            <AuthRoute path="/course/:id_course/materi/:id_materi/assessment/start">
                 <StartAssessment changePage={history.push} />
             </AuthRoute>
-            <AuthRoute path="/assessment">
+            <AuthRoute path="/course/:id_course/materi/:id_materi/assessment">
                 <AssessmentPage changePage={history.push} />
+            </AuthRoute>
+            <AuthRoute path="/course/:id_course/materi/:id_materi">
+                <MateriSlide changePage={history.push} />
+            </AuthRoute>
+            <AuthRoute path="/course/:id_course">
+                <Matkul changePage={history.push} />
             </AuthRoute>
             <Route path="/500-error">
                 <h1>Error Bruh</h1>
