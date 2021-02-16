@@ -3,6 +3,7 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { Box, Grid, IconButton, Paper, Card, CardActionArea, Avatar, } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import useWindowDimensions from '../utils/WindowDimension';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function PDFViewer(props) {
@@ -60,7 +61,7 @@ function PDFViewerExample(props) {
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
     const [renderedPageNumber, setRenderedPageNumber] = useState(null);
-
+    const { height, width } = useWindowDimensions();
     function onDocumentLoadSuccess({ numPages }) {
         setNumPages(numPages);
     }
@@ -164,21 +165,21 @@ function PDFViewerExample(props) {
                         <Grid container justify="center" alignItems="center" style={{ backgroundColor: "#C4C4C4" }}>
                             <Grid item>
                                 <Box overflow="auto" style={{ maxWidth: '65vw' }}>
-                                    <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess}
+                                    <Document file={pdf} onLoadSuccess={onDocumentLoadSuccess} onLoadError={console.error}
                                     >
                                         {isLoading && renderedPageNumber ? (
                                             <Page
                                                 key={renderedPageNumber}
                                                 className="prevPage"
                                                 pageNumber={renderedPageNumber}
-                                                width={600}
+                                                width={0.45 * width}
                                             />
                                         ) : null}
                                         <Page
                                             key={pageNumber}
                                             pageNumber={pageNumber}
                                             onRenderSuccess={() => setRenderedPageNumber(pageNumber)}
-                                            width={600}
+                                            width={0.45 * width}
                                         />
                                     </Document>
                                 </Box>
