@@ -78,8 +78,8 @@ function PDFViewerExample(props) {
         changePage(1);
     }
 
-    const handleClick = () => {
-
+    const handleClick = (i) => {
+        setPageNumber(i);
     }
     const isLoading = renderedPageNumber !== pageNumber;
     const { pdf } = props;
@@ -98,46 +98,40 @@ function PDFViewerExample(props) {
                     >
                         <Grid item>
                             <h4 style={{ margin: 0 }}>Daftar topik</h4>
+
                         </Grid>
                         <Grid item>
                             <p style={{ margin: 0, fontSize: '12px', color: '#8F8F8F' }}>Bantuan : Klik pada topik untuk loncat ke topik pada slides</p>
                         </Grid>
-                        <Grid item style={{ width: '100%' }}>
-                            <Card style={{ backgroundColor: '#3D7DCA' }}>
-                                <CardActionArea onClick={handleClick}>
-                                    <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
-                                        <Grid item>
-                                            <h4 style={{ color: 'white' }}>1. Apa Itu Sistem Interaksi</h4>
+                        {props.chapterList === undefined ?
+                            <Grid item style={{ width: '100%' }}>
+                                <Card style={{ backgroundColor: '#6e6d6a' }}>
+                                    <CardActionArea >
+                                        <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
+                                            <Grid item>
+                                                <h4 style={{ color: 'white' }}>Daftar Topik tidak tersedia</h4>
+                                            </Grid>
                                         </Grid>
-                                    </Grid>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
-
-                        <Grid item style={{ width: '100%' }}>
-                            <Card style={{ backgroundColor: '#3D7DCA' }}>
-                                <CardActionArea onClick={handleClick}>
-                                    <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
-                                        <Grid item>
-                                            <h4 style={{ color: 'white' }}>2. Apa Itu Sistem Interaksi</h4>
-                                        </Grid>
-                                    </Grid>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
-
-                        <Grid item style={{ width: '100%' }}>
-                            <Card style={{ backgroundColor: '#3D7DCA' }}>
-                                <CardActionArea onClick={handleClick}>
-                                    <Grid container direction="row" spacing={0} alignItems="center" justify="center" >
-                                        <Grid item>
-                                            <h4 style={{ color: 'white' }}>3. Apa Itu Sistem Interaksi</h4>
-                                        </Grid>
-                                    </Grid>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
-
+                                    </CardActionArea>
+                                </Card>
+                            </Grid>
+                            :
+                            props.chapterList.map((chapter, i) => {
+                                let chapterData = chapter.split("-")
+                                return (
+                                    <Grid item style={{ width: '100%' }}>
+                                        <Card style={{ backgroundColor: '#3D7DCA' }}>
+                                            <CardActionArea onClick={() => { handleClick(parseInt(chapterData[0])) }}>
+                                                <Grid container direction="row" spacing={0} alignItems="center"  >
+                                                    <Grid item style={{ padding: '6px' }}>
+                                                        <h4 style={{ color: 'white' }}>{i + 1 + ". " + chapterData[1]}</h4>
+                                                    </Grid>
+                                                </Grid>
+                                            </CardActionArea>
+                                        </Card>
+                                    </Grid>);
+                            })
+                        }
                     </Grid>
                 </Grid>
                 <Grid item xs={9} style={{ padding: '20px 20px' }}>

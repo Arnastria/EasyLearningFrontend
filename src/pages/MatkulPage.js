@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { CardMedia, Grid, Button, } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { Appbar } from '../components/Appbar';
 import Typography from '@material-ui/core/Typography';
 import MateriCard from '../components/MateriCard';
@@ -71,6 +72,7 @@ function Matkul(props) {
     const classes = useStyles();
 
     const [isLoading, setIsLoading] = useState(true);
+    const [isLoadingMaterial, setIsLoadingMaterial] = useState(true);
     const [course, setCourse] = useState({
         'code': '',
         'name': '',
@@ -80,23 +82,45 @@ function Matkul(props) {
         'links': '',
     });
 
-    console.log("welcome to matkul id ")
-    console.log(id_course)
-    function handleClick() {
-        props.changePage("/sister")
+    const [material, setMaterial] = useState([]);
+
+    // console.log("welcome to matkul id ")
+    // console.log(id_course)
+    function openSilabus() {
+        window.location.replace("https://" + course.links.silabus);
     }
 
     useEffect(() => {
         if (course['code'] == '') {
             APIUtility.get('/api/course/' + id_course, {}).then((response) => {
                 let courseJSON = JSON.parse(response.data.model)
-                console.log(courseJSON)
-                setCourse(courseJSON[0]['fields']);
+                // console.log(courseJSON)
+                let courseObject = {
+                    'code': courseJSON[0]['fields']['code'],
+                    'name': courseJSON[0]['fields']['name'],
+                    'aliasName': courseJSON[0]['fields']['aliasName'],
+                    'intro': courseJSON[0]['fields']['intro'],
+                    'description': courseJSON[0]['fields']['description'],
+                    'links': JSON.parse(courseJSON[0]['fields']['links']),
+                };
+                // console.log(courseObject);
+                setCourse(courseObject);
             });
             setIsLoading(false);
         }
 
+        if (material.length == 0) {
+            console.log("fetching material")
+            APIUtility.get('/api/material/get-by-course/' + id_course, {}).then((response) => {
+                let materialsJSON = JSON.parse(response.data.materials)
+
+                console.log(materialsJSON);
+                setMaterial(materialsJSON);
+            });
+            setIsLoadingMaterial(false);
+        }
     }, [])
+
 
     if (isLoading) {
         return (<>
@@ -106,7 +130,7 @@ function Matkul(props) {
                     container
                     alignItems="center"
                     justify="center"
-                    style={{ minHeight: '30vh', marginTop: '60px', padding: '30px 0px' }}
+                    style={{ minHeight: '100vh', marginTop: '60px', padding: '30px 0px' }}
                 >
                     <Grid item>
                         <CircularProgress />
@@ -133,15 +157,25 @@ function Matkul(props) {
                         <Grid container spacing={3} alignItems="center"
                             justify="center" direction="column">
                             <Grid item>
-                                <CardMedia
-                                    className={classes.media}
-                                    image={"https://files.catbox.moe/mnfc1y.svg"}
-                                />
+                                {course.links == '' ?
+                                    <Skeleton width={100} height={100} variant="circle" animation="wave" />
+                                    : <CardMedia
+                                        className={classes.media}
+                                        image={course.links.icon}
+                                    />}
+
                             </Grid>
                             <Grid item>
-                                <Button variant="contained"
-                                    style={{ backgroundColor: "white" }}
-                                    disableElevation>Lihat Silabus</Button>
+                                {course.links == '' ?
+                                    <div >
+                                        <Skeleton width={120} height={40} variant="rect" animation="wave" />
+                                    </div>
+
+                                    : <Button variant="contained"
+                                        style={{ backgroundColor: "white" }}
+                                        onClick={openSilabus}
+                                        disableElevation>Lihat Silabus</Button>}
+
                             </Grid>
                         </Grid>
 
@@ -149,37 +183,55 @@ function Matkul(props) {
                     <Grid item xs={6}>
                         <Grid container spacing={1} direction="column">
                             <Grid item>
-                                <b style={{ color: 'white', fontSize: '36px' }} >{course.name}</b>
+                                {course.name == '' ?
+                                    <Skeleton variant="text" />
+                                    : <b style={{ color: 'white', fontSize: '36px' }} >{course.name}</b>
+                                }
                             </Grid>
                             <Grid item>
-                                <b style={{ color: 'white', fontSize: '18px' }} >{course.intro}</b>
+                                {course.intro == '' ?
+                                    <Skeleton variant="text" />
+                                    : <b style={{ color: 'white', fontSize: '18px' }} >{course.intro}</b>
+                                }
                             </Grid>
                             <Grid item style={{ color: 'white' }}>
                                 <Typography variant="body" color="white" component="p">
-                                    {course.description}
+                                    {course.description == '' ?
+                                        <Skeleton variant="text" />
+                                        : <>{course.description}</>
+                                    }
+
                                 </Typography>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
+                {isLoadingMaterial ?
+                    <Grid container spacing={1} style={{ minHeight: '30vh', maxWidth: "100%", padding: "16px 160px" }}>
+                        <Grid item>
+                            <CircularProgress />
+                        </Grid>
+                    </Grid>
 
-                <Grid container spacing={1} style={{ minHeight: '30vh', maxWidth: "100%", padding: "16px 160px" }}>
-                    <Grid item xs>
-                        <MateriCard changePage={props.changePage} number={1} judul={"Pengantar Sistem Informasi"}></MateriCard>
+                    :
+                    <Grid container spacing={1} style={{ minHeight: '30vh', maxWidth: "100%", padding: "16px 160px" }}>
+                        {material.map((materi, i) => {
+                            return (
+                                <Grid item>
+                                    <MateriCard
+                                        changePage={props.changePage}
+                                        number={i + 1}
+                                        courseId={id_course}
+                                        materiID={materi.pk}
+                                        judul={materi.fields.name}
+                                        description={materi.fields.description}
+                                    />
+                                </Grid>
+                            );
+                        })}
                     </Grid>
-                    <Grid item xs>
-                        <MateriCard number={2} judul={"Prinsip Dasar Kognisi"}></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={3} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={4} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                    <Grid item xs>
-                        <MateriCard number={5} judul={"Prinsip Dasar Kognisi"} ></MateriCard>
-                    </Grid>
-                </Grid>
+
+                }
             </div>
         </>
     );

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
+import { useParams } from 'react-router-dom';
 import { CardMedia, Grid, Button, Container, Link, Card, } from '@material-ui/core';
 // import { Document, Page, pdfjs } from 'react-pdf';
 import { Appbar } from '../components/Appbar';
@@ -14,6 +15,9 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import file from '../pdf/DesainInteraksi';
 import ThreadCard from '../components/ThreadCard';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import APIUtility from '../utils/APIUtility';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 //AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
@@ -72,22 +76,85 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MateriSlide(props) {
-
-    const classes = useStyles();
-
     const list = [
         { color: "inherit", link: "/sister", name: "Sistem Interaksi" },
         { color: "primary", link: "/materi", name: "Bab 1. Pengantar Sistem Informasi" },
     ];
+    const { id_course, id_materi } = useParams();
+    const classes = useStyles();
+    const [isLoading, setIsLoading] = useState(true);
+    const [isLoadinPost, setIsLoadingPost] = useState(true);
+    const [noPostOnForum, setNoPostOnForum] = useState(true);
+    const [materi, setMateri] = useState(null);
+    const [post, setPost] = useState(null);
+    useEffect(() => {
+        if (materi === null) {
+            APIUtility.get('/api/material/' + id_materi, {}).then((response) => {
+                let materiJSON = JSON.parse(response.data.model)
+                let materiObject = {
+                    'course': materiJSON[0]['fields']['course'],
+                    'name': materiJSON[0]['fields']['name'],
+                    'intro': materiJSON[0]['fields']['intro'],
+                    'pdf': materiJSON[0]['fields']['pdf'],
+                    'description': materiJSON[0]['fields']['description'],
+                    'links': JSON.parse(materiJSON[0]['fields']['links']),
+                    'pdf_chapter': JSON.parse(materiJSON[0]['fields']['pdf_chapter']),
+                };
+                console.log(materiObject)
+                setMateri(materiObject)
+            });
+            setIsLoading(false);
+        }
+        if (post === null) {
+            APIUtility.get('/api/get-latest-post-by-material/' + id_materi, {}).then((response) => {
+                let postJSON = JSON.parse(response.data.post)
+                if (postJSON.length == 0) {
+                    return;
+                }
+                setNoPostOnForum(false);
+                let postObject = {
+                    'pk': postJSON[0]['pk'],
+                    'material': postJSON[0]['fields']['material'],
+                    'profile': postJSON[0]['fields']['profile'],
+                    'body': postJSON[0]['fields']['body'],
+                    'category': postJSON[0]['fields']['category'],
+                    'date': postJSON[0]['fields']['date'],
+                };
+                setPost(postObject)
+                console.log(postJSON)
+            });
+        }
+
+    }, [])
 
     function handleClick() {
         props.changePage("/thread")
     }
 
+
+
     const preventDefault = (event) => {
         event.preventDefault()
     };
+    if (isLoading) {
+        return (<>
+            <div className={classes.root}>
+                <Appbar changePage={props.changePage} />
+                <Grid
+                    container
+                    alignItems="center"
+                    justify="center"
+                    style={{ minHeight: '100vh', marginTop: '60px', padding: '30px 0px' }}
+                >
+                    <Grid item>
+                        <CircularProgress />
+                    </Grid>
+                </Grid>
 
+            </div>
+        </>);
+
+    }
     return (
         <>
             <div className={classes.root}>
@@ -128,27 +195,49 @@ function MateriSlide(props) {
                                 <Grid item xs={8}>
                                     <Grid container spacing={1} direction="column">
                                         <Grid item>
-                                            <b style={{ fontSize: '24px', marginRight: '12px' }} >1</b>
-                                            <b style={{ fontSize: '24px' }} >Pengantar Sistem Interaksi</b>
+                                            {materi === null ?
+                                                <Skeleton variant="text" />
+                                                : <b style={{ fontSize: '28px', marginRight: '12px' }} >{materi.course}</b>
+                                            }
+                                            {materi === null ?
+                                                <Skeleton variant="text" /> :
+                                                <b style={{ fontSize: '28px' }} >{materi.name}</b>
+                                            }
                                         </Grid>
                                         <Grid item>
-                                            <b style={{ fontSize: '14px' }} >Bagaimana raksasa teknologi seperti Google mengembangkan produk yang menarik dan mudah digunakan oleh jutaan penggunanya ?</b>
+                                            {materi === null ?
+                                                <Skeleton variant="text" /> :
+                                                <b style={{ fontSize: '12px' }} >{materi.intro}</b>
+                                            }
                                         </Grid>
                                         <Grid item >
-                                            <Typography variant="body" color="white" component="p" style={{ fontSize: '12px' }}>
-                                                Pada bab ini kamu akan belajar mengenai dasar-dasar desain interaksi, istilah-istilah yang mungkin pernah kamu dengar seperti UI/UX, dan penerapannya dalam pengembangan produk digital, seperti website dan mobile apps
-                                            </Typography>
+                                            {materi === null ?
+                                                <Skeleton variant="text" /> :
+                                                <Typography variant="body" component="p" style={{ fontSize: '14px' }}>
+                                                    {materi.description}
+                                                </Typography>
+                                            }
+
                                         </Grid>
                                         <Grid item style={{ marginTop: '14px' }}>
                                             <Grid container spacing={3} direction="row">
                                                 <Grid item xs>
-                                                    <Button style={{ width: '100%' }} variant="outlined" color="primary" startIcon={<ArrowBackIcon />} onClick={handleClick}>Pre-Quiz</Button>
+                                                    <Button style={{ width: '100%' }} variant="outlined" color="primary" startIcon={<ArrowBackIcon />}
+                                                        onClick={() => { props.changePage('/course/' + id_course + "/prequiz") }}>
+                                                        Pre-Quiz
+                                                    </Button>
                                                 </Grid>
                                                 <Grid item xs >
-                                                    <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<PlayArrowIcon />}>Lihat Video Intro</Button>
+                                                    <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<PlayArrowIcon />}
+                                                        onClick={() => { window.location.replace(materi.links['link-list'][0].split('-')[1]); }}>
+                                                        Lihat Video Intro
+                                                        </Button>
                                                 </Grid>
                                                 <Grid item xs >
-                                                    <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<AssignmentIcon />}>Peta Konsep</Button>
+                                                    <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<AssignmentIcon />}
+                                                        onClick={() => { window.location.replace(materi.links['link-list'][2].split('-')[1]); }}>
+                                                        Peta Konsep
+                                                        </Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -162,21 +251,19 @@ function MateriSlide(props) {
                     </Container>
                     <Grid item>
                         <Card>
-                            <PDFViewerExample pdf={`data:application/pdf;base64,${file}`} />
+                            {materi === null ? <Skeleton variant="text" />
+                                :
+                                <PDFViewerExample
+                                    chapterList={materi.pdf_chapter['chapter-list']}
+                                    pdf={`data:application/pdf;base64,${file}`}
+                                />
+                            }
+
                         </Card>
                     </Grid>
                     <Container maxWidth="sm">
                         <Typography component="div" style={{ height: '16px' }} />
                     </Container>
-
-                    {/* <Grid item>
-                        <Card>
-                            <PDFViewerExample pdf={'https://files.catbox.moe/071fl9.pdf'} />
-                        </Card>
-                    </Grid>
-                    <Container maxWidth="sm">
-                        <Typography component="div" style={{ height: '16px' }} />
-                    </Container> */}
                     <Grid item >
                         <Card>
                             <Grid
@@ -201,45 +288,33 @@ function MateriSlide(props) {
                                 style={{ padding: '16px 0px' }}
                             >
                                 <Typography component="div" style={{ width: '16px' }} />
-                                <Grid item>
-                                    <Link style={{ color: '#3D7DCA', fontSize: '14px' }} href="#" onClick={preventDefault}>
-                                        <Grid container alignItems="center" alignContent="center">
-                                            <Grid item>
-                                                <PlayCircleFilledIcon />
-                                            </Grid>
-                                            <Grid item>
-                                                <b >[VIDEO] Meet the UX Researcher : Gita</b>
-                                            </Grid>
-                                        </Grid>
-                                    </Link>
-                                </Grid>
-                                <Typography component="div" style={{ width: '16px' }} />
-                                <Grid item>
-                                    <Link style={{ color: '#3D7DCA', fontSize: '14px' }} href="#" onClick={preventDefault}>
-                                        <Grid container alignItems="center" alignContent="center">
-                                            <Grid item>
-                                                <PlayCircleFilledIcon />
-                                            </Grid>
-                                            <Grid item>
-                                                <b >[VIDEO] A Day in the Life : UX Researchers at Google</b>
-                                            </Grid>
-                                        </Grid>
-                                    </Link>
-                                </Grid>
-                                <Typography component="div" style={{ width: '16px' }} />
-                                <Grid item>
-                                    <Link style={{ color: '#3D7DCA', fontSize: '14px' }} href="#" onClick={preventDefault}>
-                                        <Grid container alignItems="center" alignContent="center">
-                                            <Grid item>
-                                                <LibraryBooksIcon />
-                                            </Grid>
-                                            <Grid item>
-                                                <b >[WEBSITE] Usability.Gov - What is Usability  ?</b>
-                                            </Grid>
-                                        </Grid>
-                                    </Link>
-                                </Grid>
-                                <Typography component="div" style={{ width: '16px' }} />
+                                {materi === null ? <Skeleton variant="text" />
+                                    :
+                                    materi.links['link-list'].map((link) => {
+                                        let linkData = link.split('-');
+                                        if (linkData[0] === 'logo' || linkData[0] === 'konsep' || linkData[0] === 'video intro') {
+                                            return (<></>);
+                                        } else {
+                                            return (
+                                                <>
+                                                    <Grid item>
+                                                        <Link style={{ color: '#3D7DCA', fontSize: '14px' }} href={linkData[1]}>
+                                                            <Grid container alignItems="center" alignContent="center">
+                                                                <Grid item>
+                                                                    <PlayCircleFilledIcon />
+                                                                </Grid>
+                                                                <Grid item>
+                                                                    <b >{linkData[0]}</b>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Link>
+                                                    </Grid>
+                                                    <Typography component="div" style={{ width: '16px' }} />
+                                                </>
+                                            );
+                                        }
+                                    })
+                                }
                             </Grid>
                         </Card>
                     </Grid>
@@ -261,22 +336,43 @@ function MateriSlide(props) {
                                 <Grid item>
                                     <b>Diskusi Terbaru</b>
                                 </Grid>
-                                <Grid item>
-                                    <CardMedia
-                                        className={classes.media}
-                                        image="https://files.catbox.moe/5kro61.svg"
-                                    />
-                                </Grid>
-                                <Grid item>
-                                    <b>Belum ada diskusi</b>
-                                </Grid>
-                                <Grid item>
-                                    Mulai sekarang untuk memperkaya pemahamanmu
-                                </Grid>
-                                <Typography component="div" style={{ height: '16px' }} />
-                                <Grid item>
-                                    <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleClick}>Buat Thread</Button>
-                                </Grid>
+                                {noPostOnForum
+                                    ?
+                                    <>
+                                        <Grid item>
+                                            <CardMedia
+                                                className={classes.media}
+                                                image="https://files.catbox.moe/5kro61.svg"
+                                            />
+                                        </Grid>
+                                        <Grid item>
+                                            <b>Belum ada diskusi</b>
+                                        </Grid>
+                                        <Grid item>
+                                            Mulai sekarang untuk memperkaya pemahamanmu
+                                        </Grid>
+                                        <Typography component="div" style={{ height: '16px' }} />
+                                        <Grid item>
+                                            <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleClick}>Buat Thread</Button>
+                                        </Grid>
+                                    </>
+                                    :
+                                    <>
+                                        <Typography component="div" style={{ height: '16px' }} />
+                                        <Grid item>
+                                            <Button style={{ width: '100%' }} variant="contained" color="primary" onClick={handleClick}>Buka forum</Button>
+                                        </Grid>
+                                        <Grid item style={{ margin: '20px' }}>
+                                            <ThreadCard
+                                                isOutlined={true}
+                                                Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
+                                                Author={'Ariq Naufal Satria'}
+                                                Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
+                                            />
+                                        </Grid>
+                                    </>
+                                }
+
                             </Grid>
 
                         </Card>
@@ -284,38 +380,6 @@ function MateriSlide(props) {
                     <Container maxWidth="sm">
                         <Typography component="div" style={{ height: '16px' }} />
                     </Container>
-
-
-                    {/* Kalau ada diskusi */}
-                    <Grid item >
-                        <Card>
-                            <Grid
-                                container
-                                justify="center"
-                                direction="column"
-                                alignItems="center"
-                                alignContent="center"
-                                style={{ padding: '16px 0px 16px 0px' }}
-                            >
-                                <Grid item>
-                                    <b>Diskusi Terbaru</b>
-                                </Grid>
-                                <Typography component="div" style={{ height: '16px' }} />
-                                <Grid item>
-                                    <Button style={{ width: '100%' }} variant="contained" color="primary" onClick={handleClick}>Buka forum</Button>
-                                </Grid>
-                                <Grid item style={{ margin: '20px' }}>
-                                    <ThreadCard
-                                        isOutlined={true}
-                                        Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
-                                        Author={'Ariq Naufal Satria'}
-                                        Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
-                                    />
-                                </Grid>
-                            </Grid>
-                        </Card>
-                    </Grid>
-
                 </Grid>
             </div>
         </>
