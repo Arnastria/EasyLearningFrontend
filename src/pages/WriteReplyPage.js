@@ -14,6 +14,7 @@ import 'react-mde/lib/styles/css/react-mde-all.css';
 import { Alert } from "@material-ui/lab";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import APIUtility from '../utils/APIUtility';
+import ThreadCard from '../components/ThreadCard';
 
 //AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
@@ -22,17 +23,21 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function WriteThreadPage(props) {
+function WriteReplyPage(props) {
+
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+    }
 
     const classes = useStyles();
-    const { id_course, id_materi } = useParams();
+    const query = useQuery();
+    const { id_course, id_materi, id_thread } = useParams();
     const [value, setValue] = useState("**Hello world!!!**");
     const [selectedTab, setSelectedTab] = useState("write");
-    const title = useForm("");
-    const category = useForm(0);
     const [nextState, setNextState] = useState("");
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(query.get('state') != undefined);
     const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
+    const [post, setPost] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const list = [
@@ -42,48 +47,6 @@ function WriteThreadPage(props) {
         { color: "primary", link: "/thread/new", name: "Buat Thread" },
     ];
 
-    function useForm(defaultValue, regex) {
-        const [value, setValue] = useState(defaultValue);
-        const [isError, setIsError] = useState(false);
-        const [errorMessage, setErrorMessage] = useState("");
-
-        const handleChange = (event, value) => {
-            if (event.target.value == "") {
-                setIsError(true);
-                setErrorMessage("Tidak boleh kosong");
-            } else {
-                setIsError(false);
-                setErrorMessage("");
-            }
-            setValue(event.target.value);
-        };
-
-        const handleChangeMultiSelector = (event, value) => {
-            event.persist();
-            setValue(value);
-        };
-
-        const handleChangeSelector = (event, value) => {
-            event.persist();
-            if (value == null) {
-                return;
-            }
-            setValue(value);
-        };
-
-        return {
-            value,
-            setValue,
-            isError,
-            setIsError,
-            errorMessage,
-            setErrorMessage,
-            handleChange,
-            handleChangeMultiSelector,
-            handleChangeSelector,
-        };
-    }
-
     const handleClick = () => {
 
     }
@@ -92,17 +55,14 @@ function WriteThreadPage(props) {
         console.log(value)
         setIsLoading(true);
         if (
-            !title.value ||
-            title.isError
+            value == ''
         ) {
             setIsDialogOpen(true);
             setIsLoading(false);
             return;
         }
-        await APIUtility.post('/api/material/' + id_materi + '/createpost/',
+        await APIUtility.post('/api/post/' + id_thread + '/createreply/',
             {
-                title: title.value,
-                category: 0,
                 body: value
             }
         ).then((response) => {
@@ -124,14 +84,34 @@ function WriteThreadPage(props) {
         strikethrough: true,
         tasklists: true
     });
+    useEffect(() => {
+        if (post === null) {
+            APIUtility.get('/api/post/' + id_thread, {}).then((response) => {
+                let postJSON = JSON.parse(response.data.model)
+                let postObject = {
+                    'pk': postJSON[0]['pk'],
+                    'material': postJSON[0]['fields']['material'],
+                    'profile': postJSON[0]['fields']['profile'],
+                    'author_name': postJSON[0]['fields']['author_name'],
+                    'title': postJSON[0]['fields']['title'],
+                    'body': postJSON[0]['fields']['body'],
+                    'category': postJSON[0]['fields']['category'],
+                    'date': postJSON[0]['fields']['date'],
+                    'last_modified': postJSON[0]['fields']['last_modified'],
+                };
+                setPost(postObject)
+            });
+            setIsLoading(false);
+        }
 
+    }, [])
 
     if (isSuccessDialogOpen) {
         return (
             <>
                 <Redirect
                     to={{
-                        pathname: "/course/" + id_course + "/materi/" + id_materi + "/thread/",
+                        pathname: "/course/" + id_course + "/materi/" + id_materi + "/thread/details/" + id_thread + "/",
                         search: "?state=" + nextState,
                     }}
                 />
@@ -174,6 +154,24 @@ function WriteThreadPage(props) {
                             Kembali
                         </Button>
                     </Grid>
+                    <Grid item>
+                        {post == null ? <CircularProgress /> :
+                            <ThreadCard
+                                isOutlined={true}
+                                Title={post['title']}
+                                TimeStamp={post['last_modified']}
+                                Author={post['author_name']}
+                                changePage={props.changePage}
+                                id_course={id_course}
+                                id_materi={id_materi}
+                                id_post={id_thread}
+                                Text={post['body']}
+                            />
+                        }
+                    </Grid>
+                    <Grid item>
+                        <Typography style={{ height: '16px' }}></Typography>
+                    </Grid>
                     <Grid item >
                         <Card>
                             <Grid
@@ -185,19 +183,7 @@ function WriteThreadPage(props) {
                                 style={{ padding: '16px 0px 16px 0px' }}
                             >
                                 <Grid item>
-                                    <h2 style={{ margin: '10px 0px 0px 0px' }}>Buat Thread</h2>
-                                </Grid>
-                                <Grid item style={{ width: '80%', padding: '10px' }}>
-                                    <TextFieldOutline
-                                        value={title.value}
-                                        error={title.isError}
-                                        helperText={title.errorMessage}
-                                        fullWidth
-                                        id="outlined-basic"
-                                        name="title"
-                                        labels="Judul Diskusi *"
-                                        onChange={title.handleChange}
-                                    />
+                                    <h2 style={{ margin: '10px 0px 0px 0px' }}>Tulis Komentar</h2>
                                 </Grid>
                                 <Grid item style={{ width: '100%', padding: '10px' }}>
                                     <ReactMde
@@ -217,7 +203,7 @@ function WriteThreadPage(props) {
                                 </Grid>
                                 <Typography component="div" style={{ height: '16px' }} />
                                 <Grid item>
-                                    <Button style={{ width: '100%' }} variant="contained" color="primary" onClick={handleSubmit}>Tulis diskusi</Button>
+                                    <Button style={{ width: '100%' }} variant="contained" color="primary" onClick={handleSubmit}>Tulis komentar</Button>
                                 </Grid>
                             </Grid>
 
@@ -238,7 +224,7 @@ function WriteThreadPage(props) {
                         setIsSuccessDialogOpen(false);
                     }}
                 >
-                    Berhasil menulis thread !
+                    Berhasil menulis komentar !
             </Alert>
             </Snackbar>
             <Snackbar
@@ -261,4 +247,4 @@ function WriteThreadPage(props) {
     );
 }
 
-export { WriteThreadPage };
+export { WriteReplyPage };

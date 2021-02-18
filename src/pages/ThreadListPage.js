@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Button, Card, } from '@material-ui/core';
+import { useParams, useLocation } from 'react-router-dom';
+import { Grid, Button, Card, Snackbar } from '@material-ui/core';
 import { Appbar } from '../components/Appbar';
 import Breadcrumb from '../components/Breadcrumb';
 import AddIcon from '@material-ui/icons/Add';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import * as Showdown from "showdown";
 import Typography from '@material-ui/core/Typography';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import ThreadCard from '../components/ThreadCard';
+import { Alert } from "@material-ui/lab";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import APIUtility from '../utils/APIUtility';
+import { userService } from '../utils/UserService';
 
 //AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
@@ -19,9 +23,17 @@ const useStyles = makeStyles((theme) => ({
 
 function ThreadListPage(props) {
 
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+    }
+
     const classes = useStyles();
-    // const [value, setValue] = useState("**Hello world!!!**");
-    // const [selectedTab, setSelectedTab] = useState("write");
+    const query = useQuery();
+    const { id_course, id_materi } = useParams();
+    const [listPost, setListPost] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isDialogOpen, setIsDialogOpen] = useState(query.get('state') != undefined);
+
 
     const list = [
         { color: "inherit", link: "/sister", name: "Sistem Interaksi" },
@@ -30,22 +42,52 @@ function ThreadListPage(props) {
     ];
 
     function handleClick() {
-        props.changePage("/thread/new")
+        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/new")
     }
 
     const preventDefault = (event) => {
         event.preventDefault()
     };
-
-    const converter = new Showdown.Converter({
-        tables: true,
-        simplifiedAutoLink: true,
-        strikethrough: true,
-        tasklists: true
-    });
-
+    useEffect(() => {
+        if (listPost == null) {
+            console.log("fetching material")
+            APIUtility.get('/api/post/get-by-material/' + id_course, {}).then((response) => {
+                let listPostJSON = JSON.parse(response.data.post)
+                setListPost(listPostJSON);
+            });
+            setIsLoading(false);
+        }
+    }, [])
+    if (isLoading) {
+        return (<>
+            <div className={classes.root}>
+                <Appbar changePage={props.changePage} />
+                <Grid
+                    container
+                    alignItems="center"
+                    justify="center"
+                    style={{ minHeight: '100vh', marginTop: '60px', padding: '30px 0px' }}
+                >
+                    <Grid item>
+                        <CircularProgress />
+                    </Grid>
+                </Grid>
+            </div>
+        </>);
+    }
     return (
         <>
+            {isDialogOpen && (
+                <Snackbar
+                    open={isDialogOpen}
+                    autoHideDuration={6000}
+                    onClose={() => setIsDialogOpen(false)}
+                >
+                    <Alert severity="success" onClose={() => setIsDialogOpen(false)}>
+                        Berhasil {query.get('state') == "success-create" ? "menulis" : query.get('state') == "success-edit" ? "Mengubah" : "menghapus"} thread !
+                </Alert>
+                </Snackbar>
+            )}
             <div className={classes.root}>
                 <Appbar changePage={props.changePage} />
                 <Grid
@@ -91,27 +133,31 @@ function ThreadListPage(props) {
                                     </Grid>
                                 </Grid>
                                 <Typography component="div" style={{ height: '16px' }} />
-                                <Grid item style={{ margin: '10px ' }}>
-                                    <ThreadCard
-                                        Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
-                                        Author={'Ariq Naufal Satria'}
-                                        Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
-                                    />
-                                </Grid>
-                                <Grid item style={{ margin: '10px ' }}>
-                                    <ThreadCard
-                                        Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
-                                        Author={'Ariq Naufal Satria'}
-                                        Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
-                                    />
-                                </Grid>
-                                <Grid item style={{ margin: '10px ' }}>
-                                    <ThreadCard
-                                        Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
-                                        Author={'Ariq Naufal Satria'}
-                                        Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
-                                    />
-                                </Grid>
+                                {isLoading || listPost == null ?
+                                    <CircularProgress />
+                                    :
+                                    listPost.map((post) => {
+                                        let pk = post.pk
+                                        post = post.fields
+                                        return (
+                                            <Grid item style={{ padding: '10px ', width: '100%' }}>
+                                                <ThreadCard
+                                                    isOutlined={true}
+                                                    Title={post['title']}
+                                                    TimeStamp={post['last_modified']}
+                                                    Author={post['author_name']}
+                                                    changePage={props.changePage}
+                                                    id_course={id_course}
+                                                    id_materi={id_materi}
+                                                    id_post={pk}
+                                                    isPreview={true}
+                                                    isEditable={userService.getName().toLowerCase() === post['author_name'].toLowerCase()}
+                                                    Text={post['body'].length > 200 ? post['body'].split(' ').slice(0, 75).join(' ') + "..." : post['body']}
+                                                />
+                                            </Grid>
+                                        );
+                                    })
+                                }
                             </Grid>
 
                         </Card>

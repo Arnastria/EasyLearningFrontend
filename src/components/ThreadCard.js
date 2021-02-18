@@ -1,7 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Paper, Avatar, Typography, Link } from '@material-ui/core';
+import { Grid, Paper, Avatar, Typography, Link, Button } from '@material-ui/core';
+import MarkdownView from 'react-showdown';
 import { red } from '@material-ui/core/colors';
+import AddIcon from '@material-ui/icons/Add';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,12 +31,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ThreadCard(props) {
-    const { Title, Author, Text, TimeStamp, isOutlined } = props;
+    const { Title, Author, Text, TimeStamp, isOutlined, isPreview, id_course, id_materi, id_post, isThreadStarter, isEditable } = props;
 
-    const preventDefault = (event) => {
+    const handleClick = (event) => {
         event.preventDefault()
-        console.log("ayy")
+        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/details/" + id_post);
     };
+
+    const handleEdit = (event) => {
+        event.preventDefault()
+        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/edit/" + id_post);
+    };
+
+    const handleComment = (event) => {
+        event.preventDefault()
+        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/" + id_post + "/reply/new");
+    }
 
     return (
         <Paper variant={isOutlined ? "outlined" : ""}>
@@ -45,28 +57,56 @@ export default function ThreadCard(props) {
                 <Grid item xs>
                     <Grid container direction="column">
                         <Grid item>
-                            <Typography variant="h6" gutterBottom>
-                                {Title}
+                            <Typography style={{ margin: '0px' }} variant="h6" gutterBottom>
+                                <b>{Title}</b>
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <b>{Author} - {TimeStamp}</b>
+                            <p style={{ margin: '0px', color: '#8F8F8F' }}>{Author} - {TimeStamp}</p>
+                        </Grid>
+                        <Grid item>
+                            <MarkdownView
+                                markdown={Text}
+                                options={{ tables: true, emoji: true }}
+                            />
                         </Grid>
                         <Grid item>
                             <Typography style={{ height: '6px' }} gutterBottom />
                         </Grid>
-                        <Grid item>
-                            {Text}
-                        </Grid>
-                        <Grid item>
-                            <Typography style={{ height: '6px' }} gutterBottom />
-                        </Grid>
-                        <Grid item>
+                        {isPreview ?
+                            <Grid item>
+                                <Grid container direction="row" spacing={2}>
+                                    <Grid item>
+                                        <Link style={{ color: '#5D97DB' }} href='' onClick={handleClick}>
+                                            <b >Lihat selengkapnya</b>
+                                        </Link>
+                                    </Grid>
+                                    {isEditable != undefined ? <Grid item>
+                                        <Link style={{ color: '#bdbdbd' }} href='' onClick={handleEdit}>
+                                            <b >Edit</b>
+                                        </Link>
+                                    </Grid> : <></>}
 
-                            <Link style={{ color: '#8F8F8F' }} href="#" onClick={preventDefault}>
-                                <b >Lihat selengkapnya</b>
-                            </Link>
-                        </Grid>
+                                </Grid>
+
+                            </Grid> : <> </>}
+                        {isThreadStarter ?
+                            <Grid item>
+                                <Grid container direction="row" spacing={2} alignItems="center">
+                                    <Grid item>
+                                        <Link style={{ color: '#8F8F8F' }}  >
+                                            <Button style={{ width: '100%' }} startIcon={<AddIcon />} variant="contained" color="primary" onClick={handleComment}>Komentar</Button>
+                                        </Link>
+                                    </Grid>
+                                    {isEditable != undefined ? <Grid item>
+                                        <Link style={{ color: '#bdbdbd' }} href='' onClick={handleEdit}>
+                                            <b >Edit</b>
+                                        </Link>
+                                    </Grid> : <></>}
+                                </Grid>
+
+
+                            </Grid> : <></>}
                     </Grid>
                 </Grid>
             </Grid>

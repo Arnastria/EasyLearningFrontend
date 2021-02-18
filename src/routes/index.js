@@ -23,6 +23,7 @@ import { ThreadPage } from "../pages/ThreadPage";
 import { StartAssessment } from "../pages/StartAssessment";
 import { AssessmentPage } from "../pages/AssessmentPage";
 import { EditThreadPage } from "../pages/EditThreadPage";
+import { WriteReplyPage } from "../pages/WriteReplyPage";
 
 function AuthRoute(props) {
     const { path, children, exact, render } = props;
@@ -76,10 +77,17 @@ export function AppSwitch(props) {
             <AuthRoute path="/course/:id_course/materi/:id_materi/thread/details/:id_thread">
                 <ThreadPage changePage={history.push} />
             </AuthRoute>
+            <AuthRoute path="/course/:id_course/materi/:id_materi/thread/:id_thread/reply/new">
+                <WriteReplyPage changePage={history.push} />
+            </AuthRoute>
+            <AuthRoute path="/course/:id_course/materi/:id_materi/thread/:id_thread/reply/:id_reply/edit">
+                <ThreadPage changePage={history.push} />
+                <h1>Reply Edit</h1>
+            </AuthRoute>
             <AuthRoute path="/course/:id_course/materi/:id_materi/thread/new">
                 <WriteThreadPage changePage={history.push} />
             </AuthRoute>
-            <AuthRoute path="/course/:id_course/materi/:id_materi/thread/edit">
+            <AuthRoute path="/course/:id_course/materi/:id_materi/thread/edit/:id_thread">
                 <EditThreadPage changePage={history.push} />
             </AuthRoute>
             <AuthRoute path="/course/:id_course/materi/:id_materi/thread">

@@ -9,7 +9,6 @@ import { PDFViewerExample } from '../components/PDFViewer';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
-import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
@@ -83,7 +82,6 @@ function MateriSlide(props) {
     const { id_course, id_materi } = useParams();
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
-    const [isLoadinPost, setIsLoadingPost] = useState(true);
     const [noPostOnForum, setNoPostOnForum] = useState(true);
     const [materi, setMateri] = useState(null);
     const [post, setPost] = useState(null);
@@ -100,7 +98,7 @@ function MateriSlide(props) {
                     'links': JSON.parse(materiJSON[0]['fields']['links']),
                     'pdf_chapter': JSON.parse(materiJSON[0]['fields']['pdf_chapter']),
                 };
-                console.log(materiObject)
+                // console.log(materiObject)
                 setMateri(materiObject)
             });
             setIsLoading(false);
@@ -112,16 +110,20 @@ function MateriSlide(props) {
                     return;
                 }
                 setNoPostOnForum(false);
+                // console.log(postJSON)
                 let postObject = {
                     'pk': postJSON[0]['pk'],
                     'material': postJSON[0]['fields']['material'],
                     'profile': postJSON[0]['fields']['profile'],
+                    'author_name': postJSON[0]['fields']['author_name'],
+                    'title': postJSON[0]['fields']['title'],
                     'body': postJSON[0]['fields']['body'],
                     'category': postJSON[0]['fields']['category'],
                     'date': postJSON[0]['fields']['date'],
+                    'last_modified': postJSON[0]['fields']['last_modified'],
                 };
                 setPost(postObject)
-                console.log(postJSON)
+                console.log(postObject)
             });
         }
 
@@ -363,12 +365,23 @@ function MateriSlide(props) {
                                             <Button style={{ width: '100%' }} variant="contained" color="primary" onClick={handleClick}>Buka forum</Button>
                                         </Grid>
                                         <Grid item style={{ margin: '20px' }}>
-                                            <ThreadCard
-                                                isOutlined={true}
-                                                Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
-                                                Author={'Ariq Naufal Satria'}
-                                                Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
-                                            />
+                                            {post == null ?
+                                                <CircularProgress />
+                                                :
+                                                <ThreadCard
+                                                    isOutlined={true}
+                                                    Title={post['title']}
+                                                    TimeStamp={post['last_modified']}
+                                                    Author={post['author_name']}
+                                                    changePage={props.changePage}
+                                                    id_course={id_course}
+                                                    id_materi={id_materi}
+                                                    id_post={post['pk']}
+                                                    isPreview={true}
+                                                    Text={post['body'].length > 200 ? post['body'].split(' ').slice(0, 25).join(' ') + "..." : post['body']}
+                                                />
+                                            }
+
                                         </Grid>
                                     </>
                                 }

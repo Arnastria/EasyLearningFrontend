@@ -31,16 +31,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ThreadReplyCard(props) {
-    const { Title, Author, Text, TimeStamp, isThreadStarter } = props;
+    const { Title, Author, Text, TimeStamp, isEditable, id_course, id_materi, id_post, id_reply } = props;
 
     const preventDefault = (event) => {
         event.preventDefault()
         console.log("ayy")
     };
 
-    function handleClick() {
-        props.changePage("/thread/new")
-    }
+    const handleEdit = (event) => {
+        event.preventDefault()
+        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/" + id_post + "/reply/" + id_reply + "/edit");
+    };
+
 
     return (
         <Paper variant="outlined">
@@ -51,15 +53,7 @@ export default function ThreadReplyCard(props) {
                 <Grid item xs>
                     <Grid container direction="column">
                         <Grid item>
-                            <Typography variant="h6" gutterBottom>
-                                {Title}
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            <b>{Author} - {TimeStamp}</b>
-                        </Grid>
-                        <Grid item>
-                            <Typography style={{ height: '6px' }} gutterBottom />
+                            <p style={{ margin: '0px', color: '#8F8F8F' }}>{Author} - {TimeStamp}</p>
                         </Grid>
                         <Grid item>
                             <MarkdownView
@@ -70,9 +64,9 @@ export default function ThreadReplyCard(props) {
                         <Grid item>
                             <Typography style={{ height: '6px' }} gutterBottom />
                         </Grid>
-                        {isThreadStarter ? <Grid item xs={3}>
-                            <Link style={{ color: '#8F8F8F' }} href="#" onClick={preventDefault}>
-                                <Button style={{ width: '100%' }} startIcon={<AddIcon />} variant="contained" color="primary" onClick={handleClick}>Komentar</Button>
+                        {isEditable ? <Grid item xs={3}>
+                            <Link style={{ color: '#bdbdbd' }} href='' onClick={handleEdit}>
+                                <b >Edit</b>
                             </Link>
                         </Grid> : <></>}
                     </Grid>
