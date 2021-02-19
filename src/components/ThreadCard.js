@@ -4,7 +4,7 @@ import { Grid, Paper, Avatar, Typography, Link, Button } from '@material-ui/core
 import MarkdownView from 'react-showdown';
 import { red } from '@material-ui/core/colors';
 import AddIcon from '@material-ui/icons/Add';
-
+import Moment from 'react-moment';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,7 +62,7 @@ export default function ThreadCard(props) {
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <p style={{ margin: '0px', color: '#8F8F8F' }}>{Author} - {TimeStamp}</p>
+                            <p style={{ margin: '0px', color: '#8F8F8F' }}>{Author} - <Moment format="DD MMM YYYY hh:mm" >{TimeStamp}</Moment></p>
                         </Grid>
                         <Grid item>
                             <MarkdownView

@@ -195,6 +195,7 @@ function ThreadPage(props) {
                                                     id_course={id_course}
                                                     id_materi={id_materi}
                                                     id_post={id_thread}
+                                                    id_reply={reply.pk}
                                                     isEditable={userService.getName().toLowerCase() === reply['fields']['author_name'].toLowerCase()}
                                                 />
                                             </Grid>

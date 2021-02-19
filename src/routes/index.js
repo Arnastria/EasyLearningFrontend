@@ -24,6 +24,7 @@ import { StartAssessment } from "../pages/StartAssessment";
 import { AssessmentPage } from "../pages/AssessmentPage";
 import { EditThreadPage } from "../pages/EditThreadPage";
 import { WriteReplyPage } from "../pages/WriteReplyPage";
+import { EditReplyPage } from "../pages/EditReplyPage";
 
 function AuthRoute(props) {
     const { path, children, exact, render } = props;
@@ -81,8 +82,7 @@ export function AppSwitch(props) {
                 <WriteReplyPage changePage={history.push} />
             </AuthRoute>
             <AuthRoute path="/course/:id_course/materi/:id_materi/thread/:id_thread/reply/:id_reply/edit">
-                <ThreadPage changePage={history.push} />
-                <h1>Reply Edit</h1>
+                <EditReplyPage changePage={history.push} />
             </AuthRoute>
             <AuthRoute path="/course/:id_course/materi/:id_materi/thread/new">
                 <WriteThreadPage changePage={history.push} />

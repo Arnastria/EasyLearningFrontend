@@ -133,6 +133,14 @@ function MateriSlide(props) {
         props.changePage("/thread")
     }
 
+    function openThread() {
+        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/")
+    }
+
+    function createThread() {
+        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/new")
+    }
+
 
 
     const preventDefault = (event) => {
@@ -355,16 +363,16 @@ function MateriSlide(props) {
                                         </Grid>
                                         <Typography component="div" style={{ height: '16px' }} />
                                         <Grid item>
-                                            <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<AddIcon />} onClick={handleClick}>Buat Thread</Button>
+                                            <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<AddIcon />} onClick={createThread}>Buat Thread</Button>
                                         </Grid>
                                     </>
                                     :
                                     <>
                                         <Typography component="div" style={{ height: '16px' }} />
                                         <Grid item>
-                                            <Button style={{ width: '100%' }} variant="contained" color="primary" onClick={handleClick}>Buka forum</Button>
+                                            <Button style={{ width: '100%' }} variant="contained" color="primary" onClick={openThread}>Buka forum</Button>
                                         </Grid>
-                                        <Grid item style={{ margin: '20px' }}>
+                                        <Grid item style={{ padding: '20px', width: '100%' }}>
                                             {post == null ?
                                                 <CircularProgress />
                                                 :
