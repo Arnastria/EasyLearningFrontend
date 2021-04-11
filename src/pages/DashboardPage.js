@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { InputBase, Grid, Paper, Avatar, Card, CardActionArea } from '@material-ui/core';
+import { InputBase, Grid, Paper, Avatar, Card, CardActionArea, CircularProgress } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Appbar } from '../components/Appbar';
 import { userService } from '../utils/UserService';
 import AnnouncementCard from '../components/AnnouncementCard';
+import APIUtility from '../utils/APIUtility';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,10 +61,25 @@ const useStyles = makeStyles((theme) => ({
 function Dashboard(props) {
 
   const classes = useStyles();
+  const [isLoading, setIsLoading] = useState(true);
+  const [courses, setCourses] = useState([]);
 
-  function handleClick() {
-    props.changePage("/sister")
+
+  function handleClick(pk) {
+    props.changePage("/course/" + pk)
   }
+
+  useEffect(() => {
+    if (courses.length == 0) {
+      console.log("fetching courses")
+      APIUtility.get('/api/course/get/', {}).then((response) => {
+        let coursesJSON = JSON.parse(response.data.model)
+
+        setCourses(coursesJSON);
+      });
+      setIsLoading(false);
+    }
+  }, [])
 
   return (
     <>
@@ -117,52 +133,31 @@ function Dashboard(props) {
                 <Grid item>
                   <h3 style={{ margin: 0 }}>Mata Kuliah Saya</h3>
                 </Grid>
-                <Grid item>
-                  <Card style={{ backgroundColor: '#3D7DCA' }}>
-                    <CardActionArea onClick={handleClick}>
-                      <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                {isLoading ?
+                  <Grid item>
+                    <CircularProgress />
+                  </Grid>
+                  :
+                  <>
+                    {courses.map((course, i) => {
+                      return (
                         <Grid item>
-                          <Avatar>SI</Avatar>
-                        </Grid>
-                        <Grid item>
-                          <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
-                        </Grid>
-                      </Grid>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
-
-                <Grid item>
-                  <Card style={{ backgroundColor: '#3D7DCA' }}>
-                    <CardActionArea>
-                      <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
-                        <Grid item>
-                          <Avatar>SI</Avatar>
-                        </Grid>
-                        <Grid item>
-                          <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
-                        </Grid>
-                      </Grid>
-                    </CardActionArea>
-
-                  </Card>
-                </Grid>
-
-                <Grid item>
-                  <Card style={{ backgroundColor: '#3D7DCA' }}>
-                    <CardActionArea>
-                      <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
-                        <Grid item>
-                          <Avatar>SI</Avatar>
-                        </Grid>
-                        <Grid item>
-                          <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
-                        </Grid>
-                      </Grid>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
-
+                          <Card style={{ backgroundColor: '#3D7DCA' }}>
+                            <CardActionArea onClick={() => { handleClick(course.pk) }}>
+                              <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                <Grid item>
+                                  <Avatar>{course.fields.name.split(" ")[0][0]}</Avatar>
+                                </Grid>
+                                <Grid item>
+                                  <h4 style={{ color: 'white' }}>{course.fields.name}</h4>
+                                </Grid>
+                              </Grid>
+                            </CardActionArea>
+                          </Card>
+                        </Grid>);
+                    })}
+                  </>
+                }
               </Grid>
             </Paper>
           </Grid>
@@ -194,7 +189,7 @@ function Dashboard(props) {
                 </Grid>
                 <Grid item style={{ margin: '6px 0px' }}>
                   <AnnouncementCard
-                    Title={'Pengumuman 1'}
+                    Title={'Pengumuman 2'}
                     Author={'Ariq Naufal Satria'}
                     Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
                   />
