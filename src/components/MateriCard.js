@@ -51,21 +51,21 @@ export default function MateriCard(props) {
                 <Grid item>
                     <CardMedia
                         className={classes.media}
-                        image="https://files.catbox.moe/qfaut0.svg"
+                        image={props.image}
                     />
                 </Grid>
             </Grid>
 
             <CardContent>
                 <Grid container direction="column"
-                    justify="space-between">
+                    justify="space-between" >
                     <Grid item>
                         <Typography variant="head" color="textSecondary" component="b">
                             {props.judul ?? "-"}
                         </Typography>
                     </Grid>
 
-                    <Grid item>
+                    <Grid item >
                         <Typography variant="body2" color="textSecondary" component="p">
                             {props.description.length > 200 ? props.description.split(' ').slice(0, 25).join(' ') + "..." : props.description}
                         </Typography>
@@ -80,7 +80,7 @@ export default function MateriCard(props) {
                                     onClick={handleClickMateri}
                                     disableElevation>Lihat Materi</Button>
                             </Grid>
-                            <Grid item style={{ width: '100%' }}>
+                            {/* <Grid item style={{ width: '100%' }}>
                                 <Button variant="outlined"
                                     color="secondary"
                                     fullWidth
@@ -89,15 +89,14 @@ export default function MateriCard(props) {
                                     Uji Pemahamanmu
                         </Button>
 
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                     </Grid>
 
 
                 </Grid>
             </CardContent>
-            <CardActions disableSpacing>
-            </CardActions>
+
         </Card>
     );
 }

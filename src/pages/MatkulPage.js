@@ -214,23 +214,29 @@ function Matkul(props) {
                     </Grid>
 
                     :
-                    <Grid container spacing={1} style={{ minHeight: '30vh', maxWidth: "100%", padding: "16px 160px" }}>
-                        {material.map((materi, i) => {
-                            return (
-                                <Grid item>
-                                    <MateriCard
-                                        changePage={props.changePage}
-                                        number={i + 1}
-                                        courseId={id_course}
-                                        materiID={materi.pk}
-                                        judul={materi.fields.name}
-                                        description={materi.fields.description}
-                                    />
-                                </Grid>
-                            );
-                        })}
-                    </Grid>
-
+                    <>
+                        <Grid container
+                            justify="center" spacing={1} style={{ minHeight: '30vh', maxWidth: "100%", padding: "16px 160px" }}>
+                            {material.map((materi, i) => {
+                                const links = JSON.parse(materi.fields.links)
+                                return (
+                                    <>
+                                        <Grid item>
+                                            <MateriCard
+                                                changePage={props.changePage}
+                                                number={i + 1}
+                                                image={links['link-list'][0].split("-")[1]}
+                                                courseId={id_course}
+                                                materiID={materi.pk}
+                                                judul={materi.fields.name}
+                                                description={materi.fields.description}
+                                            />
+                                        </Grid>
+                                    </>
+                                );
+                            })}
+                        </Grid>
+                    </>
                 }
             </div>
         </>

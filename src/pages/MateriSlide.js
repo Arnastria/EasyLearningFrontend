@@ -13,6 +13,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import file from '../pdf/DesainInteraksi';
+import { getSlide } from '../pdf/PdfHandler';
 import ThreadCard from '../components/ThreadCard';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import APIUtility from '../utils/APIUtility';
@@ -89,6 +90,7 @@ function MateriSlide(props) {
         if (materi === null) {
             APIUtility.get('/api/material/' + id_materi, {}).then((response) => {
                 let materiJSON = JSON.parse(response.data.model)
+                // console.log(materiJSON)
                 let materiObject = {
                     'course': materiJSON[0]['fields']['course'],
                     'name': materiJSON[0]['fields']['name'],
@@ -106,9 +108,6 @@ function MateriSlide(props) {
         if (post === null) {
             APIUtility.get('/api/get-latest-post-by-material/' + id_materi, {}).then((response) => {
                 let postJSON = JSON.parse(response.data.post)
-                if (postJSON.length == 0) {
-                    return;
-                }
                 setNoPostOnForum(false);
                 // console.log(postJSON)
                 let postObject = {
@@ -124,7 +123,12 @@ function MateriSlide(props) {
                 };
                 setPost(postObject)
                 console.log(postObject)
+            }).catch((error) => {
+                if (error.response.status == "404") {
+                    return;
+                }
             });
+
         }
 
     }, [])
@@ -195,10 +199,15 @@ function MateriSlide(props) {
                                 <Grid item xs>
                                     <Grid container justify="center">
                                         <Grid item>
-                                            <CardMedia
-                                                className={classes.media}
-                                                image="https://files.catbox.moe/qfaut0.svg"
-                                            />
+                                            {materi === null ?
+                                                <CircularProgress />
+                                                :
+                                                <CardMedia
+                                                    className={classes.media}
+                                                    image={materi.links['link-list'][0].split('-')[1]}
+                                                />
+                                            }
+
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -207,7 +216,7 @@ function MateriSlide(props) {
                                         <Grid item>
                                             {materi === null ?
                                                 <Skeleton variant="text" />
-                                                : <b style={{ fontSize: '28px', marginRight: '12px' }} >{materi.course}</b>
+                                                : <b style={{ fontSize: '28px', marginRight: '12px' }} >{id_materi}</b>
                                             }
                                             {materi === null ?
                                                 <Skeleton variant="text" /> :
@@ -239,7 +248,7 @@ function MateriSlide(props) {
                                                 </Grid>
                                                 <Grid item xs >
                                                     <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<PlayArrowIcon />}
-                                                        onClick={() => { window.location.replace(materi.links['link-list'][0].split('-')[1]); }}>
+                                                        onClick={() => { window.location.replace(materi.links['link-list'][1].split('-')[1]); }}>
                                                         Lihat Video Intro
                                                         </Button>
                                                 </Grid>
@@ -265,7 +274,7 @@ function MateriSlide(props) {
                                 :
                                 <PDFViewerExample
                                     chapterList={materi.pdf_chapter['chapter-list']}
-                                    pdf={`data:application/pdf;base64,${file}`}
+                                    pdf={`data:application/pdf;base64,${getSlide(materi.pdf)}`}
                                 />
                             }
 
@@ -302,13 +311,13 @@ function MateriSlide(props) {
                                     :
                                     materi.links['link-list'].map((link) => {
                                         let linkData = link.split('-');
-                                        if (linkData[0] === 'logo' || linkData[0] === 'konsep' || linkData[0] === 'video intro') {
+                                        if (linkData[0] === 'logo' || linkData[0] === 'konsep' || linkData[0] === 'video intro' || linkData[0] === 'mm') {
                                             return (<></>);
                                         } else {
                                             return (
                                                 <>
                                                     <Grid item>
-                                                        <Link style={{ color: '#3D7DCA', fontSize: '14px' }} href={linkData[1]}>
+                                                        <Link style={{ color: '#3D7DCA', fontSize: '14px' }} href={linkData.slice(1, linkData.length).join("-")}>
                                                             <Grid container alignItems="center" alignContent="center">
                                                                 <Grid item>
                                                                     <PlayCircleFilledIcon />
