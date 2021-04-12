@@ -145,6 +145,14 @@ function MateriSlide(props) {
         props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/new")
     }
 
+    const createChapterChecklist = (chapterList) => {
+        const chapterCheckList = {};
+        chapterList.map((chapter, i) => {
+            let chapterData = chapter.split("-");
+            chapterCheckList[parseInt(chapterData[0])] = false;
+        })
+        return chapterCheckList;
+    }
 
     const preventDefault = (event) => {
         event.preventDefault()
@@ -272,8 +280,9 @@ function MateriSlide(props) {
                             {materi === null ? <Skeleton variant="text" />
                                 :
                                 <>
-                                    <PDFViewerExample
+                                    <PDFViewerExampleSequential
                                         chapterList={materi.pdf_chapter['chapter-list']}
+                                        chapterCheckList={createChapterChecklist(materi.pdf_chapter['chapter-list'])}
                                         pdf={`data:application/pdf;base64,${getSlide(materi.pdf)}`}
                                     />
                                 </>
