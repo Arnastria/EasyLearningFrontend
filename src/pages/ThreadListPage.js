@@ -33,7 +33,13 @@ function ThreadListPage(props) {
     const [listPost, setListPost] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(query.get('state') != undefined);
-
+    const [listBreadCrumb, setListBreadCrumb] = useState(
+        [
+            { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course, name: "Sistem Interaksi" },
+            { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi, name: "Materi" },
+            { color: "primary", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread", name: "Forum Diskusi" },
+        ]
+    );
 
     const list = [
         { color: "inherit", link: "/sister", name: "Sistem Interaksi" },
@@ -97,7 +103,7 @@ function ThreadListPage(props) {
                     justify="flex-start"
                     style={{ backgroundColor: '#E5E5E5', minHeight: '100vh', marginTop: '60px', padding: '30px 15%' }}
                 >
-                    <Breadcrumb list={list} />
+                    <Breadcrumb list={listBreadCrumb} />
                     <Grid item style={{ margin: '0px 0px 12px 0px' }}>
                         <Button onClick={props.backToPrevious} variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
                             Kembali

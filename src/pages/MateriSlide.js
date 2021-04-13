@@ -122,7 +122,6 @@ function MateriSlide(props) {
             APIUtility.get('/api/get-latest-post-by-material/' + id_materi, {}).then((response) => {
                 let postJSON = JSON.parse(response.data.post)
                 setNoPostOnForum(false);
-                // console.log(postJSON)
                 let postObject = {
                     'pk': postJSON[0]['pk'],
                     'material': postJSON[0]['fields']['material'],

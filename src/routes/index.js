@@ -13,8 +13,6 @@ import { Dashboard } from "../pages/DashboardPage";
 
 import { Matkul } from "../pages/MatkulPage";
 import { MateriSlide } from "../pages/MateriSlide";
-import { MateriSlideSequential } from "../pages/MateriSlideSequential";
-import { MateriSlideIntSequential } from "../pages/MateriSlideIntSequential";
 import { PreQuiz } from '../pages/PreQuizPage';
 import { LoginSuccess } from "../pages/LoginSuccessPage";
 import { userService } from '../utils/UserService';
