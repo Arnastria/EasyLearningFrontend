@@ -9,6 +9,10 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: 345,
         height: '100%'
     },
+    root2: {
+        maxWidth: 445,
+        height: '100%'
+    },
     media: {
         width: 180,
         paddingTop: '56.25%', // 16:9
@@ -68,7 +72,7 @@ export default function MateriCard(props) {
                         <Typography component="div" style={{ width: '8px' }} />
                     </Grid>
                     <Grid item>
-                        <Card className={classes.root}>
+                        <Card className={classes.root2}>
                             <CardContent>
                                 <Grid container direction="column"
                                     justify="space-between" >
