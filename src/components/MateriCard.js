@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
         width: 180,
         paddingTop: '56.25%', // 16:9
     },
+    media2: {
+        height: 50,
+        width: 180,
+    },
     expand: {
         transform: 'rotate(0deg)',
         marginLeft: 'auto',
@@ -37,13 +41,71 @@ export default function MateriCard(props) {
     };
 
     function handleClickMateri() {
-        props.changePage("/course/" + props.courseId + "/materi/" + props.materiID)
+        props.changePage("/course/" + props.gayaBelajar + "/" + props.courseId + "/materi/" + props.materiID)
     }
 
     function handleClickAssessment() {
-        props.changePage("/course/" + props.courseId + "/materi/" + props.materiID + "/assessment/start")
+        props.changePage("/course/" + props.gayaBelajar + "/" + props.courseId + "/materi/" + props.materiID + "/assessment/start")
     }
+    if (props.isLong) {
+        return (
+            <div>
+                <Grid container direction="row">
+                    <Grid item>
+                        <Card className={classes.root}>
+                            <div style={{ paddingLeft: '12px' }}><h1 style={{ margin: '0', padding: '0' }}>{props.number ?? 0}</h1></div>
+                            <Grid container justify="center" alignItems="center" alignContent="center">
+                                <Grid item>
+                                    <CardMedia
+                                        className={classes.media}
+                                        image={props.image}
+                                    />
+                                </Grid>
+                            </Grid>
+                        </Card>
+                    </Grid>
+                    <Grid item>
+                        <Typography component="div" style={{ width: '8px' }} />
+                    </Grid>
+                    <Grid item>
+                        <Card className={classes.root}>
+                            <CardContent>
+                                <Grid container direction="column"
+                                    justify="space-between" >
+                                    <Grid item>
+                                        <Typography variant="head" color="textSecondary" component="b">
+                                            {props.judul ?? "-"}
+                                        </Typography>
+                                    </Grid>
 
+                                    <Grid item >
+                                        <Typography variant="body2" color="textSecondary" component="p">
+                                            {props.description.length > 200 ? props.description.split(' ').slice(0, 25).join(' ') + "..." : props.description}
+                                        </Typography>
+                                    </Grid>
+
+                                    <Grid item>
+                                        <Grid container justify="center" alignItems="center" alignContent="center">
+                                            <Grid item style={{ width: '100%', margin: '12px 0px' }}>
+                                                <Button variant="contained"
+                                                    color="primary"
+                                                    fullWidth
+                                                    onClick={handleClickMateri}
+                                                    disableElevation>Lihat Materi</Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                </Grid>
+
+            </div>
+
+
+        );
+    }
     return (
         <Card className={classes.root}>
             <div style={{ paddingLeft: '12px' }}><h1 style={{ margin: '0', padding: '0' }}>{props.number ?? 0}</h1></div>
