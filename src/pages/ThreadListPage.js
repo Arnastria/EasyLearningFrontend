@@ -51,7 +51,7 @@ function ThreadListPage(props) {
     useEffect(() => {
         if (listPost == null) {
             console.log("fetching material")
-            APIUtility.get('/api/post/get-by-material/' + id_course, {}).then((response) => {
+            APIUtility.get('/api/post/get-by-material/' + id_materi, {}).then((response) => {
                 let listPostJSON = JSON.parse(response.data.post)
                 setListPost(listPostJSON);
             });
@@ -99,7 +99,7 @@ function ThreadListPage(props) {
                 >
                     <Breadcrumb list={list} />
                     <Grid item style={{ margin: '0px 0px 12px 0px' }}>
-                        <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
+                        <Button onClick={props.backToPrevious} variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
                             Kembali
                         </Button>
                     </Grid>

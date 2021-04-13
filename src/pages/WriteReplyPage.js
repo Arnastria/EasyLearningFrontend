@@ -150,7 +150,7 @@ function WriteReplyPage(props) {
                 >
                     <Breadcrumb list={list} />
                     <Grid item style={{ margin: '0px 0px 12px 0px' }}>
-                        <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleClick}>
+                        <Button onClick={props.backToPrevious} variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleClick}>
                             Kembali
                         </Button>
                     </Grid>

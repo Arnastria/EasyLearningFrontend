@@ -39,7 +39,7 @@ function Appbar(props) {
     }
 
     const handleClickLogin = () => {
-        window.location.replace("https://skripz-backend.herokuapp.com/login/");
+        window.location.replace("http://localhost:8000/login/");
     }
 
     const classes = useStyles();
@@ -51,11 +51,11 @@ function Appbar(props) {
             <AppBar >
                 <Toolbar>
                     <Typography variant="h5" style={{ flexGrow: 0.1 }}>
-                        Skripz
+                        Easy-Learning
                     </Typography>
                     <Button color="inherit" onClick={handleClickBeranda}>Beranda</Button>
                     <Button color="inherit" onClick={handleClickBeranda}>Tentang</Button>
-                    <Button color="inherit" onClick={handleClickBeranda}>FAQ</Button>
+                    <Button color="inherit" onClick={handleClickBeranda}>Panduan</Button>
                     <div className={classes.separator} />
                     <div>
                         {!isLogin ?
@@ -66,7 +66,7 @@ function Appbar(props) {
                                     variant="contained"
                                     style={{ backgroundColor: "white" }}
                                     disableElevation
-                                    startIcon={<Avatar>A</Avatar>}
+                                    startIcon={<Avatar>{userService.getName().split(" ")[0][0]}</Avatar>}
                                     endIcon={<KeyboardArrowDownIcon />}
                                     onClick={handleClick}
                                 >

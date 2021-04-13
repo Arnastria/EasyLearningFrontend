@@ -108,7 +108,7 @@ function PreQuiz(props) {
                 >
                     <Breadcrumb list={list} />
                     <Grid item xs style={{ margin: '0px 0px 12px 0px' }}>
-                        <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
+                        <Button onClick={props.backToPrevious} variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
                             Kembali
                         </Button>
                     </Grid>
