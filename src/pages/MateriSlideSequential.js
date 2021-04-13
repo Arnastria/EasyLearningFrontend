@@ -5,6 +5,7 @@ import { CardMedia, Grid, Button, Container, Link, Card, } from '@material-ui/co
 // import { Document, Page, pdfjs } from 'react-pdf';
 import { Appbar } from '../components/Appbar';
 import Breadcrumb from '../components/Breadcrumb';
+import { Lightbox } from "react-modal-image";
 import { PDFViewerExample, PDFViewerExampleSequential } from '../components/PDFViewer';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -75,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function MateriSlide(props) {
+function MateriSlideSequential(props) {
     const list = [
         { color: "inherit", link: "/sister", name: "Sistem Interaksi" },
         { color: "primary", link: "/materi", name: "Bab 1. Pengantar Sistem Informasi" },
@@ -86,6 +87,7 @@ function MateriSlide(props) {
     const [noPostOnForum, setNoPostOnForum] = useState(true);
     const [materi, setMateri] = useState(null);
     const [post, setPost] = useState(null);
+    const [openMap, setOpenMap] = useState(false);
     useEffect(() => {
         if (materi === null) {
             APIUtility.get('/api/material/' + id_materi, {}).then((response) => {
@@ -132,6 +134,14 @@ function MateriSlide(props) {
         }
 
     }, [])
+
+    const handleOpenMap = () => {
+        setOpenMap(true);
+    }
+
+    const handleCloseMap = () => {
+        setOpenMap(false);
+    }
 
     function handleClick() {
         props.changePage("/thread")
@@ -189,7 +199,7 @@ function MateriSlide(props) {
                 >
                     <Breadcrumb list={list} />
                     <Grid item xs style={{ margin: '0px 0px 12px 0px' }}>
-                        <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
+                        <Button onClick={props.backToPrevious} variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
                             Kembali
                         </Button>
                     </Grid>
@@ -261,9 +271,17 @@ function MateriSlide(props) {
                                                 </Grid>
                                                 <Grid item xs >
                                                     <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<AssignmentIcon />}
-                                                        onClick={() => { window.location.replace(materi.links['link-list'][2].split('-')[1]); }}>
+                                                        onClick={handleOpenMap}>
                                                         Peta Konsep
                                                         </Button>
+                                                    {
+                                                        openMap && (<>
+                                                            <Lightbox
+                                                                large={materi.links['link-list'][2].split('-')[1]}
+                                                                onClose={handleCloseMap}
+                                                            />
+                                                        </>)
+                                                    }
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -426,4 +444,4 @@ function MateriSlide(props) {
     );
 }
 
-export { MateriSlide };
+export { MateriSlideSequential };
