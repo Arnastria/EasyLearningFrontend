@@ -31,7 +31,7 @@ function WriteReplyPage(props) {
 
     const classes = useStyles();
     const query = useQuery();
-    const { id_course, id_materi, id_thread } = useParams();
+    const { id_gaya_belajar, id_course, id_materi, id_thread } = useParams();
     const [value, setValue] = useState("**Hello world!!!**");
     const [selectedTab, setSelectedTab] = useState("write");
     const [nextState, setNextState] = useState("");
@@ -111,7 +111,7 @@ function WriteReplyPage(props) {
             <>
                 <Redirect
                     to={{
-                        pathname: "/course/" + id_course + "/materi/" + id_materi + "/thread/details/" + id_thread + "/",
+                        pathname: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/details/" + id_thread + "/",
                         search: "?state=" + nextState,
                     }}
                 />
@@ -162,6 +162,7 @@ function WriteReplyPage(props) {
                                 TimeStamp={post['last_modified']}
                                 Author={post['author_name']}
                                 changePage={props.changePage}
+                                id_gaya_belajar={id_gaya_belajar}
                                 id_course={id_course}
                                 id_materi={id_materi}
                                 id_post={id_thread}

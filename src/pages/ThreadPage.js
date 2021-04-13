@@ -31,7 +31,7 @@ function ThreadPage(props) {
 
     const classes = useStyles();
     const query = useQuery();
-    const { id_course, id_materi, id_thread } = useParams();
+    const { id_gaya_belajar, id_course, id_materi, id_thread } = useParams();
     const [post, setPost] = useState(null);
     const [replies, setReplies] = useState(null);
     const [isLoadingReplies, setIsLoadingReplies] = useState(true);
@@ -171,6 +171,7 @@ function ThreadPage(props) {
                                             TimeStamp={post['last_modified']}
                                             Author={post['author_name']}
                                             changePage={props.changePage}
+                                            id_gaya_belajar={id_gaya_belajar}
                                             id_course={id_course}
                                             id_materi={id_materi}
                                             id_post={post['pk']}
@@ -192,6 +193,7 @@ function ThreadPage(props) {
                                                     Author={reply['fields']['author_name']}
                                                     Text={reply['fields'].body}
                                                     changePage={props.changePage}
+                                                    id_gaya_belajar={id_gaya_belajar}
                                                     id_course={id_course}
                                                     id_materi={id_materi}
                                                     id_post={id_thread}

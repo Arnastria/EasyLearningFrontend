@@ -65,8 +65,8 @@ function Dashboard(props) {
   const [courses, setCourses] = useState([]);
 
 
-  function handleClick(pk) {
-    props.changePage("/course/" + pk)
+  function handleClick(pk, gayaBelajar) {
+    props.changePage("/course/" + gayaBelajar + "/" + pk)
   }
 
   useEffect(() => {
@@ -131,7 +131,7 @@ function Dashboard(props) {
                 style={{ padding: '12px' }}
               >
                 <Grid item>
-                  <h3 style={{ margin: 0 }}>Mata Kuliah Saya</h3>
+                  <h3 style={{ margin: 0 }}>Mata Kuliah Tersedia</h3>
                 </Grid>
                 {isLoading ?
                   <Grid item>
@@ -141,20 +141,54 @@ function Dashboard(props) {
                   <>
                     {courses.map((course, i) => {
                       return (
-                        <Grid item>
-                          <Card style={{ backgroundColor: '#3D7DCA' }}>
-                            <CardActionArea onClick={() => { handleClick(course.pk) }}>
-                              <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
-                                <Grid item>
-                                  <Avatar>{course.fields.name.split(" ")[0][0]}</Avatar>
+                        <>
+                          <Grid item>
+                            <Card style={{ backgroundColor: '#3D7DCA' }}>
+                              <CardActionArea onClick={() => { handleClick(course.pk, "A") }}>
+                                <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                  <Grid item>
+                                    <Avatar>{course.fields.name.split(" ")[0][0]}</Avatar>
+                                  </Grid>
+                                  <Grid item>
+                                    <h4 style={{ color: 'white' }}>{course.fields.name + " A"}</h4>
+                                  </Grid>
                                 </Grid>
-                                <Grid item>
-                                  <h4 style={{ color: 'white' }}>{course.fields.name}</h4>
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
+
+                          <Grid item>
+                            <Card style={{ backgroundColor: '#3D7DCA' }}>
+                              <CardActionArea onClick={() => { handleClick(course.pk, "B") }}>
+                                <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                  <Grid item>
+                                    <Avatar>{course.fields.name.split(" ")[0][0]}</Avatar>
+                                  </Grid>
+                                  <Grid item>
+                                    <h4 style={{ color: 'white' }}>{course.fields.name + " B"}</h4>
+                                  </Grid>
                                 </Grid>
-                              </Grid>
-                            </CardActionArea>
-                          </Card>
-                        </Grid>);
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
+
+                          <Grid item>
+                            <Card style={{ backgroundColor: '#3D7DCA' }}>
+                              <CardActionArea onClick={() => { handleClick(course.pk, "C") }}>
+                                <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                  <Grid item>
+                                    <Avatar>{course.fields.name.split(" ")[0][0]}</Avatar>
+                                  </Grid>
+                                  <Grid item>
+                                    <h4 style={{ color: 'white' }}>{course.fields.name + " C"}</h4>
+                                  </Grid>
+                                </Grid>
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
+                        </>
+
+                      );
                     })}
                   </>
                 }

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 function WriteThreadPage(props) {
 
     const classes = useStyles();
-    const { id_course, id_materi } = useParams();
+    const { id_gaya_belajar, id_course, id_materi } = useParams();
     const [value, setValue] = useState("**Hello world!!!**");
     const [selectedTab, setSelectedTab] = useState("write");
     const title = useForm("");
@@ -131,7 +131,7 @@ function WriteThreadPage(props) {
             <>
                 <Redirect
                     to={{
-                        pathname: "/course/" + id_course + "/materi/" + id_materi + "/thread/",
+                        pathname: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/",
                         search: "?state=" + nextState,
                     }}
                 />

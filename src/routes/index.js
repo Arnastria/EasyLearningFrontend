@@ -77,37 +77,37 @@ export function AppSwitch(props) {
             <Route path="/logout">
                 <Logout onSuccess={history.push} backToPrevious={history.goBack} />
             </Route>
-            <AuthRoute path="/course/:id_course/materi/:id_materi/thread/details/:id_thread">
+            <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi/thread/details/:id_thread">
                 <ThreadPage changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
-            <AuthRoute path="/course/:id_course/materi/:id_materi/thread/:id_thread/reply/new">
+            <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi/thread/:id_thread/reply/new">
                 <WriteReplyPage changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
-            <AuthRoute path="/course/:id_course/materi/:id_materi/thread/:id_thread/reply/:id_reply/edit">
+            <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi/thread/:id_thread/reply/:id_reply/edit">
                 <EditReplyPage changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
-            <AuthRoute path="/course/:id_course/materi/:id_materi/thread/new">
+            <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi/thread/new">
                 <WriteThreadPage changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
-            <AuthRoute path="/course/:id_course/materi/:id_materi/thread/edit/:id_thread">
+            <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi/thread/edit/:id_thread">
                 <EditThreadPage changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
-            <AuthRoute path="/course/:id_course/materi/:id_materi/thread">
+            <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi/thread">
                 <ThreadListPage changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
-            <AuthRoute path="/course/:id_course/prequiz">
+            <AuthRoute path="/course/:id_gaya_belajar/:id_course/prequiz">
                 <PreQuiz changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
-            <AuthRoute path="/course/:id_course/materi/:id_materi/assessment/start">
+            <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi/assessment/start">
                 <StartAssessment changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
-            <AuthRoute path="/course/:id_course/materi/:id_materi/assessment">
+            <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi/assessment">
                 <AssessmentPage changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
-            <AuthRoute path="/course/:id_course/materi/:id_materi">
+            <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi">
                 <MateriSlide changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
-            <AuthRoute path="/course/:id_course">
+            <AuthRoute path="/course/:id_gaya_belajar/:id_course">
                 <Matkul changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
             <Route path="/500-error">

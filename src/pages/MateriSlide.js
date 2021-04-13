@@ -80,11 +80,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MateriSlide(props) {
-    const { id_course, id_materi } = useParams();
+    const { id_gaya_belajar, id_course, id_materi } = useParams();
     const [listBreadCrumb, setListBreadCrumb] = useState(
         [
-            { color: "inherit", link: "/course/" + id_course, name: "..." },
-            { color: "primary", link: "/course/" + id_course + "/materi/" + id_materi, name: "..." },
+            { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course, name: "..." },
+            { color: "primary", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi, name: "..." },
         ]
     );
 
@@ -110,8 +110,8 @@ function MateriSlide(props) {
                     'pdf_chapter': JSON.parse(materiJSON[0]['fields']['pdf_chapter']),
                 };
                 setListBreadCrumb([
-                    { color: "inherit", link: "/course/" + id_course, name: "Sistem Interaksi" },
-                    { color: "primary", link: "/course/" + id_course + "/materi/" + id_materi, name: materiObject.name },
+                    { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course, name: "Sistem Interaksi" },
+                    { color: "primary", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi, name: materiObject.name },
                 ])
                 setMateri(materiObject)
 
@@ -146,6 +146,15 @@ function MateriSlide(props) {
 
     }, [])
 
+    const createChapterChecklist = (chapterList) => {
+        const chapterCheckList = {};
+        chapterList.map((chapter, i) => {
+            let chapterData = chapter.split("-");
+            chapterCheckList[parseInt(chapterData[0])] = false;
+        })
+        return chapterCheckList;
+    }
+
     const handleOpenMap = () => {
         setOpenMap(true);
     }
@@ -159,11 +168,11 @@ function MateriSlide(props) {
     }
 
     function openThread() {
-        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/")
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/")
     }
 
     function createThread() {
-        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/new")
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/new")
     }
 
 
@@ -262,7 +271,7 @@ function MateriSlide(props) {
                                             <Grid container spacing={3} direction="row">
                                                 <Grid item xs>
                                                     <Button style={{ width: '100%' }} variant="outlined" color="primary" startIcon={<ArrowBackIcon />}
-                                                        onClick={() => { props.changePage('/course/' + id_course + "/prequiz") }}>
+                                                        onClick={() => { props.changePage('/course/' + id_gaya_belajar + "/" + id_course + "/prequiz") }}>
                                                         Pre-Quiz
                                                     </Button>
                                                 </Grid>
@@ -280,7 +289,10 @@ function MateriSlide(props) {
                                                     {
                                                         openMap && (<>
                                                             <Lightbox
-                                                                large={materi.links['link-list'][3].split('-')[1]}
+                                                                large={
+                                                                    id_gaya_belajar == "A" ? materi.links['link-list'][3].split('-')[1] :
+                                                                        materi.links['link-list'][2].split('-')[1]
+                                                                }
                                                                 onClose={handleCloseMap}
                                                             />
                                                         </>)
@@ -300,12 +312,21 @@ function MateriSlide(props) {
                         <Card>
                             {materi === null ? <Skeleton variant="text" />
                                 :
-                                <>
-                                    <PDFViewerExample
-                                        chapterList={materi.pdf_chapter['chapter-list']}
-                                        pdf={`data:application/pdf;base64,${getSlide(materi.pdf)}`}
-                                    />
-                                </>
+                                id_gaya_belajar == "C" ?
+                                    <>
+                                        <PDFViewerExampleSequential
+                                            chapterList={materi.pdf_chapter['chapter-list']}
+                                            chapterCheckList={createChapterChecklist(materi.pdf_chapter['chapter-list'])}
+                                            pdf={`data:application/pdf;base64,${getSlide(materi.pdf)}`}
+                                        />
+                                    </>
+                                    :
+                                    <>
+                                        <PDFViewerExample
+                                            chapterList={materi.pdf_chapter['chapter-list']}
+                                            pdf={`data:application/pdf;base64,${getSlide(materi.pdf)}`}
+                                        />
+                                    </>
                             }
 
                         </Card>
@@ -421,6 +442,7 @@ function MateriSlide(props) {
                                                     TimeStamp={post['last_modified']}
                                                     Author={post['author_name']}
                                                     changePage={props.changePage}
+                                                    id_gaya_belajar={id_gaya_belajar}
                                                     id_course={id_course}
                                                     id_materi={id_materi}
                                                     id_post={post['pk']}

@@ -29,7 +29,7 @@ function ThreadListPage(props) {
 
     const classes = useStyles();
     const query = useQuery();
-    const { id_course, id_materi } = useParams();
+    const { id_gaya_belajar, id_course, id_materi } = useParams();
     const [listPost, setListPost] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(query.get('state') != undefined);
@@ -42,7 +42,7 @@ function ThreadListPage(props) {
     ];
 
     function handleClick() {
-        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/new")
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/new")
     }
 
     const preventDefault = (event) => {
@@ -147,6 +147,7 @@ function ThreadListPage(props) {
                                                     TimeStamp={post['last_modified']}
                                                     Author={post['author_name']}
                                                     changePage={props.changePage}
+                                                    id_gaya_belajar={id_gaya_belajar}
                                                     id_course={id_course}
                                                     id_materi={id_materi}
                                                     id_post={pk}
