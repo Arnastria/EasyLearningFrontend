@@ -39,7 +39,7 @@ function Appbar(props) {
     }
 
     const handleClickLogin = () => {
-        window.location.replace("http://localhost:8000/login/");
+        window.location.replace("http://skripz-backend.herokuapp.com/login/");
     }
 
     const classes = useStyles();

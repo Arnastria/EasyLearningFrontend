@@ -3,7 +3,7 @@ import { authHeader } from "./AuthHeader";
 
 
 const instance = axios.create({
-    baseURL: "http://localhost:8000/",
+    baseURL: "http://skripz-backend.herokuapp.com/",
     responseType: "json",
     headers: {
         ...authHeader(),
