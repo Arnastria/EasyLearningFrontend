@@ -146,7 +146,7 @@ export default function MateriCard(props) {
                                     onClick={handleClickMateri}
                                     disableElevation>Lihat Materi</Button>
                             </Grid>
-                            {/* <Grid item style={{ width: '100%' }}>
+                            <Grid item style={{ width: '100%' }}>
                                 <Button variant="outlined"
                                     color="secondary"
                                     fullWidth
@@ -155,7 +155,7 @@ export default function MateriCard(props) {
                                     Uji Pemahamanmu
                         </Button>
 
-                            </Grid> */}
+                            </Grid>
                         </Grid>
                     </Grid>
 
