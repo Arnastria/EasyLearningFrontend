@@ -123,7 +123,7 @@ function PreQuiz(props) {
                                 style={{ padding: '16px 0px 0px 0px' }}
                             >
                                 <Grid item>
-                                    <b style={{ fontSize: '24px' }}>Pre-Quiz : Pengantar Sistem Interaksi</b>
+                                    <b style={{ fontSize: '24px' }}>Pre-Test : Pengantar Sistem Interaksi</b>
                                 </Grid>
                                 <Grid item>
                                     <p style={{ margin: '4px', fontSize: '12px' }}>Sebelum kamu mempelajari lebih lanjut mengenai sistem interaksi, jawablah 3 soal berikut ini </p>
