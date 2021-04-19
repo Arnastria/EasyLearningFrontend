@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, Avatar, Typography, Link } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
+import MarkdownView from 'react-showdown';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,13 +47,16 @@ export default function AnnouncementCard(props) {
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <b>{Author} - {TimeStamp}</b>
+                            <b>{Author}</b>
                         </Grid>
                         <Grid item>
                             <Typography style={{ height: '6px' }} gutterBottom />
                         </Grid>
                         <Grid item>
-                            {Text}
+                            <MarkdownView
+                                markdown={Text}
+                                options={{ tables: true, emoji: true }}
+                            />
                         </Grid>
                         <Grid item>
                             <Typography style={{ height: '6px' }} gutterBottom />

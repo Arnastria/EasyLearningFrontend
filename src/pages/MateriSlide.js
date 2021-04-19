@@ -271,7 +271,7 @@ function MateriSlide(props) {
                                                 <Grid item xs>
                                                     <Button style={{ width: '100%' }} variant="outlined" color="primary" startIcon={<ArrowBackIcon />}
                                                         onClick={() => { props.changePage('/course/' + id_gaya_belajar + "/" + id_course + "/prequiz") }}>
-                                                        Pre-Quiz
+                                                        Pre-Test
                                                     </Button>
                                                 </Grid>
                                                 <Grid item xs >

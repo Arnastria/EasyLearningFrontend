@@ -209,24 +209,22 @@ function Dashboard(props) {
                 </Grid>
                 <Grid item style={{ margin: '6px 0px' }}>
                   <AnnouncementCard
-                    Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
+                    Title={'Selamat datang di EasyLearning !'}
                     Author={'Ariq Naufal Satria'}
-                    Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
-                  />
+                    Text={"Dear seluruh mahasiswa<br><br>Selamat datang di platform *e-Learning* EasyLearning! <br>Platform ini menawarkan pengalaman menggunakan *e-Learning* yang berbeda dan diharapkan lebih baik dari sebelumnya. Silahkan pelajari dan gunakan platform ini sebaik-baiknya.<br><br>Demikian informasi ini disampaikan,<br>**Tim pengembang EasyLearning**"} />
+                </Grid>
+
+                <Grid item style={{ margin: '6px 0px' }}>
+                  <AnnouncementCard
+                    Title={'Pembukaan kelas Sistem Interaksi'}
+                    Author={'Andi Setiawan'}
+                    Text={"Dear seluruh mahasiswa<br><br> Diberitahukan bahwa kelas Sistem Interaksi telah dibuka di platform EasyLearning. Silahkan lihat kelasnya pada daftar kelas yang tersedia. Selama masa pembukaan kelas Sistem Interaksi akan dibuka untuk seluruh mahasiswa. Seluruh mahasiswa juga dipersilahkan untuk membaca materi yang ada disana.<br><br>Demikian informasi ini disampaikan,<br> **Tim dosen dan Asdos Sister**"} />
                 </Grid>
                 <Grid item style={{ margin: '6px 0px' }}>
                   <AnnouncementCard
-                    Title={'Pengumuman 1'}
-                    Author={'Budi Budiman'}
-                    Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
-                  />
-                </Grid>
-                <Grid item style={{ margin: '6px 0px' }}>
-                  <AnnouncementCard
-                    Title={'Pengumuman 2'}
-                    Author={'Ariq Naufal Satria'}
-                    Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
-                  />
+                    Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah sudah dibuka ! '}
+                    Author={'Zaki Marzuki'}
+                    Text={"Dear seluruh mahasiswa kelas MPPI <br><br> Diberitahukan bahwa jadwal kuis perdana kita untuk semester ini sudah dipublikasikan. Silahkan persiapkan diri anda dan jangan lupa mempelajari materi Bab 1-5. Mahasiswa juga dipersilahkan untuk membuat catatan untuk digunakan saat mengerjakan kuis. Informasi selanjutnya dapat dilihat pada halaman kelas MPPI.<br><br>Demikian informasi ini disampaikan,<br>**Tim dosen dan Asdos MPPI**"} />
                 </Grid>
               </Grid>
             </Paper>
