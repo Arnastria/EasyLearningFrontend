@@ -9,7 +9,6 @@ import { useParams } from 'react-router-dom';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import APIUtility from '../utils/APIUtility';
 
-//AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -68,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Matkul(props) {
-    const { id_course } = useParams();
+    const { id_gaya_belajar, id_course } = useParams();
     const classes = useStyles();
 
     const [isLoading, setIsLoading] = useState(true);
@@ -214,22 +213,58 @@ function Matkul(props) {
                     </Grid>
 
                     :
-                    <Grid container spacing={1} style={{ minHeight: '30vh', maxWidth: "100%", padding: "16px 160px" }}>
-                        {material.map((materi, i) => {
-                            return (
-                                <Grid item>
-                                    <MateriCard
-                                        changePage={props.changePage}
-                                        number={i + 1}
-                                        courseId={id_course}
-                                        materiID={materi.pk}
-                                        judul={materi.fields.name}
-                                        description={materi.fields.description}
-                                    />
-                                </Grid>
-                            );
-                        })}
-                    </Grid>
+                    id_gaya_belajar == "A" ?
+                        <>
+                            <Grid container justify="center"
+                                spacing={1} style={{ minHeight: '30vh', maxWidth: "100%", padding: "16px 160px" }}>
+                                {material.map((materi, i) => {
+                                    const links = JSON.parse(materi.fields.links)
+                                    return (
+                                        <>
+                                            <Grid item>
+                                                <MateriCard
+                                                    changePage={props.changePage}
+                                                    gayaBelajar={id_gaya_belajar}
+                                                    number={i + 1}
+                                                    image={links['link-list'][0].split("-")[1]}
+                                                    courseId={id_course}
+                                                    materiID={materi.pk}
+                                                    judul={materi.fields.name}
+                                                    description={materi.fields.description}
+                                                />
+                                            </Grid>
+                                        </>
+                                    );
+                                })}
+                            </Grid>
+                        </>
+                        :
+                        <>
+                            <Grid container direction='column'
+                                justify="center" alignItems="center" spacing={1} style={{ minHeight: '30vh', maxWidth: "100%", padding: "16px 160px" }}
+                            >
+                                {material.map((materi, i) => {
+                                    const links = JSON.parse(materi.fields.links)
+                                    return (
+                                        <>
+                                            <Grid item >
+                                                <MateriCard
+                                                    changePage={props.changePage}
+                                                    gayaBelajar={id_gaya_belajar}
+                                                    number={i + 1}
+                                                    isLong={true}
+                                                    image={links['link-list'][0].split("-")[1]}
+                                                    courseId={id_course}
+                                                    materiID={materi.pk}
+                                                    judul={materi.fields.name}
+                                                    description={materi.fields.description}
+                                                />
+                                            </Grid>
+                                        </>
+                                    );
+                                })}
+                            </Grid>
+                        </>
 
                 }
             </div>

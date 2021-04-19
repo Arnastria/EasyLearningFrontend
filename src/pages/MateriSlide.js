@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import { useParams } from 'react-router-dom';
-import { CardMedia, Grid, Button, Container, Link, Card, } from '@material-ui/core';
-// import { Document, Page, pdfjs } from 'react-pdf';
+import { CardMedia, Grid, Button, Container, Link, Card } from '@material-ui/core';
+import { Lightbox } from "react-modal-image";
 import { Appbar } from '../components/Appbar';
 import Breadcrumb from '../components/Breadcrumb';
-import { PDFViewerExample } from '../components/PDFViewer';
+import { PDFViewerExample, PDFViewerExampleSequential } from '../components/PDFViewer';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
-import file from '../pdf/DesainInteraksi';
+import { getSlide } from '../pdf/PdfHandler';
 import ThreadCard from '../components/ThreadCard';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import APIUtility from '../utils/APIUtility';
 import Skeleton from '@material-ui/lab/Skeleton';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 //AcSenVisGIo
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     media: {
         width: '246px',
         height: '177px'
+    },
+    bigMedia: {
+        width: '100vw',
+        height: '100vh'
     },
     title: {
         flexGrow: 1,
@@ -75,20 +80,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function MateriSlide(props) {
-    const list = [
-        { color: "inherit", link: "/sister", name: "Sistem Interaksi" },
-        { color: "primary", link: "/materi", name: "Bab 1. Pengantar Sistem Informasi" },
-    ];
-    const { id_course, id_materi } = useParams();
+    const { id_gaya_belajar, id_course, id_materi } = useParams();
+    const [listBreadCrumb, setListBreadCrumb] = useState(
+        [
+            { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course, name: "..." },
+            { color: "primary", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi, name: "..." },
+        ]
+    );
+
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
     const [noPostOnForum, setNoPostOnForum] = useState(true);
     const [materi, setMateri] = useState(null);
     const [post, setPost] = useState(null);
+    const [openMap, setOpenMap] = useState(false);
+
     useEffect(() => {
         if (materi === null) {
             APIUtility.get('/api/material/' + id_materi, {}).then((response) => {
                 let materiJSON = JSON.parse(response.data.model)
+                // console.log(materiJSON)
                 let materiObject = {
                     'course': materiJSON[0]['fields']['course'],
                     'name': materiJSON[0]['fields']['name'],
@@ -98,19 +109,19 @@ function MateriSlide(props) {
                     'links': JSON.parse(materiJSON[0]['fields']['links']),
                     'pdf_chapter': JSON.parse(materiJSON[0]['fields']['pdf_chapter']),
                 };
-                // console.log(materiObject)
+                setListBreadCrumb([
+                    { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course, name: "Sistem Interaksi" },
+                    { color: "primary", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi, name: materiObject.name },
+                ])
                 setMateri(materiObject)
+
             });
             setIsLoading(false);
         }
         if (post === null) {
             APIUtility.get('/api/get-latest-post-by-material/' + id_materi, {}).then((response) => {
                 let postJSON = JSON.parse(response.data.post)
-                if (postJSON.length == 0) {
-                    return;
-                }
                 setNoPostOnForum(false);
-                // console.log(postJSON)
                 let postObject = {
                     'pk': postJSON[0]['pk'],
                     'material': postJSON[0]['fields']['material'],
@@ -124,23 +135,44 @@ function MateriSlide(props) {
                 };
                 setPost(postObject)
                 console.log(postObject)
+            }).catch((error) => {
+                if (error.response.status == "404") {
+                    return;
+                }
             });
+
         }
 
     }, [])
+
+    const createChapterChecklist = (chapterList) => {
+        const chapterCheckList = {};
+        chapterList.map((chapter, i) => {
+            let chapterData = chapter.split("-");
+            chapterCheckList[parseInt(chapterData[0])] = false;
+        })
+        return chapterCheckList;
+    }
+
+    const handleOpenMap = () => {
+        setOpenMap(true);
+    }
+
+    const handleCloseMap = () => {
+        setOpenMap(false);
+    }
 
     function handleClick() {
         props.changePage("/thread")
     }
 
     function openThread() {
-        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/")
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/")
     }
 
     function createThread() {
-        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/new")
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/new")
     }
-
 
 
     const preventDefault = (event) => {
@@ -176,9 +208,9 @@ function MateriSlide(props) {
                     justify="center"
                     style={{ backgroundColor: '#E5E5E5', minHeight: '30vh', marginTop: '60px', padding: '30px 15%' }}
                 >
-                    <Breadcrumb list={list} />
+                    <Breadcrumb list={listBreadCrumb} />
                     <Grid item xs style={{ margin: '0px 0px 12px 0px' }}>
-                        <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
+                        <Button onClick={props.backToPrevious} onClick={props.backToPrevious} variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
                             Kembali
                         </Button>
                     </Grid>
@@ -195,10 +227,15 @@ function MateriSlide(props) {
                                 <Grid item xs>
                                     <Grid container justify="center">
                                         <Grid item>
-                                            <CardMedia
-                                                className={classes.media}
-                                                image="https://files.catbox.moe/qfaut0.svg"
-                                            />
+                                            {materi === null ?
+                                                <CircularProgress />
+                                                :
+                                                <CardMedia
+                                                    className={classes.media}
+                                                    image={materi.links['link-list'][0].split('-')[1]}
+                                                />
+                                            }
+
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -207,7 +244,7 @@ function MateriSlide(props) {
                                         <Grid item>
                                             {materi === null ?
                                                 <Skeleton variant="text" />
-                                                : <b style={{ fontSize: '28px', marginRight: '12px' }} >{materi.course}</b>
+                                                : <b style={{ fontSize: '28px', marginRight: '12px' }} >{id_materi}</b>
                                             }
                                             {materi === null ?
                                                 <Skeleton variant="text" /> :
@@ -233,21 +270,32 @@ function MateriSlide(props) {
                                             <Grid container spacing={3} direction="row">
                                                 <Grid item xs>
                                                     <Button style={{ width: '100%' }} variant="outlined" color="primary" startIcon={<ArrowBackIcon />}
-                                                        onClick={() => { props.changePage('/course/' + id_course + "/prequiz") }}>
-                                                        Pre-Quiz
+                                                        onClick={() => { props.changePage('/course/' + id_gaya_belajar + "/" + id_course + "/prequiz") }}>
+                                                        Pre-Test
                                                     </Button>
                                                 </Grid>
                                                 <Grid item xs >
                                                     <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<PlayArrowIcon />}
-                                                        onClick={() => { window.location.replace(materi.links['link-list'][0].split('-')[1]); }}>
+                                                        onClick={() => { window.location.replace(materi.links['link-list'][1].split('-')[1]); }}>
                                                         Lihat Video Intro
                                                         </Button>
                                                 </Grid>
                                                 <Grid item xs >
                                                     <Button style={{ width: '100%' }} variant="contained" color="primary" startIcon={<AssignmentIcon />}
-                                                        onClick={() => { window.location.replace(materi.links['link-list'][2].split('-')[1]); }}>
+                                                        onClick={handleOpenMap}>
                                                         Peta Konsep
-                                                        </Button>
+                                                    </Button>
+                                                    {
+                                                        openMap && (<>
+                                                            <Lightbox
+                                                                large={
+                                                                    id_gaya_belajar == "A" ? materi.links['link-list'][3].split('-')[1] :
+                                                                        materi.links['link-list'][2].split('-')[1]
+                                                                }
+                                                                onClose={handleCloseMap}
+                                                            />
+                                                        </>)
+                                                    }
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -263,10 +311,21 @@ function MateriSlide(props) {
                         <Card>
                             {materi === null ? <Skeleton variant="text" />
                                 :
-                                <PDFViewerExample
-                                    chapterList={materi.pdf_chapter['chapter-list']}
-                                    pdf={`data:application/pdf;base64,${file}`}
-                                />
+                                id_gaya_belajar == "C" ?
+                                    <>
+                                        <PDFViewerExampleSequential
+                                            chapterList={materi.pdf_chapter['chapter-list']}
+                                            chapterCheckList={createChapterChecklist(materi.pdf_chapter['chapter-list'])}
+                                            pdf={`data:application/pdf;base64,${getSlide(materi.pdf)}`}
+                                        />
+                                    </>
+                                    :
+                                    <>
+                                        <PDFViewerExample
+                                            chapterList={materi.pdf_chapter['chapter-list']}
+                                            pdf={`data:application/pdf;base64,${getSlide(materi.pdf)}`}
+                                        />
+                                    </>
                             }
 
                         </Card>
@@ -302,13 +361,13 @@ function MateriSlide(props) {
                                     :
                                     materi.links['link-list'].map((link) => {
                                         let linkData = link.split('-');
-                                        if (linkData[0] === 'logo' || linkData[0] === 'konsep' || linkData[0] === 'video intro') {
+                                        if (linkData[0] === 'logo' || linkData[0] === 'konsep' || linkData[0] === 'video intro' || linkData[0] === 'mm') {
                                             return (<></>);
                                         } else {
                                             return (
                                                 <>
                                                     <Grid item>
-                                                        <Link style={{ color: '#3D7DCA', fontSize: '14px' }} href={linkData[1]}>
+                                                        <Link style={{ color: '#3D7DCA', fontSize: '14px' }} href={linkData.slice(1, linkData.length).join("-")}>
                                                             <Grid container alignItems="center" alignContent="center">
                                                                 <Grid item>
                                                                     <PlayCircleFilledIcon />
@@ -382,6 +441,7 @@ function MateriSlide(props) {
                                                     TimeStamp={post['last_modified']}
                                                     Author={post['author_name']}
                                                     changePage={props.changePage}
+                                                    id_gaya_belajar={id_gaya_belajar}
                                                     id_course={id_course}
                                                     id_materi={id_materi}
                                                     id_post={post['pk']}

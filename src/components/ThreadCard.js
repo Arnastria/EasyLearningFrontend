@@ -31,21 +31,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ThreadCard(props) {
-    const { Title, Author, Text, TimeStamp, isOutlined, isPreview, id_course, id_materi, id_post, isThreadStarter, isEditable } = props;
+    const { Title, Author, Text, TimeStamp, isOutlined, isPreview, id_gaya_belajar, id_course, id_materi, id_post, isThreadStarter, isEditable } = props;
 
     const handleClick = (event) => {
         event.preventDefault()
-        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/details/" + id_post);
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/details/" + id_post);
     };
 
     const handleEdit = (event) => {
         event.preventDefault()
-        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/edit/" + id_post);
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/edit/" + id_post);
     };
 
     const handleComment = (event) => {
         event.preventDefault()
-        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/" + id_post + "/reply/new");
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/" + id_post + "/reply/new");
     }
 
     return (
@@ -104,8 +104,6 @@ export default function ThreadCard(props) {
                                         </Link>
                                     </Grid> : <></>}
                                 </Grid>
-
-
                             </Grid> : <></>}
                     </Grid>
                 </Grid>

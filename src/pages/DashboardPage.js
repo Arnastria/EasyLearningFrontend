@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { InputBase, Grid, Paper, Avatar, Card, CardActionArea } from '@material-ui/core';
+import { InputBase, Grid, Paper, Avatar, Card, CardActionArea, CircularProgress } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Appbar } from '../components/Appbar';
 import { userService } from '../utils/UserService';
 import AnnouncementCard from '../components/AnnouncementCard';
+import APIUtility from '../utils/APIUtility';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,10 +61,25 @@ const useStyles = makeStyles((theme) => ({
 function Dashboard(props) {
 
   const classes = useStyles();
+  const [isLoading, setIsLoading] = useState(true);
+  const [courses, setCourses] = useState([]);
 
-  function handleClick() {
-    props.changePage("/sister")
+
+  function handleClick(pk, gayaBelajar) {
+    props.changePage("/course/" + gayaBelajar + "/" + pk)
   }
+
+  useEffect(() => {
+    if (courses.length == 0) {
+      console.log("fetching courses")
+      APIUtility.get('/api/course/get/', {}).then((response) => {
+        let coursesJSON = JSON.parse(response.data.model)
+
+        setCourses(coursesJSON);
+      });
+      setIsLoading(false);
+    }
+  }, [])
 
   return (
     <>
@@ -115,54 +131,67 @@ function Dashboard(props) {
                 style={{ padding: '12px' }}
               >
                 <Grid item>
-                  <h3 style={{ margin: 0 }}>Mata Kuliah Saya</h3>
+                  <h3 style={{ margin: 0 }}>Mata Kuliah Tersedia</h3>
                 </Grid>
-                <Grid item>
-                  <Card style={{ backgroundColor: '#3D7DCA' }}>
-                    <CardActionArea onClick={handleClick}>
-                      <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
-                        <Grid item>
-                          <Avatar>SI</Avatar>
-                        </Grid>
-                        <Grid item>
-                          <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
-                        </Grid>
-                      </Grid>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
+                {isLoading ?
+                  <Grid item>
+                    <CircularProgress />
+                  </Grid>
+                  :
+                  <>
+                    {courses.map((course, i) => {
+                      return (
+                        <>
+                          <Grid item>
+                            <Card style={{ backgroundColor: '#3D7DCA' }}>
+                              <CardActionArea onClick={() => { handleClick(course.pk, "A") }}>
+                                <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                  <Grid item>
+                                    <Avatar>{course.fields.name.split(" ")[0][0]}</Avatar>
+                                  </Grid>
+                                  <Grid item>
+                                    <h4 style={{ color: 'white' }}>{course.fields.name + " A"}</h4>
+                                  </Grid>
+                                </Grid>
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
 
-                <Grid item>
-                  <Card style={{ backgroundColor: '#3D7DCA' }}>
-                    <CardActionArea>
-                      <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
-                        <Grid item>
-                          <Avatar>SI</Avatar>
-                        </Grid>
-                        <Grid item>
-                          <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
-                        </Grid>
-                      </Grid>
-                    </CardActionArea>
+                          <Grid item>
+                            <Card style={{ backgroundColor: '#3D7DCA' }}>
+                              <CardActionArea onClick={() => { handleClick(course.pk, "B") }}>
+                                <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                  <Grid item>
+                                    <Avatar>{course.fields.name.split(" ")[0][0]}</Avatar>
+                                  </Grid>
+                                  <Grid item>
+                                    <h4 style={{ color: 'white' }}>{course.fields.name + " B"}</h4>
+                                  </Grid>
+                                </Grid>
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
 
-                  </Card>
-                </Grid>
+                          <Grid item>
+                            <Card style={{ backgroundColor: '#3D7DCA' }}>
+                              <CardActionArea onClick={() => { handleClick(course.pk, "C") }}>
+                                <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                  <Grid item>
+                                    <Avatar>{course.fields.name.split(" ")[0][0]}</Avatar>
+                                  </Grid>
+                                  <Grid item>
+                                    <h4 style={{ color: 'white' }}>{course.fields.name + " C"}</h4>
+                                  </Grid>
+                                </Grid>
+                              </CardActionArea>
+                            </Card>
+                          </Grid>
+                        </>
 
-                <Grid item>
-                  <Card style={{ backgroundColor: '#3D7DCA' }}>
-                    <CardActionArea>
-                      <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
-                        <Grid item>
-                          <Avatar>SI</Avatar>
-                        </Grid>
-                        <Grid item>
-                          <h4 style={{ color: 'white' }}>Sistem Interaksi</h4>
-                        </Grid>
-                      </Grid>
-                    </CardActionArea>
-                  </Card>
-                </Grid>
-
+                      );
+                    })}
+                  </>
+                }
               </Grid>
             </Paper>
           </Grid>
@@ -180,24 +209,22 @@ function Dashboard(props) {
                 </Grid>
                 <Grid item style={{ margin: '6px 0px' }}>
                   <AnnouncementCard
-                    Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah  sudah dibuka ! '}
+                    Title={'Selamat datang di EasyLearning !'}
                     Author={'Ariq Naufal Satria'}
-                    Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
-                  />
+                    Text={"Dear seluruh mahasiswa<br><br>Selamat datang di platform *e-Learning* EasyLearning! <br>Platform ini menawarkan pengalaman menggunakan *e-Learning* yang berbeda dan diharapkan lebih baik dari sebelumnya. Silahkan pelajari dan gunakan platform ini sebaik-baiknya.<br><br>Demikian informasi ini disampaikan,<br>**Tim pengembang EasyLearning**"} />
+                </Grid>
+
+                <Grid item style={{ margin: '6px 0px' }}>
+                  <AnnouncementCard
+                    Title={'Pembukaan kelas Sistem Interaksi'}
+                    Author={'Andi Setiawan'}
+                    Text={"Dear seluruh mahasiswa<br><br> Diberitahukan bahwa kelas Sistem Interaksi telah dibuka di platform EasyLearning. Silahkan lihat kelasnya pada daftar kelas yang tersedia. Selama masa pembukaan kelas Sistem Interaksi akan dibuka untuk seluruh mahasiswa. Seluruh mahasiswa juga dipersilahkan untuk membaca materi yang ada disana.<br><br>Demikian informasi ini disampaikan,<br> **Tim dosen dan Asdos Sister**"} />
                 </Grid>
                 <Grid item style={{ margin: '6px 0px' }}>
                   <AnnouncementCard
-                    Title={'Pengumuman 1'}
-                    Author={'Budi Budiman'}
-                    Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
-                  />
-                </Grid>
-                <Grid item style={{ margin: '6px 0px' }}>
-                  <AnnouncementCard
-                    Title={'Pengumuman 1'}
-                    Author={'Ariq Naufal Satria'}
-                    Text={"Lick the other cats love but rub against owner because nose is wet so adventure always. Sleep try to hold own back foot to clean it but foot reflexively kicks you in face, go into a rage and bite own foot, hard steal mom's crouton while she is in the bathroom flex claws on the human's belly and purr like a lawnmower. Freak human out make funny noise mow mow mow mow mow mow success now attack human purr like an angel."}
-                  />
+                    Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah sudah dibuka ! '}
+                    Author={'Zaki Marzuki'}
+                    Text={"Dear seluruh mahasiswa kelas MPPI <br><br> Diberitahukan bahwa jadwal kuis perdana kita untuk semester ini sudah dipublikasikan. Silahkan persiapkan diri anda dan jangan lupa mempelajari materi Bab 1-5. Mahasiswa juga dipersilahkan untuk membuat catatan untuk digunakan saat mengerjakan kuis. Informasi selanjutnya dapat dilihat pada halaman kelas MPPI.<br><br>Demikian informasi ini disampaikan,<br>**Tim dosen dan Asdos MPPI**"} />
                 </Grid>
               </Grid>
             </Paper>

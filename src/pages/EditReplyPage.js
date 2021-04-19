@@ -31,7 +31,7 @@ function EditReplyPage(props) {
 
     const classes = useStyles();
     const query = useQuery();
-    const { id_course, id_materi, id_thread, id_reply } = useParams();
+    const { id_course, id_gaya_belajar, id_materi, id_thread, id_reply } = useParams();
     const [value, setValue] = useState("**Hello world!!!**");
     const [selectedTab, setSelectedTab] = useState("write");
     const [nextState, setNextState] = useState("");
@@ -144,14 +144,14 @@ function EditReplyPage(props) {
 
     if (isSuccessDialogOpen) {
         return (
-            <>
+            <Redirect>
                 <Redirect
                     to={{
-                        pathname: "/course/" + id_course + "/materi/" + id_materi + "/thread/details/" + id_thread + "/",
+                        pathname: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/details/" + id_thread + "/",
                         search: "?state=" + nextState,
                     }}
                 />
-            </>
+            </Redirect>
         );
     }
     if (isLoading) {
@@ -186,7 +186,7 @@ function EditReplyPage(props) {
                 >
                     <Breadcrumb list={list} />
                     <Grid item style={{ margin: '0px 0px 12px 0px' }}>
-                        <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleClick}>
+                        <Button onClick={props.backToPrevious} variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleClick}>
                             Kembali
                         </Button>
                     </Grid>

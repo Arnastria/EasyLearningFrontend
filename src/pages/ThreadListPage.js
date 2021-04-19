@@ -29,11 +29,17 @@ function ThreadListPage(props) {
 
     const classes = useStyles();
     const query = useQuery();
-    const { id_course, id_materi } = useParams();
+    const { id_gaya_belajar, id_course, id_materi } = useParams();
     const [listPost, setListPost] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(query.get('state') != undefined);
-
+    const [listBreadCrumb, setListBreadCrumb] = useState(
+        [
+            { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course, name: "Sistem Interaksi" },
+            { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi, name: "Materi" },
+            { color: "primary", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread", name: "Forum Diskusi" },
+        ]
+    );
 
     const list = [
         { color: "inherit", link: "/sister", name: "Sistem Interaksi" },
@@ -42,7 +48,7 @@ function ThreadListPage(props) {
     ];
 
     function handleClick() {
-        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/new")
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/new")
     }
 
     const preventDefault = (event) => {
@@ -51,7 +57,7 @@ function ThreadListPage(props) {
     useEffect(() => {
         if (listPost == null) {
             console.log("fetching material")
-            APIUtility.get('/api/post/get-by-material/' + id_course, {}).then((response) => {
+            APIUtility.get('/api/post/get-by-material/' + id_materi, {}).then((response) => {
                 let listPostJSON = JSON.parse(response.data.post)
                 setListPost(listPostJSON);
             });
@@ -97,9 +103,9 @@ function ThreadListPage(props) {
                     justify="flex-start"
                     style={{ backgroundColor: '#E5E5E5', minHeight: '100vh', marginTop: '60px', padding: '30px 15%' }}
                 >
-                    <Breadcrumb list={list} />
+                    <Breadcrumb list={listBreadCrumb} />
                     <Grid item style={{ margin: '0px 0px 12px 0px' }}>
-                        <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
+                        <Button onClick={props.backToPrevious} variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
                             Kembali
                         </Button>
                     </Grid>
@@ -147,6 +153,7 @@ function ThreadListPage(props) {
                                                     TimeStamp={post['last_modified']}
                                                     Author={post['author_name']}
                                                     changePage={props.changePage}
+                                                    id_gaya_belajar={id_gaya_belajar}
                                                     id_course={id_course}
                                                     id_materi={id_materi}
                                                     id_post={pk}

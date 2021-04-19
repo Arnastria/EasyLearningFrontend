@@ -3,7 +3,7 @@ import { authHeader } from "./AuthHeader";
 
 
 const instance = axios.create({
-    baseURL: "https://skripz-backend.herokuapp.com/",
+    baseURL: "http://localhost:8000/",
     responseType: "json",
     headers: {
         ...authHeader(),
@@ -27,7 +27,7 @@ instance.interceptors.response.use(function (response) {
             window.location.replace("/500-error");
         }
     } catch {
-        window.location.replace("/500-error");
+        window.location.replace("/404-error");
     }
 
     return Promise.reject(error);

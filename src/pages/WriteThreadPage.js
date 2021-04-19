@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 function WriteThreadPage(props) {
 
     const classes = useStyles();
-    const { id_course, id_materi } = useParams();
+    const { id_gaya_belajar, id_course, id_materi } = useParams();
     const [value, setValue] = useState("**Hello world!!!**");
     const [selectedTab, setSelectedTab] = useState("write");
     const title = useForm("");
@@ -35,12 +35,14 @@ function WriteThreadPage(props) {
     const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const list = [
-        { color: "inherit", link: "/sister", name: "Sistem Interaksi" },
-        { color: "inherit", link: "/materi", name: "Bab 1. Pengantar Sistem Informasi" },
-        { color: "inherit", link: "/thread", name: "Forum Diskusi" },
-        { color: "primary", link: "/thread/new", name: "Buat Thread" },
-    ];
+    const [listBreadCrumb, setListBreadCrumb] = useState(
+        [
+            { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course, name: "Sistem Interaksi" },
+            { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi, name: "Materi" },
+            { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread", name: "Forum Diskusi" },
+            { color: "primary", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/new", name: "Buat Thread" },
+        ]
+    );
 
     function useForm(defaultValue, regex) {
         const [value, setValue] = useState(defaultValue);
@@ -131,7 +133,7 @@ function WriteThreadPage(props) {
             <>
                 <Redirect
                     to={{
-                        pathname: "/course/" + id_course + "/materi/" + id_materi + "/thread/",
+                        pathname: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/",
                         search: "?state=" + nextState,
                     }}
                 />
@@ -168,9 +170,9 @@ function WriteThreadPage(props) {
                     justify="flex-start"
                     style={{ backgroundColor: '#E5E5E5', minHeight: '100vh', marginTop: '60px', padding: '30px 15%' }}
                 >
-                    <Breadcrumb list={list} />
+                    <Breadcrumb list={listBreadCrumb} />
                     <Grid item style={{ margin: '0px 0px 12px 0px' }}>
-                        <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleClick}>
+                        <Button onClick={props.backToPrevious} variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleClick}>
                             Kembali
                         </Button>
                     </Grid>

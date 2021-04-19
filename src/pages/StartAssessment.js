@@ -83,28 +83,9 @@ function StartAssessment(props) {
         },
     }))(Button);
 
-    const [value, setValue] = useState('1');
-    const [value2, setValue2] = useState('1');
-    const [value3, setValue3] = useState('1');
 
-    const handleChange1 = (event) => {
-        setValue(event.target.value);
-    };
-
-    const handleChange2 = (event) => {
-        setValue2(event.target.value);
-    };
-
-    const handleChange3 = (event) => {
-        setValue3(event.target.value);
-    };
-
-    const send = () => {
-        console.log({
-            1: value,
-            2: value2,
-            3: value3
-        })
+    function handleClickAssessment() {
+        props.changePage("/course/" + props.gayaBelajar + "/" + props.courseId + "/materi/" + props.materiID + "/assessment")
     }
 
     return (
@@ -120,8 +101,8 @@ function StartAssessment(props) {
                 >
                     <Breadcrumb list={list} />
                     <Grid item xs style={{ margin: '0px 0px 12px 0px' }}>
-                        <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
-                            Kembali x
+                        <Button onClick={props.backToPrevious} variant="contained" color="primary" startIcon={<ArrowBackIcon />}>
+                            Kembali
                         </Button>
                     </Grid>
                     <Grid item>
@@ -143,7 +124,7 @@ function StartAssessment(props) {
 
                             </Grid>
 
-
+                            <Typography component="div" style={{ height: '36px' }} />
                             <Grid
                                 container
                                 justify="center"
@@ -153,7 +134,7 @@ function StartAssessment(props) {
                                 style={{ padding: '16px 0px 16px 0px' }}
                             >
                                 <Grid item>
-                                    <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={send}>
+                                    <Button variant="contained" color="primary" onClick={handleClickAssessment}>
                                         Mulai Quiz
                                     </Button>
                                 </Grid>
@@ -161,14 +142,16 @@ function StartAssessment(props) {
                                     <Typography component="div" style={{ width: '16px' }} />
                                 </Grid>
                                 <Grid item>
-                                    <ColorButton variant="contained" startIcon={<ArrowBackIcon />} onClick={send}>
+                                    <ColorButton variant="contained" startIcon={<ArrowBackIcon />} onClick={props.backToPrevious}>
                                         Batal
                                     </ColorButton>
                                 </Grid>
                             </Grid>
+
                         </Card>
                     </Grid>
                 </Grid>
+                <Typography component="div" style={{ height: '60vh' }} />
             </div>
         </>
     );
