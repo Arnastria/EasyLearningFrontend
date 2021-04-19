@@ -70,7 +70,7 @@ function Dashboard(props) {
   }
 
   useEffect(() => {
-    if (courses.length == 0) {
+    if (courses.length == 0 && userService.getLocalData() != null) {
       console.log("fetching courses")
       APIUtility.get('/api/course/get/', {}).then((response) => {
         let coursesJSON = JSON.parse(response.data.model)
@@ -135,7 +135,7 @@ function Dashboard(props) {
                 </Grid>
                 {isLoading ?
                   <Grid item>
-                    <CircularProgress />
+
                   </Grid>
                   :
                   <>
