@@ -53,7 +53,7 @@ function LoginSuccess(props) {
                         :
                         <p>Verifying...</p>
                     }
-                    <Button variant="contained" onClick={handleClick}>
+                    {/* <Button variant="contained" onClick={handleClick}>
                         Verify
                     </Button>
                     <Button variant="contained" onClick={handleClick3}>
@@ -62,7 +62,7 @@ function LoginSuccess(props) {
 
                     <Button variant="contained" onClick={handleClick2}>
                         clear
-                    </Button>
+                    </Button> */}
                 </Grid>
             </Grid>
         </>
