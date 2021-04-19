@@ -109,7 +109,10 @@ export function AppSwitch(props) {
                 <Matkul changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
             <Route path="/500-error">
-                <h1>Error Bruh</h1>
+                <h1>Error 500</h1>
+            </Route>
+            <Route path="/404-error">
+                <h1>Error 404</h1>
             </Route>
             <Route path="/">
                 <Dashboard changePage={history.push} backToPrevious={history.goBack} />
