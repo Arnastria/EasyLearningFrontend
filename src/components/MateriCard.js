@@ -97,6 +97,16 @@ export default function MateriCard(props) {
                                                     onClick={handleClickMateri}
                                                     disableElevation>Lihat Materi</Button>
                                             </Grid>
+                                            <Grid item style={{ width: '100%' }}>
+                                                <Button variant="outlined"
+                                                    color="secondary"
+                                                    fullWidth
+                                                    onClick={handleClickAssessment}
+                                                >
+                                                    Uji Pemahamanmu
+                        </Button>
+
+                                            </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>

@@ -114,6 +114,7 @@ function Matkul(props) {
                 let materialsJSON = JSON.parse(response.data.materials)
 
                 console.log(materialsJSON);
+                materialsJSON.sort((a, b) => (a.pk > b.pk) ? 1 : ((b.pk > a.pk) ? -1 : 0))
                 setMaterial(materialsJSON);
             });
             setIsLoadingMaterial(false);
