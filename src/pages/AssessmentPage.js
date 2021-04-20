@@ -72,9 +72,17 @@ function AssessmentPage(props) {
     ];
 
 
-    const [value, setValue] = useState('1');
-    const [value2, setValue2] = useState('1');
-    const [value3, setValue3] = useState('1');
+
+    const [value, setValue] = useState('0');
+    const [value2, setValue2] = useState('0');
+    const [value3, setValue3] = useState('0');
+    const [value4, setValue4] = useState('0');
+    const [value5, setValue5] = useState('0');
+    const [value6, setValue6] = useState('0');
+    const [value7, setValue7] = useState('0');
+    const [value8, setValue8] = useState('0');
+    const [value9, setValue9] = useState('0');
+    const [value10, setValue10] = useState('0');
 
     const handleChange1 = (event) => {
         setValue(event.target.value);
@@ -86,6 +94,34 @@ function AssessmentPage(props) {
 
     const handleChange3 = (event) => {
         setValue3(event.target.value);
+    };
+
+    const handleChange4 = (event) => {
+        setValue4(event.target.value);
+    };
+
+    const handleChange5 = (event) => {
+        setValue5(event.target.value);
+    };
+
+    const handleChange6 = (event) => {
+        setValue6(event.target.value);
+    };
+
+    const handleChange7 = (event) => {
+        setValue7(event.target.value);
+    };
+
+    const handleChange8 = (event) => {
+        setValue8(event.target.value);
+    };
+
+    const handleChange9 = (event) => {
+        setValue9(event.target.value);
+    };
+
+    const handleChange10 = (event) => {
+        setValue10(event.target.value);
     };
 
     const send = () => {
@@ -151,11 +187,11 @@ function AssessmentPage(props) {
                                     >
                                         <Grid item>
                                             <FormControl component="fieldset">
-                                                <FormLabel component="legend">Ciri desain yang baik untuk sebuah aplikasi transportasi online adalah yang ...</FormLabel>
+                                                <FormLabel component="legend">Bidang desain interaksi berkaitan dengan salah satu pokok bahasan, yakni ....</FormLabel>
                                                 <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange1}>
-                                                    <FormControlLabel value="1" control={<Radio />} label="Paling banyak warnanya" />
-                                                    <FormControlLabel value="2" control={<Radio />} label="Mudah digunakan" />
-                                                    <FormControlLabel value="3" control={<Radio />} label="Penuh dan rapat dengan teks" />
+                                                    <FormControlLabel value="1" control={<Radio />} label="Pemasaran produk" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="Perancangan antarmuka" />
+                                                    <FormControlLabel value="3" control={<Radio />} label="Manajemen tim pengembang" />
                                                 </RadioGroup>
                                             </FormControl>
                                         </Grid>
@@ -181,10 +217,11 @@ function AssessmentPage(props) {
                                     >
                                         <Grid item>
                                             <FormControl component="fieldset">
-                                                <FormLabel component="legend">UI/UX adalah istilah yang sering kita dengar. Apakah UI (User Interface) sama dengan UX (User Experience) ?</FormLabel>
+                                                <FormLabel component="legend">Apakah sifat dari bidang desain interaksi ?</FormLabel>
                                                 <RadioGroup aria-label="gender" name="gender1" value={value2} onChange={handleChange2}>
-                                                    <FormControlLabel value="1" control={<Radio />} label="Ya, Sama" />
-                                                    <FormControlLabel value="2" control={<Radio />} label="Tidak Sama" />
+                                                    <FormControlLabel value="1" control={<Radio />} label="Multidisiplin" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="Monodisiplin" />
+                                                    <FormControlLabel value="3" control={<Radio />} label="Statis" />
                                                 </RadioGroup>
                                             </FormControl>
                                         </Grid>
@@ -210,17 +247,233 @@ function AssessmentPage(props) {
                                     >
                                         <Grid item>
                                             <FormControl component="fieldset">
-                                                <FormLabel component="legend">Siapakah yang merupakan pihak yang perlu menjadi fokus utama saat mengembangkan desain produk ?</FormLabel>
+                                                <FormLabel component="legend">Berikut merupakan keuntungan penerapan desain interaksi, kecuali ...</FormLabel>
                                                 <RadioGroup aria-label="gender" name="gender1" value={value3} onChange={handleChange3}>
-                                                    <FormControlLabel value="1" control={<Radio />} label="Pengguna" />
-                                                    <FormControlLabel value="2" control={<Radio />} label="Pengembang" />
-                                                    <FormControlLabel value="3" control={<Radio />} label="Vendor" />
+                                                    <FormControlLabel value="1" control={<Radio />} label="Produk sesuai kebutuhan pengguna" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="Menawarkan banyak solusi" />
+                                                    <FormControlLabel value="3" control={<Radio />} label="Produk lama untuk dipelajari" />
                                                 </RadioGroup>
                                             </FormControl>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
+
+
+
+                            <Grid
+                                container
+                                direction="row"
+                                alignContent="center"
+                                style={{ padding: '16px 0px' }}
+                            >
+                                <Grid item>
+                                    <h1>4</h1>
+                                </Grid>
+                                <Grid item xs>
+                                    <Grid
+                                        container
+                                        justify="center"
+                                        direction="column"
+                                        style={{ padding: '16px' }}
+                                    >
+                                        <Grid item>
+                                            <FormControl component="fieldset">
+                                                <FormLabel component="legend">Manakah pernyataan yang benar ?</FormLabel>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange1}>
+                                                    <FormControlLabel value="1" control={<Radio />} label="UI adalah subset dari UX" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="UI sama dengan UX" />
+                                                    <FormControlLabel value="3" control={<Radio />} label="UI dan UX tidak berkaitan" />
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            <Grid
+                                container
+                                direction="row"
+                                alignContent="center"
+                                style={{ padding: '16px 0px' }}
+                            >
+                                <Grid item>
+                                    <h1>5</h1>
+                                </Grid>
+                                <Grid item xs>
+                                    <Grid
+                                        container
+                                        justify="center"
+                                        direction="column"
+                                        style={{ padding: '16px' }}
+                                    >
+                                        <Grid item>
+                                            <FormControl component="fieldset">
+                                                <FormLabel component="legend">Berikut adalah karakteristik perancangan desain interaksi , kecuali ...</FormLabel>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value2} onChange={handleChange2}>
+                                                    <FormControlLabel value="1" control={<Radio />} label="Iteratif" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="Fokus pada identifikasi usability goals" />
+                                                    <FormControlLabel value="3" control={<Radio />} label="Fokus pada ide dan keinginan pengembang" />
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            <Grid
+                                container
+                                direction="row"
+                                alignContent="center"
+                                style={{ padding: '16px 0px' }}
+                            >
+                                <Grid item>
+                                    <h1>6</h1>
+                                </Grid>
+                                <Grid item xs>
+                                    <Grid
+                                        container
+                                        justify="center"
+                                        direction="column"
+                                        style={{ padding: '16px' }}
+                                    >
+                                        <Grid item>
+                                            <FormControl component="fieldset">
+                                                <FormLabel component="legend">Berikut ini yang merupakan salah satu prinsip desain interaksi menurut Preece et al (1988) adalah</FormLabel>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value3} onChange={handleChange3}>
+                                                    <FormControlLabel value="1" control={<Radio />} label="Visibility" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="Resilience" />
+                                                    <FormControlLabel value="3" control={<Radio />} label="Flexibility" />
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+
+
+                            <Grid
+                                container
+                                direction="row"
+                                alignContent="center"
+                                style={{ padding: '16px 0px' }}
+                            >
+                                <Grid item>
+                                    <h1>7</h1>
+                                </Grid>
+                                <Grid item xs>
+                                    <Grid
+                                        container
+                                        justify="center"
+                                        direction="column"
+                                        style={{ padding: '16px' }}
+                                    >
+                                        <Grid item>
+                                            <FormControl component="fieldset">
+                                                <FormLabel component="legend">Membatasi aktivitas pengguna sesuai dengan konteks dan situasi tertentu adalah prinsip ...</FormLabel>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange1}>
+                                                    <FormControlLabel value="1" control={<Radio />} label="Constraints" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="Consistency" />
+                                                    <FormControlLabel value="3" control={<Radio />} label="Learnability" />
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            <Grid
+                                container
+                                direction="row"
+                                alignContent="center"
+                                style={{ padding: '16px 0px' }}
+                            >
+                                <Grid item>
+                                    <h1>8</h1>
+                                </Grid>
+                                <Grid item xs>
+                                    <Grid
+                                        container
+                                        justify="center"
+                                        direction="column"
+                                        style={{ padding: '16px' }}
+                                    >
+                                        <Grid item>
+                                            <FormControl component="fieldset">
+                                                <FormLabel component="legend">Internal consistency berkaitan dengan keselarasan desain interaksi pada ...</FormLabel>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value2} onChange={handleChange2}>
+                                                    <FormControlLabel value="1" control={<Radio />} label="Satu sistem secara keseluruhan" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="Satu area dalam suatu sistem" />
+                                                    <FormControlLabel value="3" control={<Radio />} label="Satu area dalam sistem-sistem berbeda" />
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            <Grid
+                                container
+                                direction="row"
+                                alignContent="center"
+                                style={{ padding: '16px 0px' }}
+                            >
+                                <Grid item>
+                                    <h1>9</h1>
+                                </Grid>
+                                <Grid item xs>
+                                    <Grid
+                                        container
+                                        justify="center"
+                                        direction="column"
+                                        style={{ padding: '16px' }}
+                                    >
+                                        <Grid item>
+                                            <FormControl component="fieldset">
+                                                <FormLabel component="legend">Affordance merupakan prinsip yang berkaitan dengan penyediaan ...</FormLabel>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value3} onChange={handleChange3}>
+                                                    <FormControlLabel value="1" control={<Radio />} label="Penjelasan penggunaan" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="Feedback" />
+                                                    <FormControlLabel value="3" control={<Radio />} label="Keterlihatan" />
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+
+                            <Grid
+                                container
+                                direction="row"
+                                alignContent="center"
+                                style={{ padding: '16px 0px' }}
+                            >
+                                <Grid item>
+                                    <h1>10</h1>
+                                </Grid>
+                                <Grid item xs>
+                                    <Grid
+                                        container
+                                        justify="center"
+                                        direction="column"
+                                        style={{ padding: '16px' }}
+                                    >
+                                        <Grid item>
+                                            <FormControl component="fieldset">
+                                                <FormLabel component="legend">Perancangan desain interaksi harus didasarkan pada ...</FormLabel>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange1}>
+                                                    <FormControlLabel value="1" control={<Radio />} label="Pemahaman akan pengguna sistem" />
+                                                    <FormControlLabel value="2" control={<Radio />} label="Keinginan vendor" />
+                                                    <FormControlLabel value="3" control={<Radio />} label="Asumsi dan keahlian tim pengembang" />
+                                                </RadioGroup>
+                                            </FormControl>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
 
 
                             <Grid
@@ -232,7 +485,7 @@ function AssessmentPage(props) {
                                 style={{ padding: '16px 0px 16px 0px' }}
                             >
                                 <Grid item>
-                                    <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={send}>
+                                    <Button variant="contained" color="primary" onClick={send}>
                                         Submit
                                     </Button>
                                 </Grid>
