@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { Grid, Button, FormLabel, FormControl, Card, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
+import { Grid, Button, FormLabel, FormControl, Card, FormControlLabel, Radio, RadioGroup, Dialog, DialogTitle, DialogContent, DialogActions, CardMedia } from '@material-ui/core';
 import { Appbar } from '../components/Appbar';
 import Breadcrumb from '../components/Breadcrumb';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -71,9 +71,13 @@ function PreQuiz(props) {
     ];
 
 
-    const [value, setValue] = useState('1');
-    const [value2, setValue2] = useState('1');
-    const [value3, setValue3] = useState('1');
+    const [value, setValue] = useState('0');
+    const [value2, setValue2] = useState('0');
+    const [value3, setValue3] = useState('0');
+    const [open, setOpen] = useState(false);
+    const [score, setScore] = useState(0);
+    const answer = [value, value2, value3];
+    const correctAnswer = ["2", "2", "1"];
 
     const handleChange1 = (event) => {
         setValue(event.target.value);
@@ -87,13 +91,24 @@ function PreQuiz(props) {
         setValue3(event.target.value);
     };
 
-    const send = () => {
-        console.log({
-            1: value,
-            2: value2,
-            3: value3
-        })
+    const getScore = () => {
+        var score = 0;
+        for (let [index, val] of answer.entries()) {
+            if (val == correctAnswer[index]) {
+                score += 1;
+            }
+        }
+        console.log(score)
+        handleClickOpen();
+        setScore(score == 3 ? 100 : score * 33);
     }
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
         <>
@@ -231,7 +246,7 @@ function PreQuiz(props) {
                                 style={{ padding: '16px 0px 16px 0px' }}
                             >
                                 <Grid item>
-                                    <Button variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={send}>
+                                    <Button variant="contained" color="primary" onClick={getScore}>
                                         Submit
                                     </Button>
                                 </Grid>
@@ -239,6 +254,38 @@ function PreQuiz(props) {
                         </Card>
                     </Grid>
                 </Grid>
+
+
+                <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+                    <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+                        Hasil Pre-Test - Pengantar Sistem Interaksi
+                    </DialogTitle>
+                    <DialogContent dividers>
+                        <Grid container
+                            justify="center"
+                            direction="column"
+                            alignItems="center"
+                            alignContent="center">
+                            <Grid item>
+                                <CardMedia
+                                    className={classes.media}
+                                    image="https://files.catbox.moe/ot8xmt.svg"
+                                />
+                            </Grid>
+                            <Grid item>
+                                Selamat! Kamu mendapatkan nilai
+                            </Grid>
+                            <Grid item>
+                                <h1 style={{ margin: 0 }}>{score}/100</h1>
+                            </Grid>
+                        </Grid>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button autoFocus onClick={handleClose} color="secondary">
+                            Tutup
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         </>
     );

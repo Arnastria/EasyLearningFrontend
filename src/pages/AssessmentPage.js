@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { Grid, Button, FormLabel, FormControl, Card, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
+import { Grid, Button, FormLabel, FormControl, Card, FormControlLabel, Radio, RadioGroup, Dialog, DialogTitle, DialogContent, DialogActions, CardMedia } from '@material-ui/core';
 import { Appbar } from '../components/Appbar';
 import Breadcrumb from '../components/Breadcrumb';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -83,7 +83,23 @@ function AssessmentPage(props) {
     const [value8, setValue8] = useState('0');
     const [value9, setValue9] = useState('0');
     const [value10, setValue10] = useState('0');
+    const [open, setOpen] = useState(false);
 
+    const [score, setScore] = useState(0);
+    const answer = [value, value2, value3, value4, value5, value6, value7, value8, value9, value10];
+    const correctAnswer = ["2", "1", "3", "1", "3", "1", "1", "2", "1", "1"];
+
+    const getScore = () => {
+        var score = 0;
+        for (let [index, val] of answer.entries()) {
+            if (val == correctAnswer[index]) {
+                score += 1;
+            }
+        }
+        console.log(score)
+        handleClickOpen();
+        setScore(score);
+    }
     const handleChange1 = (event) => {
         setValue(event.target.value);
     };
@@ -124,13 +140,14 @@ function AssessmentPage(props) {
         setValue10(event.target.value);
     };
 
-    const send = () => {
-        console.log({
-            1: value,
-            2: value2,
-            3: value3
-        })
-    }
+
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
         <>
@@ -280,7 +297,7 @@ function AssessmentPage(props) {
                                         <Grid item>
                                             <FormControl component="fieldset">
                                                 <FormLabel component="legend">Manakah pernyataan yang benar ?</FormLabel>
-                                                <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange1}>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value4} onChange={handleChange4}>
                                                     <FormControlLabel value="1" control={<Radio />} label="UI adalah subset dari UX" />
                                                     <FormControlLabel value="2" control={<Radio />} label="UI sama dengan UX" />
                                                     <FormControlLabel value="3" control={<Radio />} label="UI dan UX tidak berkaitan" />
@@ -310,7 +327,7 @@ function AssessmentPage(props) {
                                         <Grid item>
                                             <FormControl component="fieldset">
                                                 <FormLabel component="legend">Berikut adalah karakteristik perancangan desain interaksi , kecuali ...</FormLabel>
-                                                <RadioGroup aria-label="gender" name="gender1" value={value2} onChange={handleChange2}>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value5} onChange={handleChange5}>
                                                     <FormControlLabel value="1" control={<Radio />} label="Iteratif" />
                                                     <FormControlLabel value="2" control={<Radio />} label="Fokus pada identifikasi usability goals" />
                                                     <FormControlLabel value="3" control={<Radio />} label="Fokus pada ide dan keinginan pengembang" />
@@ -340,7 +357,7 @@ function AssessmentPage(props) {
                                         <Grid item>
                                             <FormControl component="fieldset">
                                                 <FormLabel component="legend">Berikut ini yang merupakan salah satu prinsip desain interaksi menurut Preece et al (1988) adalah</FormLabel>
-                                                <RadioGroup aria-label="gender" name="gender1" value={value3} onChange={handleChange3}>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value6} onChange={handleChange6}>
                                                     <FormControlLabel value="1" control={<Radio />} label="Visibility" />
                                                     <FormControlLabel value="2" control={<Radio />} label="Resilience" />
                                                     <FormControlLabel value="3" control={<Radio />} label="Flexibility" />
@@ -372,7 +389,7 @@ function AssessmentPage(props) {
                                         <Grid item>
                                             <FormControl component="fieldset">
                                                 <FormLabel component="legend">Membatasi aktivitas pengguna sesuai dengan konteks dan situasi tertentu adalah prinsip ...</FormLabel>
-                                                <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange1}>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value7} onChange={handleChange7}>
                                                     <FormControlLabel value="1" control={<Radio />} label="Constraints" />
                                                     <FormControlLabel value="2" control={<Radio />} label="Consistency" />
                                                     <FormControlLabel value="3" control={<Radio />} label="Learnability" />
@@ -402,7 +419,7 @@ function AssessmentPage(props) {
                                         <Grid item>
                                             <FormControl component="fieldset">
                                                 <FormLabel component="legend">Internal consistency berkaitan dengan keselarasan desain interaksi pada ...</FormLabel>
-                                                <RadioGroup aria-label="gender" name="gender1" value={value2} onChange={handleChange2}>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value8} onChange={handleChange8}>
                                                     <FormControlLabel value="1" control={<Radio />} label="Satu sistem secara keseluruhan" />
                                                     <FormControlLabel value="2" control={<Radio />} label="Satu area dalam suatu sistem" />
                                                     <FormControlLabel value="3" control={<Radio />} label="Satu area dalam sistem-sistem berbeda" />
@@ -432,7 +449,7 @@ function AssessmentPage(props) {
                                         <Grid item>
                                             <FormControl component="fieldset">
                                                 <FormLabel component="legend">Affordance merupakan prinsip yang berkaitan dengan penyediaan ...</FormLabel>
-                                                <RadioGroup aria-label="gender" name="gender1" value={value3} onChange={handleChange3}>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value9} onChange={handleChange9}>
                                                     <FormControlLabel value="1" control={<Radio />} label="Penjelasan penggunaan" />
                                                     <FormControlLabel value="2" control={<Radio />} label="Feedback" />
                                                     <FormControlLabel value="3" control={<Radio />} label="Keterlihatan" />
@@ -463,7 +480,7 @@ function AssessmentPage(props) {
                                         <Grid item>
                                             <FormControl component="fieldset">
                                                 <FormLabel component="legend">Perancangan desain interaksi harus didasarkan pada ...</FormLabel>
-                                                <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange1}>
+                                                <RadioGroup aria-label="gender" name="gender1" value={value10} onChange={handleChange10}>
                                                     <FormControlLabel value="1" control={<Radio />} label="Pemahaman akan pengguna sistem" />
                                                     <FormControlLabel value="2" control={<Radio />} label="Keinginan vendor" />
                                                     <FormControlLabel value="3" control={<Radio />} label="Asumsi dan keahlian tim pengembang" />
@@ -474,8 +491,6 @@ function AssessmentPage(props) {
                                 </Grid>
                             </Grid>
 
-
-
                             <Grid
                                 container
                                 justify="center"
@@ -485,7 +500,7 @@ function AssessmentPage(props) {
                                 style={{ padding: '16px 0px 16px 0px' }}
                             >
                                 <Grid item>
-                                    <Button variant="contained" color="primary" onClick={send}>
+                                    <Button variant="contained" color="primary" onClick={getScore}>
                                         Submit
                                     </Button>
                                 </Grid>
@@ -493,6 +508,37 @@ function AssessmentPage(props) {
                         </Card>
                     </Grid>
                 </Grid>
+
+                <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+                    <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+                        Hasil Uji Pemahaman - Pengantar Sistem Interaksi
+                    </DialogTitle>
+                    <DialogContent dividers>
+                        <Grid container
+                            justify="center"
+                            direction="column"
+                            alignItems="center"
+                            alignContent="center">
+                            <Grid item>
+                                <CardMedia
+                                    className={classes.media}
+                                    image="https://files.catbox.moe/ot8xmt.svg"
+                                />
+                            </Grid>
+                            <Grid item>
+                                Selamat! Kamu mendapatkan nilai
+                            </Grid>
+                            <Grid item>
+                                <h1 style={{ margin: 0 }}>{score}/10</h1>
+                            </Grid>
+                        </Grid>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button autoFocus onClick={handleClose} color="secondary">
+                            Tutup
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         </>
     );
