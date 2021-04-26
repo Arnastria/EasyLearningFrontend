@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { InputBase, Grid, Paper, Avatar, Card, CardActionArea, CircularProgress } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
+import { InputBase, Grid, Paper, Avatar, Card, CardActionArea, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { Appbar } from '../components/Appbar';
 import { userService } from '../utils/UserService';
@@ -13,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+  },
+  media: {
+    width: 130,
+    paddingTop: '56.25%', // 16:9
   },
   title: {
     flexGrow: 1,
@@ -58,9 +64,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Dashboard(props) {
+function SearchPage(props) {
 
   const classes = useStyles();
+  const { querySearch } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
@@ -83,10 +90,9 @@ function Dashboard(props) {
 
   useEffect(() => {
     if (courses.length == 0 && userService.getLocalData() != null) {
-      console.log("fetching courses")
       APIUtility.get('/api/course/get/', {}).then((response) => {
         let coursesJSON = JSON.parse(response.data.model)
-
+        console.log(coursesJSON)
         setCourses(coursesJSON);
       });
       setIsLoading(false);
@@ -118,13 +124,13 @@ function Dashboard(props) {
               </div>
               <InputBase
                 value={search}
-                onChange={changeSearch('search')}
+                onChange={changeSearch('')}
+                onKeyDown={enterSearch}
                 placeholder="Search…"
                 classes={{
                   root: classes.inputRoot,
                   input: classes.inputInput,
                 }}
-                onKeyDown={enterSearch}
                 inputProps={{ 'aria-label': 'search' }}
               />
             </div>
@@ -137,7 +143,8 @@ function Dashboard(props) {
           justify="center"
           style={{ margin: '30px 0px' }}
         >
-          <Grid item xs={2} style={{ margin: '0px 8px' }}>
+
+          <Grid item style={{ margin: '0px 8px' }}>
             <Paper>
               <Grid container
                 spacing={2}
@@ -146,31 +153,41 @@ function Dashboard(props) {
                 style={{ padding: '12px' }}
               >
                 <Grid item>
-                  <h3 style={{ margin: 0 }}>Mata Kuliah Tersedia</h3>
+                  <h3 style={{ margin: 0 }}>Hasil Pencarian '{querySearch}' </h3>
                 </Grid>
                 {isLoading ?
                   <Grid item>
-                    <p style={{ color: 'gray' }}>Tidak ada Mata Kuliah Tersedia untuk saat ini. </p><p style={{ color: 'gray' }}>Silahkan Login atau cari mata kuliah terkait dan bergabung di kelasnya.</p>
+                    <p style={{ color: 'gray' }}>Tidak ada Mata Kuliah yang dapat dilihat publik saat ini. </p><p style={{ color: 'gray' }}>Silahkan Login untuk mencari kelas.</p>
                   </Grid>
                   :
                   courses.length == 0 ?
                     <Grid item>
-                      <p style={{ color: 'gray' }}>Tidak ada Mata Kuliah Tersedia untuk saat ini. </p><p style={{ color: 'gray' }}>Silahkan Login atau cari mata kuliah terkait dan bergabung di kelasnya.</p>
+                      <p style={{ color: 'gray' }}>Tidak ada Mata Kuliah yang dapat dilihat publik saat ini. </p><p style={{ color: 'gray' }}>Silahkan Login untuk mencari kelas.</p>
                     </Grid>
                     :
                     <>
+                      <Grid item>
+                        <p style={{ color: 'gray' }}>Untuk sementara seluruh kelas ditampilkan pada halaman pencarian ini</p>
+                      </Grid>
                       {courses.map((course, i) => {
                         return (
                           <>
                             <Grid item>
                               <Card style={{ backgroundColor: '#3D7DCA' }}>
                                 <CardActionArea onClick={() => { handleClick(course.pk, "A") }}>
-                                  <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                  <Grid container direction="row" spacing={0} alignItems="center" justify="left" >
+                                    <Grid item>
+                                      <Typography component="div" style={{ width: '16px' }} />
+                                    </Grid>
                                     <Grid item>
                                       <Avatar>{course.fields.name.split(" ")[0][0]}</Avatar>
                                     </Grid>
                                     <Grid item>
-                                      <h4 style={{ color: 'white' }}>{course.fields.name + " A"}</h4>
+                                      <Typography component="div" style={{ width: '16px' }} />
+                                    </Grid>
+                                    <Grid item >
+                                      <h4 style={{ color: 'white', marginBottom: 0 }}>{course.fields.name + " A"}</h4>
+                                      <p style={{ color: 'white', marginTop: 0 }}>{course.fields.aliasName} - {course.fields.code}</p>
                                     </Grid>
                                   </Grid>
                                 </CardActionArea>
@@ -180,12 +197,19 @@ function Dashboard(props) {
                             <Grid item>
                               <Card style={{ backgroundColor: '#3D7DCA' }}>
                                 <CardActionArea onClick={() => { handleClick(course.pk, "B") }}>
-                                  <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                  <Grid container direction="row" spacing={0} alignItems="center" justify="left" >
+                                    <Grid item>
+                                      <Typography component="div" style={{ width: '16px' }} />
+                                    </Grid>
                                     <Grid item>
                                       <Avatar>{course.fields.name.split(" ")[0][0]}</Avatar>
                                     </Grid>
                                     <Grid item>
-                                      <h4 style={{ color: 'white' }}>{course.fields.name + " B"}</h4>
+                                      <Typography component="div" style={{ width: '16px' }} />
+                                    </Grid>
+                                    <Grid item >
+                                      <h4 style={{ color: 'white', marginBottom: 0 }}>{course.fields.name + " B"}</h4>
+                                      <p style={{ color: 'white', marginTop: 0 }}>{course.fields.aliasName} - {course.fields.code}</p>
                                     </Grid>
                                   </Grid>
                                 </CardActionArea>
@@ -195,19 +219,25 @@ function Dashboard(props) {
                             <Grid item>
                               <Card style={{ backgroundColor: '#3D7DCA' }}>
                                 <CardActionArea onClick={() => { handleClick(course.pk, "C") }}>
-                                  <Grid container direction="row" spacing={0} alignItems="center" justify="space-around" >
+                                  <Grid container direction="row" spacing={0} alignItems="center" justify="left" >
+                                    <Grid item>
+                                      <Typography component="div" style={{ width: '16px' }} />
+                                    </Grid>
                                     <Grid item>
                                       <Avatar>{course.fields.name.split(" ")[0][0]}</Avatar>
                                     </Grid>
                                     <Grid item>
-                                      <h4 style={{ color: 'white' }}>{course.fields.name + " C"}</h4>
+                                      <Typography component="div" style={{ width: '16px' }} />
+                                    </Grid>
+                                    <Grid item >
+                                      <h4 style={{ color: 'white', marginBottom: 0 }}>{course.fields.name + " C"}</h4>
+                                      <p style={{ color: 'white', marginTop: 0 }}>{course.fields.aliasName} - {course.fields.code}</p>
                                     </Grid>
                                   </Grid>
                                 </CardActionArea>
                               </Card>
                             </Grid>
                           </>
-
                         );
                       })}
                     </>
@@ -215,45 +245,10 @@ function Dashboard(props) {
               </Grid>
             </Paper>
           </Grid>
-
-          <Grid item xs={6} style={{ margin: '0px 8px' }}>
-            <Paper>
-              <Grid container
-                spacing={2}
-                direction="column"
-                justify="center"
-                style={{ padding: '12px' }}
-              >
-                <Grid item>
-                  <h3 style={{ margin: 0 }}>Pengumuman</h3>
-                </Grid>
-                <Grid item style={{ margin: '6px 0px' }}>
-                  <AnnouncementCard
-                    Title={'Selamat datang di EasyLearning !'}
-                    Author={'Ariq Naufal Satria'}
-                    Text={"Dear seluruh mahasiswa<br><br>Selamat datang di platform *e-Learning* EasyLearning! <br>Platform ini menawarkan pengalaman menggunakan *e-Learning* yang berbeda dan diharapkan lebih baik dari sebelumnya. Silahkan pelajari dan gunakan platform ini sebaik-baiknya.<br><br>Demikian informasi ini disampaikan,<br>**Tim pengembang EasyLearning**"} />
-                </Grid>
-
-                <Grid item style={{ margin: '6px 0px' }}>
-                  <AnnouncementCard
-                    Title={'Pembukaan kelas Sistem Interaksi'}
-                    Author={'Andi Setiawan'}
-                    Text={"Dear seluruh mahasiswa<br><br> Diberitahukan bahwa kelas Sistem Interaksi telah dibuka di platform EasyLearning. Silahkan lihat kelasnya pada daftar kelas yang tersedia. Selama masa pembukaan kelas Sistem Interaksi akan dibuka untuk seluruh mahasiswa. Seluruh mahasiswa juga dipersilahkan untuk membaca materi yang ada disana.<br><br>Demikian informasi ini disampaikan,<br> **Tim dosen dan Asdos Sister**"} />
-                </Grid>
-                <Grid item style={{ margin: '6px 0px' }}>
-                  <AnnouncementCard
-                    Title={'Kuis I Bab 1 Metodologi Penelitian dan Penulisan Ilmiah sudah dibuka ! '}
-                    Author={'Zaki Marzuki'}
-                    Text={"Dear seluruh mahasiswa kelas MPPI <br><br> Diberitahukan bahwa jadwal kuis perdana kita untuk semester ini sudah dipublikasikan. Silahkan persiapkan diri anda dan jangan lupa mempelajari materi Bab 1-5. Mahasiswa juga dipersilahkan untuk membuat catatan untuk digunakan saat mengerjakan kuis. Informasi selanjutnya dapat dilihat pada halaman kelas MPPI.<br><br>Demikian informasi ini disampaikan,<br>**Tim dosen dan Asdos MPPI**"} />
-                </Grid>
-              </Grid>
-            </Paper>
-          </Grid>
-
         </Grid>
       </div>
     </>
   );
 }
 
-export { Dashboard };
+export { SearchPage };

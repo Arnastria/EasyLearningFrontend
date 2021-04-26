@@ -25,6 +25,7 @@ import { AssessmentPage } from "../pages/AssessmentPage";
 import { EditThreadPage } from "../pages/EditThreadPage";
 import { WriteReplyPage } from "../pages/WriteReplyPage";
 import { EditReplyPage } from "../pages/EditReplyPage";
+import { SearchPage } from "../pages/SearchPage";
 
 function AuthRoute(props) {
     const { path, children, exact, render } = props;
@@ -74,6 +75,9 @@ export function AppSwitch(props) {
             </Route>
             <Route path="/logout">
                 <Logout onSuccess={history.push} backToPrevious={history.goBack} />
+            </Route>
+            <Route path="/search/q/:querySearch">
+                <SearchPage changePage={history.push} backToPrevious={history.goBack} />
             </Route>
             <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi/thread/details/:id_thread">
                 <ThreadPage changePage={history.push} backToPrevious={history.goBack} />
