@@ -112,11 +112,22 @@ function SearchPage(props) {
           justify="center"
           style={{ backgroundColor: '#3D7DCA', minHeight: '30vh', marginTop: '60px' }}
         >
-          <Grid item xs={12} >
-            <h1 style={{ color: 'white' }}>
-              Halo {userService.getLocalData() != null ? userService.getName().split(' ')[0] : ''}, mau belajar apa hari ini ?
-                      </h1>
-          </Grid>
+          {userService.getLocalData() != null ?
+            <Grid item xs={12} >
+              <h2 style={{ color: 'white' }}>
+                {userService.getLocalData() != null ? 'Halo ' + userService.getName().split(' ')[0] + ', mau belajar apa hari ini ?' : ''}
+              </h2>
+            </Grid>
+            :
+            <>
+              <Grid item xs={12} >
+                <h2 style={{ color: 'white', margin: 0 }} > EasyLearning</h2>
+              </Grid>
+              <Grid item xs={12} >
+                <h4 style={{ color: 'white', marginTop: 0 }}> E-Learning yang sesuai dengan kebutuhanmu</h4>
+              </Grid>
+            </>
+          }
           <Grid item xs={3} >
             <div className={classes.search}>
               <div className={classes.searchIcon}>
