@@ -45,7 +45,7 @@ function WriteReplyPage(props) {
             { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi, name: "Materi" },
             { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread", name: "Forum Diskusi" },
             { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/details/" + id_thread, name: "Thread" },
-            { color: "primary", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread" + id_thread + "/reply/new", name: "Balas Thread" },
+            { color: "primary", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/" + id_thread + "/reply/new", name: "Balas Thread" },
         ]
     );
 

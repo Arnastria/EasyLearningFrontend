@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ThreadReplyCard(props) {
-    const { Title, Author, Text, TimeStamp, isEditable, id_course, id_materi, id_post, id_reply } = props;
+    const { Title, Author, Text, TimeStamp, isEditable, id_course, id_materi, id_post, id_reply, id_gaya_belajar } = props;
 
     const preventDefault = (event) => {
         event.preventDefault()
@@ -40,7 +40,7 @@ export default function ThreadReplyCard(props) {
 
     const handleEdit = (event) => {
         event.preventDefault()
-        props.changePage("/course/" + id_course + "/materi/" + id_materi + "/thread/" + id_post + "/reply/" + id_reply + "/edit");
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/" + id_post + "/reply/" + id_reply + "/edit");
     };
 
 

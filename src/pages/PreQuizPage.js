@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
+import { useParams } from 'react-router-dom';
 import { Grid, Button, FormLabel, FormControl, Card, FormControlLabel, Radio, RadioGroup, Dialog, DialogTitle, DialogContent, DialogActions, CardMedia } from '@material-ui/core';
 import { Appbar } from '../components/Appbar';
 import Breadcrumb from '../components/Breadcrumb';
@@ -64,10 +65,12 @@ const useStyles = makeStyles((theme) => ({
 function PreQuiz(props) {
 
     const classes = useStyles();
+    const { id_gaya_belajar, id_course, id_materi } = useParams();
 
     const list = [
         { color: "inherit", link: "/sister", name: "Sistem Interaksi" },
-        { color: "primary", link: "/materi", name: "Bab 1. Pengantar Sistem Informasi" },
+        { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi, name: "Desain Interaksi" },
+        { color: "primary", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/prequiz", name: "Pre-Test" },
     ];
 
 

@@ -270,7 +270,7 @@ function MateriSlide(props) {
                                             <Grid container spacing={3} direction="row">
                                                 <Grid item xs>
                                                     <Button style={{ width: '100%' }} variant="outlined" color="primary" startIcon={<ArrowBackIcon />}
-                                                        onClick={() => { props.changePage('/course/' + id_gaya_belajar + "/" + id_course + "/prequiz") }}>
+                                                        onClick={() => { props.changePage('/course/' + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/prequiz") }}>
                                                         Pre-Test
                                                     </Button>
                                                 </Grid>

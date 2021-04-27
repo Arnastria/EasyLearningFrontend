@@ -97,7 +97,7 @@ export function AppSwitch(props) {
             <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi/thread">
                 <ThreadListPage changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
-            <AuthRoute path="/course/:id_gaya_belajar/:id_course/prequiz">
+            <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi/prequiz">
                 <PreQuiz changePage={history.push} backToPrevious={history.goBack} />
             </AuthRoute>
             <AuthRoute path="/course/:id_gaya_belajar/:id_course/materi/:id_materi/assessment/start">
