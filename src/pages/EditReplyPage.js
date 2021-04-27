@@ -147,14 +147,14 @@ function EditReplyPage(props) {
 
     if (isSuccessDialogOpen) {
         return (
-            <Redirect>
+            <>
                 <Redirect
                     to={{
                         pathname: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/details/" + id_thread + "/",
                         search: "?state=" + nextState,
                     }}
                 />
-            </Redirect>
+            </>
         );
     }
     if (isLoading) {
