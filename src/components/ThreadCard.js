@@ -81,7 +81,7 @@ export default function ThreadCard(props) {
                                             <b >Lihat selengkapnya</b>
                                         </Link>
                                     </Grid>
-                                    {isEditable != undefined ? <Grid item>
+                                    {isEditable ? <Grid item>
                                         <Link style={{ color: '#bdbdbd' }} href='' onClick={handleEdit}>
                                             <b >Edit</b>
                                         </Link>
@@ -98,7 +98,7 @@ export default function ThreadCard(props) {
                                             <Button style={{ width: '100%' }} startIcon={<AddIcon />} variant="contained" color="primary" onClick={handleComment}>Komentar</Button>
                                         </Link>
                                     </Grid>
-                                    {isEditable != undefined ? <Grid item>
+                                    {isEditable ? <Grid item>
                                         <Link style={{ color: '#bdbdbd' }} href='' onClick={handleEdit}>
                                             <b >Edit</b>
                                         </Link>
