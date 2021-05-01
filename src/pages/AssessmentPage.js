@@ -73,6 +73,10 @@ function AssessmentPage(props) {
         { color: "primary", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/assessment", name: "Uji Pemahaman" },
     ];
 
+    const handleDone = () => {
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course);
+    }
+
 
     const [value, setValue] = useState('0');
     const [value2, setValue2] = useState('0');
@@ -148,6 +152,7 @@ function AssessmentPage(props) {
     };
     const handleClose = () => {
         setOpen(false);
+        handleDone();
     };
 
     return (

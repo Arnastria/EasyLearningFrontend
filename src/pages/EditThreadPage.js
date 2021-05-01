@@ -90,7 +90,7 @@ function EditThreadPage(props) {
     }
 
     const handleClick = () => {
-
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/details/" + id_thread);
     }
     useEffect(() => {
         if (post === null) {
@@ -213,7 +213,7 @@ function EditThreadPage(props) {
                 >
                     <Breadcrumb list={listBreadCrumb} />
                     <Grid item style={{ margin: '0px 0px 12px 0px' }}>
-                        <Button onClick={props.backToPrevious} variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleClick}>
+                        <Button onClick={handleClick} variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleClick}>
                             Kembali
                         </Button>
                     </Grid>

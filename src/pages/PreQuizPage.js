@@ -72,6 +72,9 @@ function PreQuiz(props) {
         { color: "inherit", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi, name: "Desain Interaksi" },
         { color: "primary", link: "/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/prequiz", name: "Pre-Test" },
     ];
+    const handleDone = () => {
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi);
+    }
 
 
     const [value, setValue] = useState('0');
@@ -111,6 +114,7 @@ function PreQuiz(props) {
     };
     const handleClose = () => {
         setOpen(false);
+        handleDone();
     };
 
     return (

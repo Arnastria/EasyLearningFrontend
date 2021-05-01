@@ -87,7 +87,7 @@ function WriteThreadPage(props) {
     }
 
     const handleClick = () => {
-
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread");
     }
 
     const handleSubmit = async () => {
@@ -172,7 +172,7 @@ function WriteThreadPage(props) {
                 >
                     <Breadcrumb list={listBreadCrumb} />
                     <Grid item style={{ margin: '0px 0px 12px 0px' }}>
-                        <Button onClick={props.backToPrevious} variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleClick}>
+                        <Button onClick={handleClick} variant="contained" color="primary" startIcon={<ArrowBackIcon />} onClick={handleClick}>
                             Kembali
                         </Button>
                     </Grid>

@@ -87,7 +87,7 @@ function StartAssessment(props) {
 
 
     function handleClickAssessment() {
-        props.changePage("/course/" + props.gayaBelajar + "/" + props.courseId + "/materi/" + props.materiID + "/assessment")
+        props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/assessment")
     }
 
     return (

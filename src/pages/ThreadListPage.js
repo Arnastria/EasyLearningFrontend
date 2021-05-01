@@ -51,6 +51,10 @@ function ThreadListPage(props) {
         props.changePage("/course/" + id_gaya_belajar + "/" + id_course + "/materi/" + id_materi + "/thread/new")
     }
 
+    function handleClick2() {
+
+    }
+
     const preventDefault = (event) => {
         event.preventDefault()
     };
@@ -134,7 +138,7 @@ function ThreadListPage(props) {
                                             <Typography style={{ width: '16px' }}></Typography>
                                         </Grid>
                                         <Grid item>
-                                            <Button style={{ width: '100%' }} variant="outlined" color="primary" onClick={handleClick}>Filter</Button>
+                                            <Button style={{ width: '100%' }} variant="outlined" color="primary" onClick={handleClick2}>Filter</Button>
                                         </Grid>
                                     </Grid>
                                 </Grid>
